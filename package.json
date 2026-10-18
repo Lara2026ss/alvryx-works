@@ -1,0 +1,1 @@
+{"name":"alvryx-works","version":"1.0.0","private":true,"type":"module","scripts":{"start":"node server.js"},"engines":{"node":">=20"},"dependencies":{"express":"^4.21.0","express-rate-limit":"^7.4.0","helmet":"^7.1.0","jose":"^5.9.0","pg":"^8.12.0"}}

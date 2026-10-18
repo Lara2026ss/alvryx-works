@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Alvryx Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#4a3426;--mute:#a28b7c;--line:#f6e3d4;--pe:#ffeee0;--or:#ff9d5c;--or2:#f07f3c;--mx:50vw;--my:30vh}
+*{box-sizing:border-box;margin:0}html,body{height:100%}
+body{font:15px/1.5 Nunito,system-ui,sans-serif;color:var(--ink);background:radial-gradient(540px circle at var(--mx) var(--my),#ffd2b088,transparent 70%),linear-gradient(160deg,#fffaf5,#ffeede);overflow:hidden}
+button,input{font:inherit;color:inherit}:focus-visible{outline:2px solid var(--or2);outline-offset:2px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}}@keyframes bob{50%{transform:translateY(-6px)}}@keyframes grow{from{width:0}}
+#login{height:100%;display:grid;place-items:center;padding:20px}
+.card{width:min(380px,100%);padding:34px 28px;border-radius:28px;background:#fffffff0;box-shadow:0 20px 60px #f07f3c22;text-align:center;animation:pop .6s both}
+.logo{width:62px;height:62px;margin:0 auto 12px;display:grid;place-items:center;border-radius:20px;background:linear-gradient(135deg,#ffc08f,var(--or2));color:#fff;font-size:30px;font-weight:800;animation:bob 3.5s ease-in-out infinite}
+h1{font-size:26px;font-weight:800}h2{font-size:24px;font-weight:800;margin-bottom:2px}h3{font-size:15px;margin:18px 0 4px}
+.sub,.mute,small{color:var(--mute)}.sub{margin-bottom:20px}small{font-size:12px}
+.btn{display:block;width:100%;margin-top:10px;padding:12px;border:0;border-radius:16px;background:var(--pe);font-weight:800;cursor:pointer;transition:transform .15s,background .2s}
+.btn:hover{background:#ffe0c8;transform:translateY(-2px)}.btn:active{transform:scale(.96)}.btn.main{background:linear-gradient(135deg,var(--or),var(--or2));color:#fff}
+.err{min-height:20px;margin-top:12px;color:var(--or2);font-size:13px}
+#app{display:none;height:100%;grid-template-columns:250px 1fr}#app.on{display:grid;animation:pop .5s}
+.side{display:flex;flex-direction:column;gap:6px;padding:20px 14px;background:#ffffffa8;border-right:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 14px;font-weight:800;font-size:17px}.brand .logo{width:34px;height:34px;margin:0;font-size:18px;border-radius:11px;animation:none}
+.nav{padding:10px 14px;border:0;border-radius:14px;background:none;text-align:left;font-weight:600;color:var(--mute);cursor:pointer;transition:all .2s}
+.nav:hover{background:var(--pe);color:var(--ink)}.nav.on{background:var(--pe);color:var(--or2);transform:translateX(4px)}.nav kbd{float:right;font:600 11px Nunito;opacity:.5}
+.me{margin-top:auto;padding:12px 8px 0;font-size:13px;overflow:hidden;text-overflow:ellipsis}
+main{overflow:auto;padding:30px 32px 50px}.panel{display:none;max-width:760px;margin:0 auto}.panel.on{display:block;animation:pop .35s}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0}
+.stat{padding:16px;border-radius:20px;background:#fff;box-shadow:0 6px 20px #f07f3c14;transition:transform .2s}.stat:hover{transform:translateY(-3px)}
+.stat b{display:block;font-size:32px;line-height:1.1;color:var(--or2)}.stat span{color:var(--mute);font-size:13px}
+form.add{display:flex;gap:8px;padding:6px;border-radius:18px;background:#fff;box-shadow:0 6px 20px #f07f3c14;margin:14px 0}
+form.add input{flex:1;min-width:0;border:0;outline:0;background:none;padding:8px 12px}form.add button{padding:8px 18px;border:0;border-radius:13px;background:var(--or);color:#fff;font-weight:800;cursor:pointer}form.add button:active{transform:scale(.94)}
+ul.l{list-style:none;padding:0}ul.l li{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;border-radius:16px;background:#fff;animation:pop .3s}
+ul.l li span{flex:1;word-break:break-word;transition:opacity .3s}ul.l li.done span{opacity:.4;text-decoration:line-through}
+.ck{flex:none;width:24px;height:24px;border:2px solid #ffc9a3;border-radius:50%;background:none;cursor:pointer;transition:all .25s}.done .ck{background:var(--or);border-color:var(--or);transform:scale(1.15)}
+.x{border:0;background:none;color:var(--mute);cursor:pointer;font-size:18px}.x:hover{color:var(--or2)}
+.note .ck{display:none}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}th{text-align:left;color:var(--mute);font-size:13px}th,td{padding:9px 6px;border-bottom:1px solid var(--line)}
+.bar{height:10px;border-radius:9px;background:var(--pe)}.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#ffc08f,var(--or2));animation:grow .8s both}
+.row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.row small{display:block}
+input[type=range],input[type=checkbox]{accent-color:var(--or2)}input[type=checkbox]{width:20px;height:20px}
+@media(max-width:760px){#app.on{grid-template-columns:1fr}.side{flex-direction:row;overflow:auto;padding:10px}.brand,.me,kbd{display:none}main{padding:20px 14px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.still *{animation:none!important;transition:none!important}
+</style></head><body>
+<section id="login"><div class="card"><div class="logo">A</div><h1>Alvryx Works</h1><p class="sub">Tus tareas, notas y proyectos en un solo lugar</p>
+<button class="btn main" id="g">Continuar con Google</button><button class="btn" id="gh">Continuar con GitHub</button><button class="btn" id="guest">Probar sin cuenta</button><p class="err" id="err" role="alert"></p></div></section>
+<div id="app"><aside class="side"><div class="brand"><div class="logo">A</div>Alvryx Works</div>
+<button class="nav on" data-t="home">Home<kbd>1</kbd></button><button class="nav" data-t="task">Tareas<kbd>2</kbd></button><button class="nav" data-t="note">Notas<kbd>3</kbd></button><button class="nav" data-t="status">Status<kbd>4</kbd></button><button class="nav" data-t="config">Config<kbd>5</kbd></button><div class="me" id="me"></div></aside>
+<main>
+<section class="panel on" id="home"><h2 id="hi">Hola</h2><p class="mute">Pulsa 2 o 3 y empieza a escribir.</p>
+<div class="stats"><div class="stat"><b id="s1">0</b><span>Tareas pendientes</span></div><div class="stat"><b id="s2">0</b><span>Notas guardadas</span></div><div class="stat"><b id="s3">0</b><span>Visitas esta semana</span></div></div>
+<h3>Visitas por página</h3><table><tbody id="vt"></tbody></table></section>
+<section class="panel" id="task"><h2>Tareas</h2><form class="add" data-k="task"><input placeholder="¿Qué toca hacer?" maxlength="280" aria-label="Nueva tarea"><button>Añadir</button></form><ul class="l" id="l-task"></ul></section>
+<section class="panel" id="note"><h2>Notas</h2><form class="add" data-k="note"><input placeholder="Anota una idea" maxlength="280" aria-label="Nueva nota"><button>Guardar</button></form><ul class="l note" id="l-note"></ul></section>
+<section class="panel" id="status"><h2>Status</h2><p class="mute" id="sm"></p><h3>Render</h3><table><tbody id="rt"></tbody></table><h3>GitHub</h3><table><tbody id="gt"></tbody></table><button class="btn" id="rf" style="max-width:200px">Actualizar</button></section>
+<section class="panel" id="config"><h2>Config</h2>
+<div class="row"><div>Sonidos<small>Notas de kalimba con eco suave</small></div><input type="checkbox" id="cs" aria-label="Sonidos"></div>
+<div class="row"><div>Volumen</div><input type="range" id="cv" min="0" max="100" aria-label="Volumen"></div>
+<div class="row"><div>Animaciones</div><input type="checkbox" id="ca" aria-label="Animaciones"></div>
+<div class="row"><div>Sesión</div><button class="btn" id="out" style="width:auto;margin:0;padding:8px 18px">Cerrar sesión</button></div></section>
+</main></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const st=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem("aw_"+k));localStorage.setItem("aw_"+k,JSON.stringify(v))}catch(e){return null}};
+const S=Object.assign({snd:true,vol:.6,anim:true},st("cfg")||{}),fd=d=>d?new Date(d).toLocaleDateString("es-MX",{day:"numeric",month:"short"}):"";
+/* Sonido: kalimba pentatónica con eco. Cada pestaña es una nota y escribir toca notas al azar. */
+let AC,room;const PT=[0,2,4,7,9];
+function pluck(n,at=0,v=.5){if(!S.snd)return;try{AC=AC||new AudioContext();AC.resume();
+ if(!room){room=AC.createGain();const d=AC.createDelay(),f=AC.createGain(),lp=AC.createBiquadFilter();d.delayTime.value=.19;f.gain.value=.3;lp.frequency.value=1800;room.connect(AC.destination);room.connect(d);d.connect(lp);lp.connect(f);f.connect(d);lp.connect(AC.destination)}
+ const t=AC.currentTime+at,f0=261.63*2**(n/12),g=AC.createGain();
+ [[1,1,.9],[2.01,.3,.25],[3.98,.1,.12]].forEach(([m,a,d])=>{const o=AC.createOscillator(),k=AC.createGain();o.frequency.value=f0*m;k.gain.setValueAtTime(a*v*S.vol*.35,t);k.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(k);k.connect(g);o.start(t);o.stop(t+1)});g.connect(room)}catch(e){}}
+const snd={tab:i=>pluck([0,4,7,9,12][i]),key:()=>pluck(PT[Math.random()*5|0]+12,0,.22),add:()=>{pluck(19);pluck(24,.09)},done:()=>[12,16,19,24].forEach((n,i)=>pluck(n,i*.07)),del:()=>{pluck(7,0,.4);pluck(0,.08,.3)},hi:()=>[0,7,12,16,19].forEach((n,i)=>pluck(n,i*.11)),err:()=>pluck(-5,0,.6)};
+onpointermove=e=>{const r=document.documentElement.style;r.setProperty("--mx",e.clientX+"px");r.setProperty("--my",e.clientY+"px")};
+/* API */
+let guest=0,tok=null,me=null;
+async function api(p,o={}){const r=await fetch("/api"+p,{...o,headers:{"Content-Type":"application/json",...(tok?{Authorization:"Bearer "+tok}:{})}});if(!r.ok)throw Error((await r.json().catch(()=>({}))).error||r.status);return r.status===204?null:r.json()}
+const L={g:k=>st("g_"+k)||[],s:(k,v)=>st("g_"+k,v)};
+const list=k=>guest?L.g(k):api("/items/"+k),
+ add=(k,t)=>guest?(L.s(k,[{id:Date.now(),title:t,done:false},...L.g(k)]),0):api("/items/"+k,{method:"POST",body:JSON.stringify({title:t})}),
+ upd=(k,id,done)=>guest?L.s(k,L.g(k).map(x=>x.id==id?{...x,done}:x)):api("/items/"+id,{method:"PATCH",body:JSON.stringify({done})}),
+ del=(k,id)=>guest?L.s(k,L.g(k).filter(x=>x.id!=id)):api("/items/"+id,{method:"DELETE"});
+/* Sesión */
+let fb;
+fetch("/api/config").then(r=>r.json()).then(c=>{if(c.apiKey&&window.firebase){firebase.initializeApp({apiKey:c.apiKey,authDomain:c.authDomain,projectId:c.projectId,appId:c.appId});fb=firebase.auth();fb.onAuthStateChanged(async u=>{if(u)enter(u)})}}).catch(()=>{});
+const fail=m=>{$("#err").textContent=m;snd.err()};
+function signIn(P){if(!fb)return fail("El inicio de sesión aún no está configurado. Prueba sin cuenta.");fb.signInWithPopup(new P()).catch(e=>fail(e.code==="auth/popup-closed-by-user"?"Cerraste la ventana antes de terminar.":"No se pudo iniciar sesión ("+e.code+")."))}
+$("#g").onclick=()=>signIn(firebase.auth.GoogleAuthProvider);$("#gh").onclick=()=>signIn(firebase.auth.GithubAuthProvider);
+$("#guest").onclick=()=>{guest=1;enter({displayName:"visitante",email:"Modo de prueba, datos solo en este navegador"})};
+let entered=0;
+async function enter(u){if(entered)return;entered=1;me=u;if(!guest)tok=await u.getIdToken();
+ $("#login").style.display="none";$("#app").classList.add("on");const n=u.displayName||"";$("#hi").textContent="Hola"+(n?", "+n.split(" ")[0]:"");$("#me").textContent=u.email||n;
+ snd.hi();go(0);sync();if(!sessionStorage.v){sessionStorage.v=1;fetch("/api/visit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({page:"inicio"})}).catch(()=>{})}}
+$("#out").onclick=()=>{if(fb)fb.signOut();location.reload()};
+/* Pestañas */
+const T=["home","task","note","status","config"];
+function go(i,q){$$(".nav,.panel").forEach(x=>x.classList.remove("on"));$$(".nav")[i].classList.add("on");$("#"+T[i]).classList.add("on");if(q!==1)snd.tab(i);if(i==3)status();if(i==0)home();const f=$("#"+T[i]+" form input");f&&f.focus()}
+$$(".nav").forEach((b,i)=>b.onclick=()=>go(i));
+onkeydown=e=>{if(!entered||e.target.matches("input")||e.metaKey||e.ctrlKey)return;const i="12345".indexOf(e.key);if(i>=0)go(i)};
+/* Listas */
+async function draw(k){try{const a=await list(k);$("#l-"+k).innerHTML=a.map(x=>`<li class="${x.done?"done":""}" data-id="${x.id}"><button class="ck" aria-label="Completar"></button><span>${esc(x.title)}</span><button class="x" aria-label="Borrar">×</button></li>`).join("")||'<li class="mute">Todavía no hay nada. Escribe arriba.</li>'}catch(e){fail(e.message)}}
+$$(".l").forEach(ul=>ul.onclick=async e=>{const li=e.target.closest("li[data-id]"),k=ul.id.slice(2);if(!li)return;const id=li.dataset.id;
+ if(e.target.closest(".ck")){const d=!li.classList.contains("done");li.classList.toggle("done",d);d?snd.done():pluck(4,0,.3);await upd(k,id,d)}
+ else if(e.target.closest(".x")){snd.del();li.remove();await del(k,id)}});
+$$("form.add").forEach(f=>{const i=f.querySelector("input");i.oninput=snd.key;f.onsubmit=async e=>{e.preventDefault();const t=i.value.trim();if(!t)return snd.err();i.value="";snd.add();try{await add(f.dataset.k,t);draw(f.dataset.k)}catch(x){fail(x.message)}}});
+async function sync(){await Promise.all([draw("task"),draw("note")]);home()}
+async function home(){try{const[t,n]=await Promise.all([list("task"),list("note")]);$("#s1").textContent=t.filter(x=>!x.done).length;$("#s2").textContent=n.length;
+ const v=await api("/visits").catch(()=>[]),mx=Math.max(1,...v.map(x=>x.n));$("#s3").textContent=v.reduce((a,x)=>a+x.n,0);
+ $("#vt").innerHTML=v.map(x=>`<tr><td>${esc(x.page)}</td><td>${x.n}</td><td style="width:45%"><div class="bar"><i style="width:${x.n/mx*100}%"></i></div></td></tr>`).join("")||'<tr><td class="mute">Aún no hay visitas.</td></tr>'}catch(e){}}
+/* Status (solo administrador) */
+async function status(){const m=$("#sm");m.textContent="Cargando…";try{if(guest)throw Error("Inicia sesión como administrador para ver el estado real.");const d=await api("/status");
+ m.textContent=d.hasRender?"Datos en vivo de Render y GitHub.":"GitHub en vivo. Falta RENDER_API_KEY en el servidor para ver Render.";
+ $("#rt").innerHTML=d.render.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.type)}</td><td>${esc(x.status)}</td><td>${fd(x.at)}</td></tr>`).join("")||'<tr><td class="mute">Sin datos de Render.</td></tr>';
+ $("#gt").innerHTML=d.repos.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.stars} ★</td><td>${fd(x.at)}</td></tr>`).join("")||'<tr><td class="mute">Sin repositorios.</td></tr>'}catch(e){m.textContent=e.message;$("#rt").innerHTML=$("#gt").innerHTML=""}}
+$("#rf").onclick=()=>{snd.add();status()};
+/* Config */
+const save=()=>{st("cfg",S);document.body.classList.toggle("still",!S.anim)};
+$("#cs").checked=S.snd;$("#cv").value=S.vol*100;$("#ca").checked=S.anim;save();
+$("#cs").onchange=e=>{S.snd=e.target.checked;save();snd.add()};$("#cv").oninput=e=>{S.vol=e.target.value/100;save()};$("#cv").onchange=snd.add;$("#ca").onchange=e=>{S.anim=e.target.checked;save()};
+</script></body></html>
