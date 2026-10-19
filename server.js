@@ -4,22 +4,32 @@ const E=process.env,PID=E.FIREBASE_PROJECT_ID||"alero-company-works";
 const list=v=>(v||"").split(",").map(s=>s.trim().toLowerCase()).filter(Boolean),OM=list(E.OWNER_EMAILS),OU=list(E.OWNER_UIDS);
 const db=new pg.Pool({connectionString:E.DATABASE_URL,ssl:E.DATABASE_URL&&!/localhost|127\.0\.0\.1/.test(E.DATABASE_URL)?{rejectUnauthorized:false}:false,max:5});
 await db.query(readFileSync(new URL("./schema.sql",import.meta.url),"utf8"));
+await db.query("ALTER TABLE items ADD COLUMN IF NOT EXISTS done_at TIMESTAMPTZ;CREATE TABLE IF NOT EXISTS users(uid TEXT PRIMARY KEY CHECK (length(uid) BETWEEN 1 AND 128),accepted_at TIMESTAMPTZ NOT NULL DEFAULT now(),terms_v TEXT NOT NULL DEFAULT '1')");
 const jwks=createRemoteJWKSet(new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"));
 const app=express();app.set("trust proxy",1);
-app.use(helmet({contentSecurityPolicy:{directives:{defaultSrc:["'self'"],scriptSrc:["'self'","'unsafe-inline'","https://www.gstatic.com"],styleSrc:["'self'","'unsafe-inline'","https://fonts.googleapis.com"],fontSrc:["https://fonts.gstatic.com"],imgSrc:["'self'","data:","https:"],connectSrc:["'self'","https://*.googleapis.com"],frameSrc:["https://*.firebaseapp.com","https://accounts.google.com","https://github.com"]}}}));
+// COOP permite el popup de inicio de sesion; CSP lista solo los hosts que Firebase Auth necesita.
+app.use(helmet({crossOriginOpenerPolicy:{policy:"same-origin-allow-popups"},referrerPolicy:{policy:"no-referrer"},contentSecurityPolicy:{directives:{defaultSrc:["'self'"],scriptSrc:["'self'","'unsafe-inline'","https://www.gstatic.com","https://apis.google.com"],styleSrc:["'self'","'unsafe-inline'","https://fonts.googleapis.com"],fontSrc:["https://fonts.gstatic.com"],imgSrc:["'self'","data:","https:"],connectSrc:["'self'","https://*.googleapis.com"],frameSrc:["https://*.firebaseapp.com","https://accounts.google.com","https://github.com"]}}}));
+app.use((q,r,n)=>{r.set("Permissions-Policy","camera=(),microphone=(),geolocation=(),payment=()");n()});
 app.use(express.json({limit:"4kb"}));
-app.use("/api",rateLimit({windowMs:6e4,limit:120,standardHeaders:true,legacyHeaders:false}));
+const rl=(limit)=>rateLimit({windowMs:6e4,limit,standardHeaders:true,legacyHeaders:false}),wl=rl(40);
+app.use("/api",rl(120));
 const h=f=>(q,r,n)=>Promise.resolve(f(q,r,n)).catch(n),bad=(r,m)=>r.status(400).json({error:m}),KINDS=["task","note"];
 // Verifica el token de Firebase en el servidor; el uid sale del token, nunca del cliente.
 const auth=async(q,r,n)=>{try{const t=(q.get("authorization")||"").replace(/^Bearer /,"");const{payload:p}=await jwtVerify(t,jwks,{issuer:"https://securetoken.google.com/"+PID,audience:PID});const m=(p.email||"").toLowerCase();q.user={uid:p.sub,owner:OU.includes(p.sub.toLowerCase())||(OM.includes(m)&&p.email_verified!==false)};n()}catch{r.status(401).json({error:"No autorizado"})}};
 app.get("/api/config",(q,r)=>r.json({apiKey:E.FIREBASE_API_KEY||"",appId:E.FIREBASE_APP_ID||"",authDomain:E.FIREBASE_AUTH_DOMAIN||PID+".firebaseapp.com",projectId:PID}));
 app.post("/api/visit",h(async(q,r)=>{const p=String(q.body.page||"");if(!/^[\w\-./ ]{1,80}$/.test(p))return bad(r,"Pagina invalida");await db.query("INSERT INTO visits(page) VALUES($1) ON CONFLICT(page,day) DO UPDATE SET n=visits.n+1",[p]);r.sendStatus(204)}));
 app.get("/api/visits",h(async(q,r)=>r.json((await db.query("SELECT page,sum(n)::int n FROM visits WHERE day>current_date-7 GROUP BY page ORDER BY n DESC LIMIT 8")).rows)));
+app.get("/api/global",h(async(q,r)=>{r.set("Cache-Control","public,max-age=60");r.json((await db.query("SELECT (SELECT count(*) FROM users)::int users,(SELECT count(*) FROM items WHERE kind='task' AND done)::int done,(SELECT count(*) FROM items WHERE kind='note')::int notes")).rows[0])}));
+app.post("/api/consent",auth,wl,h(async(q,r)=>{await db.query("INSERT INTO users(uid) VALUES($1) ON CONFLICT(uid) DO UPDATE SET accepted_at=now()",[q.user.uid]);r.sendStatus(204)}));
+app.get("/api/me/stats",auth,h(async(q,r)=>{const u=q.user.uid,[c,d]=await Promise.all([db.query("SELECT count(*) FILTER (WHERE kind='task' AND done)::int done,count(*) FILTER (WHERE kind='task' AND NOT done)::int pending,count(*) FILTER (WHERE kind='note')::int notes FROM items WHERE uid=$1",[u]),db.query("SELECT to_char(d,'YYYY-MM-DD') day,count(i.id)::int n FROM generate_series(current_date-6,current_date,'1 day') d LEFT JOIN items i ON i.uid=$1 AND i.kind='task' AND i.done_at::date=d::date GROUP BY d ORDER BY d",[u])]);r.json({...c.rows[0],week:d.rows})}));
+// Derechos sobre los datos: exportar y borrar todo lo propio.
+app.get("/api/me/export",auth,h(async(q,r)=>{r.set("Content-Disposition","attachment; filename=alvryx-datos.json");r.json((await db.query("SELECT kind,title,done,created_at,done_at FROM items WHERE uid=$1 ORDER BY id",[q.user.uid])).rows)}));
+app.delete("/api/me",auth,wl,h(async(q,r)=>{await db.query("DELETE FROM items WHERE uid=$1",[q.user.uid]);await db.query("DELETE FROM users WHERE uid=$1",[q.user.uid]);r.sendStatus(204)}));
 app.get("/api/items/:kind",auth,h(async(q,r)=>{if(!KINDS.includes(q.params.kind))return bad(r,"Tipo invalido");r.json((await db.query("SELECT id,title,done FROM items WHERE uid=$1 AND kind=$2 ORDER BY created_at DESC LIMIT 200",[q.user.uid,q.params.kind])).rows)}));
-app.post("/api/items/:kind",auth,h(async(q,r)=>{const t=String(q.body.title||"").trim();if(!KINDS.includes(q.params.kind)||!t||t.length>280)return bad(r,"Datos invalidos");r.status(201).json((await db.query("INSERT INTO items(uid,kind,title) VALUES($1,$2,$3) RETURNING id,title,done",[q.user.uid,q.params.kind,t])).rows[0])}));
+app.post("/api/items/:kind",auth,wl,h(async(q,r)=>{const t=String(q.body.title||"").trim();if(!KINDS.includes(q.params.kind)||!t||t.length>280)return bad(r,"Datos invalidos");r.status(201).json((await db.query("INSERT INTO items(uid,kind,title) VALUES($1,$2,$3) RETURNING id,title,done",[q.user.uid,q.params.kind,t])).rows[0])}));
 const own=(sql,get)=>h(async(q,r)=>{const id=+q.params.id;if(!Number.isSafeInteger(id))return bad(r,"Id invalido");const x=await db.query(sql,get(q,id));r.sendStatus(x.rowCount?204:404)});
-app.patch("/api/items/:id",auth,own("UPDATE items SET done=$1 WHERE id=$2 AND uid=$3",(q,id)=>[!!q.body.done,id,q.user.uid]));
-app.delete("/api/items/:id",auth,own("DELETE FROM items WHERE id=$1 AND uid=$2",(q,id)=>[id,q.user.uid]));
+app.patch("/api/items/:id",auth,wl,own("UPDATE items SET done=$1,done_at=CASE WHEN $1 THEN now() END WHERE id=$2 AND uid=$3",(q,id)=>[!!q.body.done,id,q.user.uid]));
+app.delete("/api/items/:id",auth,wl,own("DELETE FROM items WHERE id=$1 AND uid=$2",(q,id)=>[id,q.user.uid]));
 app.get("/api/status",auth,h(async(q,r)=>{if(!q.user.owner)return r.status(403).json({error:"Solo administrador"});
 const j=(u,hd)=>fetch(u,{headers:hd}).then(x=>x.ok?x.json():null).catch(()=>null);
 const [rn,gh]=await Promise.all([E.RENDER_API_KEY?j("https://api.render.com/v1/services?limit=20",{Authorization:"Bearer "+E.RENDER_API_KEY}):null,j("https://api.github.com/users/"+(E.GH_USER||"Lara2026ss")+"/repos?sort=pushed&per_page=10",{"User-Agent":"alvryx",...(E.GITHUB_TOKEN?{Authorization:"Bearer "+E.GITHUB_TOKEN}:{})})]);
