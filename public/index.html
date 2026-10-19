@@ -1,155 +1,1381 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Alvryx Works</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{--ink:#4a3426;--mute:#a28b7c;--line:#f6e3d4;--pe:#ffeee0;--or:#ff9d5c;--or2:#f07f3c}
-*{box-sizing:border-box;margin:0}html,body{height:100%}
-body{font:15px/1.5 Nunito,system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,#fffaf5,#ffeede);overflow:hidden}
-button,input{font:inherit;color:inherit}:focus-visible{outline:2px solid var(--or2);outline-offset:2px}
-#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-#ring{position:fixed;left:0;top:0;width:30px;height:30px;margin:-15px;border:2px solid #f07f3c88;border-radius:50%;pointer-events:none;z-index:50;transition:width .2s,height .2s,margin .2s,background .2s}
-#ring.hv{width:52px;height:52px;margin:-26px;background:#ff9d5c22}
-@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}}@keyframes bob{50%{transform:translateY(-6px)}}@keyframes grow{from{width:0}}
-#login{height:100%;display:grid;place-items:center;padding:20px}
-.card{width:min(390px,100%);padding:34px 28px;border-radius:28px;background:#fffffff0;box-shadow:0 20px 60px #f07f3c22;text-align:center;animation:pop .6s both}
-.logo{width:62px;height:62px;margin:0 auto 12px;display:grid;place-items:center;border-radius:20px;background:linear-gradient(135deg,#ffc08f,var(--or2));color:#fff;font-size:30px;font-weight:800;animation:bob 3.5s ease-in-out infinite}
-h1{font-size:26px;font-weight:800}h2{font-size:24px;font-weight:800;margin-bottom:2px}h3{font-size:15px;margin:18px 0 6px}
-.sub,.mute,small{color:var(--mute)}.sub{margin-bottom:18px}small{font-size:12px}
-.btn{display:block;width:100%;margin-top:10px;padding:12px;border:0;border-radius:16px;background:var(--pe);font-weight:800;cursor:pointer;transition:transform .15s,background .2s}
-.btn:hover{background:#ffe0c8;transform:translateY(-2px)}.btn:active{transform:scale(.96)}.btn.main{background:linear-gradient(135deg,var(--or),var(--or2));color:#fff}.btn.red{color:#c2410c}
-.chk{display:block;margin-top:14px;font-size:12.5px;color:var(--mute)}.chk input{vertical-align:middle;margin-right:6px;accent-color:var(--or2)}
-.lnk{border:0;background:none;color:var(--or2);font-weight:700;cursor:pointer;padding:0;text-decoration:underline}
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);padding:10px 18px;border-radius:14px;background:var(--ink);color:#fff;font-size:13px;opacity:0;transition:all .3s;z-index:60;pointer-events:none}.toast.on{opacity:1;transform:translate(-50%,0)}
-#app{display:none;height:100%;grid-template-columns:250px 1fr}#app.on{display:grid;animation:pop .5s}
-.side{display:flex;flex-direction:column;gap:6px;padding:20px 14px;background:#ffffffa8;border-right:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;padding:0 8px 14px;font-weight:800;font-size:17px}.brand .logo{width:34px;height:34px;margin:0;font-size:18px;border-radius:11px;animation:none}
-.nav{padding:10px 14px;border:0;border-radius:14px;background:none;text-align:left;font-weight:600;color:var(--mute);cursor:pointer;transition:all .2s}
-.nav:hover{background:var(--pe);color:var(--ink)}.nav.on{background:var(--pe);color:var(--or2);transform:translateX(4px)}.nav kbd{float:right;font:600 11px Nunito;opacity:.5}
-.me{margin-top:auto;padding:12px 8px 0;font-size:13px;overflow:hidden;text-overflow:ellipsis}
-main{overflow:auto;padding:30px 32px 50px}.panel{display:none;max-width:800px;margin:0 auto}.panel.on{display:block;animation:pop .35s}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
-.stat,.cd{padding:16px;border-radius:20px;background:radial-gradient(170px circle at var(--cx,-99px) var(--cy,-99px),#ffe3cc,transparent),#fff;box-shadow:0 6px 20px #f07f3c14}
-.cd h3{margin:0 0 8px}.stat b{display:block;font-size:30px;line-height:1.1;color:var(--or2)}.stat span{color:var(--mute);font-size:13px}
-.ch svg{width:100%;max-height:150px}.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.heat div{display:grid;place-items:center;padding:8px 0;border-radius:10px;background:rgba(240,127,60,var(--o));text-align:center}.heat b{font-size:14px}.heat small{color:var(--ink);font-size:11px}
-form.add{display:flex;gap:8px;padding:6px;border-radius:18px;background:#fff;box-shadow:0 6px 20px #f07f3c14;margin:14px 0}
-form.add input{flex:1;min-width:0;border:0;outline:0;background:none;padding:8px 12px}form.add button{padding:8px 18px;border:0;border-radius:13px;background:var(--or);color:#fff;font-weight:800;cursor:pointer}form.add button:active{transform:scale(.94)}
-ul.l{list-style:none;padding:0}ul.l li{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;border-radius:16px;background:#fff;animation:pop .3s}
-ul.l li span{flex:1;word-break:break-word;transition:opacity .3s}ul.l li.done span{opacity:.4;text-decoration:line-through}
-.ck{flex:none;width:24px;height:24px;border:2px solid #ffc9a3;border-radius:50%;background:none;cursor:pointer;transition:all .25s}.done .ck{background:var(--or);border-color:var(--or);transform:scale(1.15)}
-.x{border:0;background:none;color:var(--mute);cursor:pointer;font-size:18px}.x:hover{color:var(--or2)}.note .ck{display:none}
-table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
-.bar{height:10px;min-width:60px;border-radius:9px;background:var(--pe)}.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#ffc08f,var(--or2));animation:grow .8s both}
-.row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.row small{display:block}
-input[type=range],input[type=checkbox]{accent-color:var(--or2)}input[type=checkbox]{width:20px;height:20px}
-.goo{position:relative;overflow:hidden;min-height:150px;margin:14px 0}.goo canvas{position:absolute;inset:0;width:100%;height:100%}.gi{position:relative;max-width:240px}.gi .btn{margin-top:12px}
-dialog{max-width:440px;width:calc(100% - 32px);padding:24px;border:0;border-radius:22px;color:var(--ink);box-shadow:0 20px 60px #4a342640}dialog::backdrop{background:#4a342655}dialog p{margin:8px 0 14px;font-size:14px}
-@media(max-width:760px){#app.on{grid-template-columns:1fr}.side{flex-direction:row;overflow:auto;padding:10px}.brand,.me,kbd{display:none}main{padding:20px 14px}}
-@media(pointer:coarse){#ring{display:none}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.still *{animation:none!important;transition:none!important}
-</style></head><body>
-<canvas id="bg"></canvas><div id="ring"></div><div class="toast" id="toast" role="alert"></div>
-<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ffc08f"/><stop offset="1" stop-color="#f07f3c"/></linearGradient></defs></svg>
-<section id="login"><div class="card"><div class="logo">A</div><h1>Alvryx Works</h1><p class="sub">Tus tareas, notas y métricas en un solo lugar</p>
-<button class="btn main" id="g1">Continuar con Google</button><button class="btn" id="g2">Continuar con GitHub</button>
-<label class="chk"><input type="checkbox" id="ok"> Acepto los <button class="lnk" data-l="t">Términos</button>, la <button class="lnk" data-l="p">Privacidad</button> y las <button class="lnk" data-l="r">Reglas</button></label></div></section>
-<div id="app"><aside class="side"><div class="brand"><div class="logo">A</div>Alvryx Works</div>
-<button class="nav on">Home<kbd>1</kbd></button><button class="nav">Tareas<kbd>2</kbd></button><button class="nav">Notas<kbd>3</kbd></button><button class="nav">Status<kbd>4</kbd></button><button class="nav">Config<kbd>5</kbd></button><div class="me" id="me"></div></aside>
-<main>
-<section class="panel on" id="home"><h2 id="hi">Hola</h2><p class="mute">Tu resumen de hoy.</p>
-<div class="stats"><div class="stat"><b id="s1">0</b><span>Tareas pendientes</span></div><div class="stat"><b id="s2">0</b><span>Tareas hechas</span></div><div class="stat"><b id="s3">0</b><span>Notas</span></div></div>
-<div class="grid"><div class="cd"><h3>Avance</h3><div class="ch" id="c1"></div></div><div class="cd"><h3>Completadas, últimos 7 días</h3><div class="ch" id="c2"></div></div><div class="cd"><h3>Mapa de calor</h3><div id="c3"></div></div><div class="cd"><h3>Visitas por página</h3><table><tbody id="vt"></tbody></table></div></div>
-<h3>Comunidad</h3><div class="stats"><div class="stat"><b id="w1">0</b><span>Personas en Alvryx</span></div><div class="stat"><b id="w2">0</b><span>Tareas completadas en total</span></div><div class="stat"><b id="w3">0</b><span>Notas guardadas en total</span></div></div></section>
-<section class="panel" id="task"><h2>Tareas</h2><form class="add" data-k="task"><input placeholder="¿Qué toca hacer?" maxlength="280" aria-label="Nueva tarea"><button>Añadir</button></form><ul class="l" id="l-task"></ul></section>
-<section class="panel" id="note"><h2>Notas</h2><form class="add" data-k="note"><input placeholder="Anota una idea" maxlength="280" aria-label="Nueva nota"><button>Guardar</button></form><ul class="l note" id="l-note"></ul></section>
-<section class="panel" id="status"><h2>Status</h2><p class="mute" id="sm"></p><h3>Render</h3><table><tbody id="rt"></tbody></table><h3>GitHub</h3><table><tbody id="gt"></tbody></table><button class="btn" id="rf" style="max-width:200px">Actualizar</button></section>
-<section class="panel" id="config"><h2>Config</h2>
-<div class="cd goo"><canvas id="gc"></canvas><div class="gi"><b id="gh">Cuenta de Google</b><small id="gm" style="display:block">Mueve el mouse: las partículas se apartan.</small><button class="btn" id="out">Cerrar sesión</button></div></div>
-<div class="row"><div>Sonidos<small>Notas de kalimba con eco</small></div><input type="checkbox" id="cs" aria-label="Sonidos"></div>
-<div class="row"><div>Sonido ambiente<small>Pad suave que cambia con tu mouse</small></div><input type="checkbox" id="cm" aria-label="Sonido ambiente"></div>
-<div class="row"><div>Volumen</div><input type="range" id="cv" min="0" max="100" aria-label="Volumen"></div>
-<div class="row"><div>Animaciones y partículas</div><input type="checkbox" id="ca" aria-label="Animaciones"></div>
-<div class="row"><div>Tus datos<small>Descarga o borra todo lo que guardaste</small></div><div><button class="btn" id="ex" style="margin:0 0 6px">Exportar</button><button class="btn red" id="dl" style="margin:0">Eliminar cuenta</button></div></div>
-<div class="row"><div>Legal</div><div><button class="lnk" data-l="t">Términos</button> <button class="lnk" data-l="p">Privacidad</button> <button class="lnk" data-l="r">Reglas</button></div></div></section>
-</main></div>
-<dialog id="lg"><h2 id="lt"></h2><p id="lp"></p><button class="btn main" onclick="lg.close()">Entendido</button></dialog>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const st=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem("aw_"+k));localStorage.setItem("aw_"+k,JSON.stringify(v))}catch(e){return null}};
-const S=Object.assign({snd:true,amb:true,vol:.6,anim:true},st("cfg")||{}),fd=d=>d?new Date(d).toLocaleDateString("es-MX",{day:"numeric",month:"short"}):"";
-const LEGAL={t:["Términos de uso","Alvryx Works se ofrece tal cual, sin garantías de disponibilidad. Eres responsable de lo que guardas: no subas contenido ilegal, ofensivo o de terceros sin permiso. Podemos suspender cuentas que abusen del servicio. Debes tener 13 años o más. Los datos pueden perderse, así que usa Exportar para tener copias."],p:["Privacidad","Guardamos tu identificador de Firebase, tus tareas y notas, y la fecha en que aceptaste estos términos. Las visitas se cuentan por página y día, sin IP. El inicio de sesión usa Google o GitHub mediante Firebase. No vendemos datos ni mostramos publicidad. En tu navegador solo guardamos ajustes y la sesión. Puedes exportar o borrar todo en Config."],r:["Reglas de la comunidad","1. Respeta a los demás. 2. No uses la app para spam ni ataques. 3. No intentes acceder a datos de otras personas. 4. Máximo 280 caracteres por elemento. 5. Límite de 120 peticiones por minuto y 40 escrituras por minuto."]};
-$$("[data-l]").forEach(b=>b.onclick=()=>{const[t,p]=LEGAL[b.dataset.l];$("#lt").textContent=t;$("#lp").textContent=p;$("#lg").showModal()});
-/* Sonido: kalimba pentatónica con eco + pad ambiental que sigue al mouse */
-let AC,room,amb;const PT=[0,2,4,7,9];
-function ctx(){AC=AC||new AudioContext();AC.resume();return AC}
-function pluck(n,at=0,v=.5){if(!S.snd)return;try{ctx();
- if(!room){room=AC.createGain();const d=AC.createDelay(),f=AC.createGain(),lp=AC.createBiquadFilter();d.delayTime.value=.19;f.gain.value=.3;lp.frequency.value=1800;room.connect(AC.destination);room.connect(d);d.connect(lp);lp.connect(f);f.connect(d);lp.connect(AC.destination)}
- const t=AC.currentTime+at,f0=261.63*2**(n/12),g=AC.createGain();
- [[1,1,.9],[2.01,.3,.25],[3.98,.1,.12]].forEach(([m,a,d])=>{const o=AC.createOscillator(),k=AC.createGain();o.frequency.value=f0*m;k.gain.setValueAtTime(a*v*S.vol*.35,t);k.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(k);k.connect(g);o.start(t);o.stop(t+1)});g.connect(room)}catch(e){}}
-function ambient(on){try{if(!on){if(amb){const a=amb;amb=0;a.g.gain.setTargetAtTime(0,AC.currentTime,.5);setTimeout(()=>a.o.forEach(o=>o.stop()),2500)}return}
- if(amb)return;ctx();const g=AC.createGain(),lp=AC.createBiquadFilter(),l=AC.createOscillator(),lg=AC.createGain();
- g.gain.value=0;g.gain.setTargetAtTime(.05*S.vol*2,AC.currentTime,2);lp.type="lowpass";lp.frequency.value=500;lp.Q.value=2;l.frequency.value=.07;lg.gain.value=220;l.connect(lg);lg.connect(lp.frequency);
- const o=[130.8,196,261.6,329.6].map((f,i)=>{const s=AC.createOscillator();s.type=i%2?"triangle":"sine";s.frequency.value=f*(1+(i-1.5)*.002);s.connect(g);return s});
- g.connect(lp);lp.connect(AC.destination);[...o,l].forEach(s=>s.start());amb={g,lp,o:[...o,l]};
- (function chime(){if(!amb)return;pluck([12,16,19,21,24][Math.random()*5|0],0,.18);setTimeout(chime,4e3+Math.random()*6e3)})()}catch(e){}}
-const snd={tab:i=>pluck([0,4,7,9,12][i]),key:()=>pluck(PT[Math.random()*5|0]+12,0,.22),add:()=>{pluck(19);pluck(24,.09)},done:()=>[12,16,19,24].forEach((n,i)=>pluck(n,i*.07)),del:()=>{pluck(7,0,.4);pluck(0,.08,.3)},hi:()=>[0,7,12,16,19].forEach((n,i)=>pluck(n,i*.11)),err:()=>pluck(-5,0,.6)};
-const fail=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),3500);snd.err()};
-/* Mouse: anillo suave, brillo en tarjetas y filtro del ambiente */
-const ring=$("#ring"),M={x:-99,y:-99,rx:-99,ry:-99};
-addEventListener("pointermove",e=>{M.x=e.clientX;M.y=e.clientY;if(amb)amb.lp.frequency.setTargetAtTime(300+e.clientX/innerWidth*1e3,AC.currentTime,.3);const c=e.target.closest&&e.target.closest(".stat,.cd");if(c){const r=c.getBoundingClientRect();c.style.setProperty("--cx",e.clientX-r.left+"px");c.style.setProperty("--cy",e.clientY-r.top+"px")}ring.classList.toggle("hv",!!(e.target.closest&&e.target.closest("button,input,.cd")))});
-addEventListener("pointerdown",()=>{if(S.amb&&!amb&&entered)ambient(1)});
-(function f(){M.rx+=(M.x-M.rx)*.18;M.ry+=(M.y-M.ry)*.18;ring.style.transform=`translate(${M.rx}px,${M.ry}px)`;requestAnimationFrame(f)})();
-/* Campo de partículas: se apartan del cursor y dejan un círculo libre */
-function field(cv,n,R){const x=cv.getContext("2d"),P=[],m={x:-999,y:-999};let W,H;
- const fit=()=>{W=cv.width=cv.clientWidth;H=cv.height=cv.clientHeight;P.length=0;for(let i=0;i<n;i++){const a=Math.random()*W,b=Math.random()*H;P.push({hx:a,hy:b,x:a,y:b,s:Math.random()*1.6+.8})}};fit();new ResizeObserver(fit).observe(cv);
- const pe=cv.parentElement;pe.addEventListener("pointermove",e=>{const r=cv.getBoundingClientRect();m.x=e.clientX-r.left;m.y=e.clientY-r.top});pe.addEventListener("pointerleave",()=>m.x=-999);
- (function f(){x.clearRect(0,0,W,H);if(S.anim){for(const p of P){const dx=p.x-m.x,dy=p.y-m.y,d=Math.hypot(dx,dy)||1;if(d<R){const k=(R-d)/R;p.x+=dx/d*k*9;p.y+=dy/d*k*9}p.x+=(p.hx-p.x)*.06;p.y+=(p.hy-p.y)*.06;x.fillStyle="rgba(240,127,60,"+(.22+Math.min(.5,Math.hypot(p.x-p.hx,p.y-p.hy)/40))+")";x.beginPath();x.arc(p.x,p.y,p.s,0,7);x.fill()}
- if(m.x>0){x.strokeStyle="#f07f3c55";x.lineWidth=1.5;x.beginPath();x.arc(m.x,m.y,R*.6,0,7);x.stroke()}}requestAnimationFrame(f)})()}
-field($("#bg"),160,95);field($("#gc"),80,70);
-/* Gráficos: dona, línea con área, mapa de calor y barras */
-const svg=(w,h,c)=>`<svg viewBox="0 0 ${w} ${h}" role="img">${c}</svg>`;
-const donut=(a,b)=>{const t=a+b||1,R=42,C=2*Math.PI*R;return svg(120,120,`<circle cx="60" cy="60" r="${R}" fill="none" stroke="#ffe8d6" stroke-width="14"/><circle cx="60" cy="60" r="${R}" fill="none" stroke="url(#g)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${a/t*C} ${C}" transform="rotate(-90 60 60)"/><text x="60" y="66" text-anchor="middle" font-size="20" font-weight="800" fill="#f07f3c">${Math.round(a/t*100)}%</text>`)};
-const line=v=>{const m=Math.max(1,...v),p=v.map((x,i)=>[10+i*30,70-x/m*55]),d=p.map(q=>q.join(",")).join(" ");return svg(200,80,`<polygon points="10,70 ${d} 190,70" fill="#ffe8d6"/><polyline points="${d}" fill="none" stroke="url(#g)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${p.map(q=>`<circle cx="${q[0]}" cy="${q[1]}" r="3.5" fill="#f07f3c"/>`).join("")}`)};
-const heat=w=>{const m=Math.max(1,...w.map(y=>y.n));return`<div class="heat">${w.map(x=>`<div style="--o:${.1+x.n/m*.8}" title="${x.day}"><b>${x.n}</b><small>${"DLMMJVS"[new Date(x.day+"T12:00").getDay()]}</small></div>`).join("")}</div>`};
-/* API y sesión */
-let tok=null,fb,entered=0;
-async function api(p,o={}){const r=await fetch("/api"+p,{...o,headers:{"Content-Type":"application/json",...(tok?{Authorization:"Bearer "+tok}:{})}});if(!r.ok)throw Error((await r.json().catch(()=>({}))).error||r.status);return r.status===204?null:r.json()}
-fetch("/api/config").then(r=>r.json()).then(c=>{if(c.apiKey&&window.firebase){firebase.initializeApp({apiKey:c.apiKey,authDomain:c.authDomain,projectId:c.projectId,appId:c.appId});fb=firebase.auth();fb.onAuthStateChanged(u=>{if(u&&st("terms"))enter(u);else if(u)fb.signOut()})}}).catch(()=>{});
-function signIn(P){if(!$("#ok").checked)return fail("Acepta los términos para continuar.");if(!fb)return fail("El inicio de sesión aún se está configurando.");st("terms",1);fb.signInWithPopup(new P()).catch(e=>fail(e.code==="auth/popup-closed-by-user"?"Cerraste la ventana antes de terminar.":"No se pudo iniciar sesión ("+e.code+")."))}
-$("#g1").onclick=()=>signIn(firebase.auth.GoogleAuthProvider);$("#g2").onclick=()=>signIn(firebase.auth.GithubAuthProvider);
-async function enter(u){if(entered)return;entered=1;tok=await u.getIdToken();
- $("#login").style.display="none";$("#app").classList.add("on");const n=u.displayName||"";$("#hi").textContent="Hola"+(n?", "+n.split(" ")[0]:"");$("#me").textContent=u.email||n;
- const gh=(u.providerData[0]||{}).providerId==="github.com";$("#gh").textContent=gh?"Cuenta de GitHub":"Cuenta de Google";
- snd.hi();if(S.amb)ambient(1);go(0);sync();api("/consent",{method:"POST"}).catch(()=>{});
- if(!sessionStorage.v){sessionStorage.v=1;fetch("/api/visit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({page:"inicio"})}).catch(()=>{})}}
-$("#out").onclick=()=>{if(fb)fb.signOut();location.reload()};
-/* Pestañas */
-const T=["home","task","note","status","config"];
-function go(i){$$(".nav,.panel").forEach(x=>x.classList.remove("on"));$$(".nav")[i].classList.add("on");$("#"+T[i]).classList.add("on");snd.tab(i);if(i==3)status();if(i==0)home();const f=$("#"+T[i]+" form input");f&&f.focus()}
-$$(".nav").forEach((b,i)=>b.onclick=()=>go(i));
-onkeydown=e=>{if(!entered||e.target.matches("input")||e.metaKey||e.ctrlKey)return;const i="12345".indexOf(e.key);if(i>=0)go(i)};
-/* Listas */
-async function draw(k){try{const a=await api("/items/"+k);$("#l-"+k).innerHTML=a.map(x=>`<li class="${x.done?"done":""}" data-id="${x.id}"><button class="ck" aria-label="Completar"></button><span>${esc(x.title)}</span><button class="x" aria-label="Borrar">×</button></li>`).join("")||'<li class="mute">Todavía no hay nada. Escribe arriba.</li>'}catch(e){fail(e.message)}}
-$$(".l").forEach(ul=>ul.onclick=async e=>{const li=e.target.closest("li[data-id]"),id=li&&li.dataset.id;if(!li)return;try{
- if(e.target.closest(".ck")){const d=!li.classList.contains("done");li.classList.toggle("done",d);d?snd.done():pluck(4,0,.3);await api("/items/"+id,{method:"PATCH",body:JSON.stringify({done:d})})}
- else if(e.target.closest(".x")){snd.del();li.remove();await api("/items/"+id,{method:"DELETE"})}}catch(x){fail(x.message)}});
-$$("form.add").forEach(f=>{const i=f.querySelector("input");i.oninput=snd.key;f.onsubmit=async e=>{e.preventDefault();const t=i.value.trim();if(!t)return snd.err();i.value="";snd.add();try{await api("/items/"+f.dataset.k,{method:"POST",body:JSON.stringify({title:t})});draw(f.dataset.k)}catch(x){fail(x.message)}}});
-async function sync(){await Promise.all([draw("task"),draw("note")]);home()}
-async function home(){try{const[s,v,w]=await Promise.all([api("/me/stats"),api("/visits").catch(()=>[]),api("/global").catch(()=>({users:0,done:0,notes:0}))]);
- $("#s1").textContent=s.pending;$("#s2").textContent=s.done;$("#s3").textContent=s.notes;$("#w1").textContent=w.users;$("#w2").textContent=w.done;$("#w3").textContent=w.notes;
- $("#c1").innerHTML=donut(s.done,s.pending);$("#c2").innerHTML=line(s.week.map(x=>x.n));$("#c3").innerHTML=heat(s.week);
- const mx=Math.max(1,...v.map(x=>x.n));$("#vt").innerHTML=v.map(x=>`<tr><td>${esc(x.page)}</td><td>${x.n}</td><td style="width:40%"><div class="bar"><i style="width:${x.n/mx*100}%"></i></div></td></tr>`).join("")||'<tr><td class="mute">Aún no hay visitas.</td></tr>'}catch(e){}}
-/* Status (solo administrador) */
-async function status(){const m=$("#sm");m.textContent="Cargando…";try{const d=await api("/status");m.textContent=d.hasRender?"Datos en vivo de Render y GitHub.":"GitHub en vivo. Falta RENDER_API_KEY en el servidor para ver Render.";
- $("#rt").innerHTML=d.render.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.type)}</td><td>${esc(x.status)}</td><td>${fd(x.at)}</td></tr>`).join("")||'<tr><td class="mute">Sin datos de Render.</td></tr>';
- $("#gt").innerHTML=d.repos.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.stars} ★</td><td>${fd(x.at)}</td></tr>`).join("")||'<tr><td class="mute">Sin repositorios.</td></tr>'}catch(e){m.textContent=e.message;$("#rt").innerHTML=$("#gt").innerHTML=""}}
-$("#rf").onclick=()=>{snd.add();status()};
-/* Config y datos personales */
-const save=()=>{st("cfg",S);document.body.classList.toggle("still",!S.anim)};
-$("#cs").checked=S.snd;$("#cm").checked=S.amb;$("#cv").value=S.vol*100;$("#ca").checked=S.anim;save();
-$("#cs").onchange=e=>{S.snd=e.target.checked;save();snd.add()};$("#cm").onchange=e=>{S.amb=e.target.checked;save();ambient(S.amb)};
-$("#cv").oninput=e=>{S.vol=e.target.value/100;save();if(amb)amb.g.gain.setTargetAtTime(.1*S.vol,AC.currentTime,.2)};$("#cv").onchange=snd.add;$("#ca").onchange=e=>{S.anim=e.target.checked;save()};
-$("#ex").onclick=async()=>{try{const r=await fetch("/api/me/export",{headers:{Authorization:"Bearer "+tok}});const a=document.createElement("a");a.href=URL.createObjectURL(await r.blob());a.download="alvryx-datos.json";a.click();snd.add()}catch(e){fail("No se pudo exportar.")}};
-$("#dl").onclick=async()=>{if(!confirm("Se borrarán tus tareas, notas y tu cuenta. No se puede deshacer. ¿Continuar?"))return;try{await api("/me",{method:"DELETE"});await fb.currentUser.delete().catch(()=>fb.signOut());localStorage.clear();location.reload()}catch(e){fail("No se pudo eliminar la cuenta.")}};
-</script></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alvryx Works — Centro de Operaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --bg-card: #ffffff;
+      --bg-subtle: #f4eee6;
+      --bg-hover: #faede0;
+      --ink: #1c1815;
+      --ink-muted: #6b5e52;
+      --ink-light: #9c8e81;
+      --border: rgba(220, 208, 195, 0.7);
+      --border-focus: rgba(255, 98, 0, 0.5);
+      --orange: #ff6200;
+      --orange-bright: #ff7826;
+      --orange-deep: #ea5500;
+      --orange-glow: rgba(255, 98, 0, 0.12);
+      --green: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.15);
+      --red: #ef4444;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-sm: 0 2px 8px rgba(35, 25, 18, 0.04);
+      --shadow-md: 0 8px 28px rgba(35, 25, 18, 0.07);
+      --shadow-lg: 0 16px 48px rgba(255, 98, 0, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(255, 120, 38, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 90% 85%, rgba(255, 98, 0, 0.06) 0%, transparent 30%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+    /* Canvas de partículas sutil */
+    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.6; }
+
+    /* Cursor halo cálido */
+    #cursor-glow {
+      position: fixed; width: 340px; height: 340px; margin: -170px 0 0 -170px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 110, 30, 0.07) 0%, transparent 70%);
+      pointer-events: none; z-index: 99; transition: transform 0.08s linear;
+    }
+
+    /* Contenedor Principal */
+    #app-shell { display: flex; height: 100vh; overflow: hidden; }
+
+    /* Barra lateral estilo Claude / ChatGPT */
+    aside.sidebar {
+      width: 270px; flex-shrink: 0; height: 100%;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 20px 16px;
+      z-index: 20;
+    }
+    .brand-header {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 20px; border-bottom: 1px solid var(--border);
+    }
+    .brand-icon {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--orange-bright), var(--orange-deep));
+      display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 19px;
+      box-shadow: 0 4px 14px rgba(255, 98, 0, 0.35);
+    }
+    .brand-text h1 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; color: var(--ink); }
+    .brand-text p { font-size: 11px; font-weight: 600; color: var(--orange-deep); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .nav-group { margin-top: 24px; display: flex; flex-direction: column; gap: 6px; }
+    .nav-title { font-size: 10.5px; font-weight: 700; text-transform: uppercase; color: var(--ink-light); letter-spacing: 0.8px; padding: 0 10px 4px; }
+    .nav-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px; border-radius: var(--radius-sm); border: 0; background: transparent;
+      color: var(--ink-muted); font-weight: 600; font-size: 14px; cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .nav-btn:hover { background: var(--bg-hover); color: var(--ink); transform: translateX(2px); }
+    .nav-btn.active {
+      background: linear-gradient(90deg, #fff3ea, #ffecd9);
+      color: var(--orange-deep); font-weight: 700;
+      box-shadow: inset 3px 0 0 var(--orange);
+    }
+    .nav-btn kbd {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; color: var(--ink-light);
+    }
+
+    /* Badges de estado en sidebar */
+    .system-health {
+      margin-top: auto; padding: 14px; border-radius: var(--radius-md);
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 8px; font-size: 12px;
+    }
+    .health-row { display: flex; align-items: center; justify-content: space-between; }
+    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
+
+    /* Perfil en Sidebar */
+    .user-footer {
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .user-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: #e5d8cb; }
+    .user-info { flex: 1; min-width: 0; }
+    .user-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-role { font-size: 11px; color: var(--ink-light); }
+
+    /* Área de Contenido Principal */
+    main.main-viewport {
+      flex: 1; height: 100%; overflow-y: auto; padding: 36px 42px;
+      scroll-behavior: smooth;
+    }
+    .content-container { max-width: 1020px; margin: 0 auto; }
+
+    /* Tab Panels */
+    .tab-panel { display: none; animation: fadeIn 0.28s ease-out both; }
+    .tab-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Encabezado de Pestañas */
+    .view-header { margin-bottom: 28px; display: flex; justify-content: space-between; align-items: flex-start; }
+    .view-title h2 { font-size: 27px; font-weight: 800; letter-spacing: -0.6px; color: var(--ink); }
+    .view-title p { color: var(--ink-muted); font-size: 14px; margin-top: 4px; }
+    .header-actions { display: flex; gap: 10px; }
+
+    /* Botones primarios y secundarios */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 18px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 700;
+      border: 1px solid transparent; cursor: pointer; transition: all 0.18s ease; text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange-bright), var(--orange-deep));
+      color: #fff; box-shadow: 0 4px 16px rgba(255, 98, 0, 0.25);
+    }
+    .btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255, 98, 0, 0.35); }
+    .btn-secondary {
+      background: var(--bg-card); border-color: var(--border); color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-secondary:hover { background: var(--bg-subtle); border-color: #d1c1b2; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 8px; }
+    .btn-danger { background: #fee2e2; color: #dc2626; border-color: #fecaca; }
+    .btn-danger:hover { background: #fecaca; }
+
+    /* Tarjetas de Métricas */
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .metric-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 20px 22px; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .metric-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(255, 98, 0, 0.3); }
+    .metric-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange-bright), transparent); opacity: 0; transition: opacity 0.2s;
+    }
+    .metric-card:hover::before { opacity: 1; }
+    .metric-label { font-size: 12.5px; font-weight: 600; color: var(--ink-muted); }
+    .metric-value { font-size: 32px; font-weight: 800; color: var(--ink); margin-top: 6px; letter-spacing: -0.5px; }
+    .metric-sub { font-size: 11.5px; color: var(--orange-deep); font-weight: 600; margin-top: 4px; }
+
+    /* Tableros y Rejillas de Trabajo */
+    .dual-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 14px; }
+    .card-panel {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 24px; box-shadow: var(--shadow-sm);
+    }
+    .card-panel-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;
+    }
+    .card-panel-header h3 { font-size: 16px; font-weight: 700; color: var(--ink); }
+
+    /* Formulario de Adición Rápida */
+    .input-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .styled-input {
+      flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg-subtle); font-size: 13.5px; transition: all 0.18s ease;
+    }
+    .styled-input:focus { background: #fff; border-color: var(--orange); }
+    .prio-select {
+      padding: 0 10px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg-subtle); font-size: 12.5px; font-weight: 600; color: var(--ink-muted);
+    }
+
+    /* Listas de Tareas y Notas */
+    .item-list { list-style: none; display: flex; flex-direction: column; gap: 8px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
+    .item-card {
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+      border-radius: var(--radius-sm); background: var(--bg-subtle); border: 1px solid transparent;
+      transition: all 0.18s ease;
+    }
+    .item-card:hover { background: #fff; border-color: var(--border); transform: translateX(2px); }
+    .item-check {
+      width: 20px; height: 20px; border-radius: 6px; border: 2px solid #d4c2b2;
+      background: transparent; cursor: pointer; display: grid; place-items: center; transition: all 0.18s;
+      flex-shrink: 0;
+    }
+    .item-check:hover { border-color: var(--orange); }
+    .item-card.done .item-check { background: var(--orange); border-color: var(--orange); }
+    .item-card.done .item-check::after { content: "✓"; color: #fff; font-size: 12px; font-weight: 800; }
+    .item-text { flex: 1; font-size: 13.5px; font-weight: 500; word-break: break-word; color: var(--ink); }
+    .item-card.done .item-text { text-decoration: line-through; color: var(--ink-light); }
+    .item-tag { font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; }
+    .prio-high { background: #fee2e2; color: #dc2626; }
+    .prio-normal { background: #ffedd5; color: #c2410c; }
+    .prio-low { background: #f3f4f6; color: #4b5563; }
+    .item-del {
+      border: 0; background: transparent; color: var(--ink-light); cursor: pointer;
+      font-size: 16px; padding: 4px 6px; border-radius: 4px; transition: all 0.15s;
+    }
+    .item-del:hover { color: var(--red); background: #fee2e2; }
+
+    /* Tablas de Infraestructura (Status) */
+    .status-section { margin-bottom: 28px; }
+    .section-title { font-size: 17px; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .table-container {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    table.data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px; }
+    table.data-table th {
+      background: var(--bg-subtle); padding: 12px 16px; font-weight: 700; color: var(--ink-muted);
+      border-bottom: 1px solid var(--border); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    table.data-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    table.data-table tr:last-child td { border-bottom: 0; }
+    table.data-table tr:hover td { background: var(--bg-hover); }
+
+    /* Indicadores de estado */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+      border-radius: 20px; font-size: 12px; font-weight: 700;
+    }
+    .status-active { background: #dcfce7; color: #15803d; }
+    .status-suspended { background: #fee2e2; color: #b91c1c; }
+    .status-ready { background: #e0f2fe; color: #0369a1; }
+
+    /* Snippet de Tracker */
+    .snippet-box {
+      background: #1c1815; color: #fbf8f5; padding: 18px 22px; border-radius: var(--radius-md);
+      font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6;
+      position: relative; overflow-x: auto; margin-top: 10px;
+    }
+    .copy-btn {
+      position: absolute; right: 14px; top: 14px; background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 12px; border-radius: 6px;
+      font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.18s;
+    }
+    .copy-btn:hover { background: var(--orange); border-color: var(--orange); }
+
+    /* Pestaña Config */
+    .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .config-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 22px; box-shadow: var(--shadow-sm);
+    }
+    .config-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .config-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .config-meta b { font-size: 14px; display: block; color: var(--ink); }
+    .config-meta span { font-size: 12px; color: var(--ink-muted); }
+
+    /* Modal de Login Elegante */
+    #auth-overlay {
+      position: fixed; inset: 0; background: rgba(28, 24, 21, 0.45);
+      backdrop-filter: blur(8px); display: grid; place-items: center; z-index: 100;
+      padding: 20px;
+    }
+    #auth-overlay.hidden { display: none; }
+    .auth-card {
+      width: min(420px, 100%); background: #fff; border-radius: var(--radius-lg);
+      padding: 38px 32px; box-shadow: var(--shadow-lg); text-align: center;
+      border: 1px solid var(--border); animation: pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes pop { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .auth-logo {
+      width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--orange-bright), var(--orange-deep));
+      display: grid; place-items: center; color: #fff; font-size: 32px; font-weight: 800;
+      box-shadow: 0 8px 24px rgba(255, 98, 0, 0.35);
+    }
+    .auth-card h2 { font-size: 24px; font-weight: 800; color: var(--ink); }
+    .auth-card p { font-size: 14px; color: var(--ink-muted); margin: 6px 0 24px; }
+    .oauth-btn {
+      width: 100%; padding: 13px 18px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+      background: #fff; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center;
+      gap: 12px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; box-shadow: var(--shadow-sm);
+    }
+    .oauth-btn:hover { background: var(--bg-hover); border-color: #d1c1b2; transform: translateY(-1px); }
+    .oauth-btn.google { border-color: rgba(255, 98, 0, 0.3); }
+    .terms-box { margin-top: 16px; font-size: 12px; color: var(--ink-muted); }
+    .terms-box a { color: var(--orange-deep); text-decoration: none; font-weight: 600; cursor: pointer; }
+
+    /* Toast Notification */
+    #toast-msg {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(40px);
+      background: #1c1815; color: #fff; padding: 11px 22px; border-radius: 30px;
+      font-size: 13.5px; font-weight: 600; box-shadow: var(--shadow-md); opacity: 0;
+      pointer-events: none; transition: all 0.28s ease; z-index: 120;
+    }
+    #toast-msg.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Dialog modal */
+    dialog#legal-modal {
+      border: 0; border-radius: var(--radius-lg); padding: 30px; max-width: 500px;
+      margin: auto; box-shadow: var(--shadow-lg); background: #fff; color: var(--ink);
+    }
+    dialog#legal-modal::backdrop { background: rgba(28, 24, 21, 0.5); backdrop-filter: blur(4px); }
+
+    @media (max-width: 860px) {
+      #app-shell { flex-direction: column; }
+      aside.sidebar { width: 100%; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+      .dual-workspace, .config-grid { grid-template-columns: 1fr; }
+      main.main-viewport { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div id="cursor-glow"></div>
+  <div id="toast-msg"></div>
+
+  <!-- Modal de Autenticación Firebase (Google & GitHub) -->
+  <div id="auth-overlay">
+    <div class="auth-card">
+      <div class="auth-logo">A</div>
+      <h2>Alvryx Works</h2>
+      <p>Centro de mando operativo e infraestructura</p>
+      
+      <button class="oauth-btn google" id="btn-login-google">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.7 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.6c-.3 1.5-1.1 2.8-2.4 3.7v3h3.9c2.3-2.1 3.6-5.2 3.6-8.9z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1C3.3 21.3 7.4 24 12 24z"/><path fill="#FBBC05" d="M5.3 14.2c-.2-.7-.4-1.5-.4-2.2s.2-1.5.4-2.2V6.7H1.3C.5 8.3 0 10.1 0 12s.5 3.7 1.3 5.3l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4C17.9 1.2 15.2 0 12 0 7.4 0 3.3 2.7 1.3 6.7l4 3.1c.9-2.9 3.6-5 6.7-5z"/></svg>
+        Continuar con Google
+      </button>
+
+      <button class="oauth-btn" id="btn-login-github">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        Continuar con GitHub
+      </button>
+
+      <div class="terms-box">
+        Al ingresar confirmas que aceptas los <a data-legal="terms">Términos</a>, la <a data-legal="privacy">Privacidad</a> y las <a data-legal="rules">Reglas de Operación</a> de Alvryx Co.
+      </div>
+    </div>
+  </div>
+
+  <!-- Estructura Principal del Panel -->
+  <div id="app-shell">
+    <aside class="sidebar">
+      <div class="brand-header">
+        <div class="brand-icon">A</div>
+        <div class="brand-text">
+          <h1>Alvryx Works</h1>
+          <p>Alvryx Co. OS</p>
+        </div>
+      </div>
+
+      <nav class="nav-group">
+        <span class="nav-title">Navegación</span>
+        <button class="nav-btn active" data-tab="home">
+          <span>🏠 Home</span>
+          <kbd>1</kbd>
+        </button>
+        <button class="nav-btn" data-tab="status">
+          <span>⚡ Status</span>
+          <kbd>2</kbd>
+        </button>
+        <button class="nav-btn" data-tab="config">
+          <span>⚙️ Config</span>
+          <kbd>3</kbd>
+        </button>
+      </nav>
+
+      <div class="system-health">
+        <div class="health-row">
+          <span>Render Cloud</span>
+          <span id="badge-render"><i class="pulse-dot"></i> Activo</span>
+        </div>
+        <div class="health-row">
+          <span>PostgreSQL</span>
+          <span id="badge-db" style="color:var(--green);font-weight:700;">Conectado</span>
+        </div>
+        <div class="health-row">
+          <span>Web Tracker</span>
+          <span style="color:var(--orange-deep);font-weight:700;">En Escucha</span>
+        </div>
+      </div>
+
+      <div class="user-footer">
+        <img src="" id="nav-user-img" class="user-avatar" alt="User">
+        <div class="user-info">
+          <div class="user-name" id="nav-user-name">Usuario</div>
+          <div class="user-role" id="nav-user-email">Sesión activa</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-viewport">
+      <div class="content-container">
+
+        <!-- 1. TAB HOME -->
+        <section class="tab-panel active" id="tab-home">
+          <div class="view-header">
+            <div class="view-title">
+              <h2 id="home-greeting">Bienvenido, Mauri</h2>
+              <p>Resumen ejecutivo y control de flujo de trabajo diario.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-secondary btn-sm" id="btn-sync-all">🔄 Sincronizar</button>
+            </div>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-label">Tareas Pendientes</div>
+              <div class="metric-value" id="val-pending">0</div>
+              <div class="metric-sub" id="sub-pending">En lista activa</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Tareas Completadas</div>
+              <div class="metric-value" id="val-done" style="color:var(--green);">0</div>
+              <div class="metric-sub">Hitos alcanzados</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Notas & Bitácora</div>
+              <div class="metric-value" id="val-notes">0</div>
+              <div class="metric-sub">Entradas registradas</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Visitas Globales</div>
+              <div class="metric-value" id="val-visits" style="color:var(--orange-deep);">0</div>
+              <div class="metric-sub">Tráfico multi-sitio</div>
+            </div>
+          </div>
+
+          <div class="dual-workspace">
+            <!-- Columna Tareas -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>Tareas & Roadmap</h3>
+                <span class="status-badge status-ready" id="task-count-badge">0 tareas</span>
+              </div>
+              <form id="form-task" class="input-row">
+                <input type="text" id="input-task" class="styled-input" placeholder="Nueva tarea de Alvryx Co..." maxlength="280" required>
+                <select id="select-task-prio" class="prio-select">
+                  <option value="normal">Normal</option>
+                  <option value="high">Alta</option>
+                  <option value="low">Baja</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm">Añadir</button>
+              </form>
+              <ul class="item-list" id="list-tasks">
+                <!-- Se llena dinámicamente -->
+              </ul>
+            </div>
+
+            <!-- Columna Notas -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>Bitácora & Notas Ejecutivas</h3>
+                <span class="status-badge status-ready" id="note-count-badge">0 notas</span>
+              </div>
+              <form id="form-note" class="input-row">
+                <input type="text" id="input-note" class="styled-input" placeholder="Nueva nota o idea estratégica..." maxlength="280" required>
+                <button type="submit" class="btn btn-secondary btn-sm">Guardar</button>
+              </form>
+              <ul class="item-list" id="list-notes">
+                <!-- Se llena dinámicamente -->
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. TAB STATUS (Cockpit de Infraestructura) -->
+        <section class="tab-panel" id="tab-status">
+          <div class="view-header">
+            <div class="view-title">
+              <h2>Status de Infraestructura</h2>
+              <p>Monitoreo en tiempo real de Render, PostgreSQL, GitHub y Telemetría Web.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary btn-sm" id="btn-refresh-status">⚡ Actualizar Estado</button>
+            </div>
+          </div>
+
+          <!-- Servicios Render -->
+          <div class="status-section">
+            <h3 class="section-title">☁️ Servicios en Render Cloud</h3>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Servicio</th>
+                    <th>Tipo</th>
+                    <th>Región / Rama</th>
+                    <th>Estado</th>
+                    <th>Última Actividad</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="render-services-table">
+                  <tr><td colspan="6" style="text-align:center;color:var(--ink-muted);">Consultando servicios de Render...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Base de Datos PostgreSQL -->
+          <div class="status-section">
+            <h3 class="section-title">🐘 PostgreSQL en la Nube</h3>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Nombre de Instancia</th>
+                    <th>Base de Datos</th>
+                    <th>Versión</th>
+                    <th>Plan</th>
+                    <th>Estado</th>
+                    <th>Vencimiento</th>
+                  </tr>
+                </thead>
+                <tbody id="render-postgres-table">
+                  <tr><td colspan="6" style="text-align:center;color:var(--ink-muted);">Consultando instancia de PostgreSQL...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Repositorios GitHub -->
+          <div class="status-section">
+            <h3 class="section-title">🐙 Ecosistema GitHub (<span id="gh-owner-title">Lara2026ss</span>)</h3>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Repositorio</th>
+                    <th>Lenguaje</th>
+                    <th>Estrellas</th>
+                    <th>Forks</th>
+                    <th>Último Push</th>
+                    <th>Enlace</th>
+                  </tr>
+                </thead>
+                <tbody id="github-repos-table">
+                  <tr><td colspan="6" style="text-align:center;color:var(--ink-muted);">Consultando repositorios de GitHub...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Telemetría y Tracker Web -->
+          <div class="status-section">
+            <h3 class="section-title">📊 Visitas y Telemetría Multi-sitio</h3>
+            <div class="table-container" style="margin-bottom:14px;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Página / Proyecto</th>
+                    <th>Visitas (14 días)</th>
+                    <th>Última Visita</th>
+                  </tr>
+                </thead>
+                <tbody id="visits-table">
+                  <tr><td colspan="3" style="text-align:center;color:var(--ink-muted);">Cargando telemetría...</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-panel">
+              <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;">🚀 Snippet del Tracker para tus otros HTMLs</h4>
+              <p style="font-size:13px;color:var(--ink-muted);">Pega esta línea antes del cierre <code>&lt;/body&gt;</code> en cualquiera de tus páginas para registrar automáticamente las visitas en tiempo real:</p>
+              <div class="snippet-box">
+                <button class="copy-btn" id="btn-copy-snippet">Copiar Snippet</button>
+                <code id="snippet-code">&lt;script src="https://alvryx-works.onrender.com/track.js" data-page="Mi Proyecto"&gt;&lt;/script&gt;</code>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. TAB CONFIG -->
+        <section class="tab-panel" id="tab-config">
+          <div class="view-header">
+            <div class="view-title">
+              <h2>Configuración & Gobierno</h2>
+              <p>Preferencias del sistema, diseño sonoro acústico y gobernanza de datos.</p>
+            </div>
+          </div>
+
+          <div class="config-grid">
+            <!-- Identidad & Sesión -->
+            <div class="config-card">
+              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">👤 Identidad & Acceso</h3>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Cuenta Activa</b>
+                  <span id="cfg-user-email">Cargando...</span>
+                </div>
+                <span class="status-badge status-active">Autenticado</span>
+              </div>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Identificador UID</b>
+                  <span id="cfg-user-uid" style="font-family:'JetBrains Mono';font-size:11px;">-</span>
+                </div>
+              </div>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Cerrar Sesión</b>
+                  <span>Desconectar del dispositivo actual</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-logout">Salir</button>
+              </div>
+            </div>
+
+            <!-- Estudio Acústico & Sonido -->
+            <div class="config-card">
+              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">🎵 Motor de Sonido Acústico</h3>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Sonidos Táctiles & Chimes</b>
+                  <span>Modelado físico acústico sin osciladores estridentes</span>
+                </div>
+                <input type="checkbox" id="cfg-sound-toggle" checked style="accent-color:var(--orange);width:18px;height:18px;">
+              </div>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Volumen Maestro</b>
+                  <span>Intensidad de respuesta acústica</span>
+                </div>
+                <input type="range" id="cfg-volume-slider" min="0" max="100" value="70" style="accent-color:var(--orange);">
+              </div>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Probar Muestras</b>
+                  <span>Validar respuesta armónica</span>
+                </div>
+                <div style="display:flex;gap:6px;">
+                  <button class="btn btn-secondary btn-sm" id="btn-test-chime">Chime</button>
+                  <button class="btn btn-secondary btn-sm" id="btn-test-wood">Strike</button>
+                  <button class="btn btn-secondary btn-sm" id="btn-test-chord">Éxito</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exportación y Datos -->
+            <div class="config-card">
+              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">📦 Gestión de Datos</h3>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Exportar Base de Datos</b>
+                  <span>Descarga todas tus tareas y notas en formato JSON</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-export-data">Descargar</button>
+              </div>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Eliminar Cuenta</b>
+                  <span>Borra irreversiblemente tus datos personales</span>
+                </div>
+                <button class="btn btn-danger btn-sm" id="btn-delete-account">Eliminar</button>
+              </div>
+            </div>
+
+            <!-- Legal Alvryx Co. -->
+            <div class="config-card">
+              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">⚖️ Marco Legal & Gobernanza</h3>
+              <div class="config-row">
+                <div class="config-meta">
+                  <b>Documentación Corporativa</b>
+                  <span>Términos, Privacidad y Normas de Alvryx Co.</span>
+                </div>
+                <div style="display:flex;gap:8px;">
+                  <button class="btn btn-secondary btn-sm" data-legal="terms">Términos</button>
+                  <button class="btn btn-secondary btn-sm" data-legal="privacy">Privacidad</button>
+                  <button class="btn btn-secondary btn-sm" data-legal="rules">Reglas</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Diálogo Legal -->
+  <dialog id="legal-modal">
+    <h3 id="legal-modal-title" style="font-size:18px;font-weight:800;margin-bottom:12px;"></h3>
+    <p id="legal-modal-body" style="font-size:14px;color:var(--ink-muted);line-height:1.6;margin-bottom:20px;white-space:pre-line;"></p>
+    <div style="text-align:right;">
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('legal-modal').close()">Cerrar</button>
+    </div>
+  </dialog>
+
+  <!-- SDKs de Firebase Compatibles -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+
+  <script>
+    /* ==========================================================
+       1. MOTOR ACÚSTICO DE DISEÑO SONORO (Modelado Físico Real)
+       ========================================================== */
+    class AcousticSoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+        this.volume = 0.7;
+      }
+
+      initCtx() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      // Micro-clic táctil (impulso de alta fidelidad, imita contacto hápico de cristal)
+      click() {
+        if (!this.enabled) return;
+        this.initCtx();
+        const t = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(180, t);
+        osc.frequency.exponentialRampToValueAtTime(40, t + 0.012);
+
+        filter.type = 'highpass';
+        filter.frequency.value = 80;
+
+        gain.gain.setValueAtTime(0.22 * this.volume, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.012);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(t);
+        osc.stop(t + 0.015);
+      }
+
+      // Campana de cuarzo / Chime armónico de pestaña (f0 + 2.76x parcial resonante)
+      chime(freq = 523.25) { // C5
+        if (!this.enabled) return;
+        this.initCtx();
+        const t = this.ctx.currentTime;
+        const mainGain = this.ctx.createGain();
+        mainGain.gain.setValueAtTime(0.28 * this.volume, t);
+        mainGain.connect(this.ctx.destination);
+
+        // Fundamental
+        const o1 = this.ctx.createOscillator();
+        const g1 = this.ctx.createGain();
+        o1.type = 'sine';
+        o1.frequency.setValueAtTime(freq, t);
+        g1.gain.setValueAtTime(1, t);
+        g1.gain.exponentialRampToValueAtTime(0.001, t + 0.42);
+        o1.connect(g1);
+        g1.connect(mainGain);
+        o1.start(t);
+        o1.stop(t + 0.45);
+
+        // Armónico de cuerpo resonante (2.76x natural para cristal / madera)
+        const o2 = this.ctx.createOscillator();
+        const g2 = this.ctx.createGain();
+        o2.type = 'sine';
+        o2.frequency.setValueAtTime(freq * 2.756, t);
+        g2.gain.setValueAtTime(0.35, t);
+        g2.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+        o2.connect(g2);
+        g2.connect(mainGain);
+        o2.start(t);
+        o2.stop(t + 0.25);
+      }
+
+      // Golpe de marimba / madera orgánica para acciones
+      woodStrike(freq = 340) {
+        if (!this.enabled) return;
+        this.initCtx();
+        const t = this.ctx.currentTime;
+        const o = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        const lp = this.ctx.createBiquadFilter();
+
+        o.type = 'sine';
+        o.frequency.setValueAtTime(freq, t);
+        o.frequency.exponentialRampToValueAtTime(freq * 0.7, t + 0.08);
+
+        lp.type = 'lowpass';
+        lp.frequency.setValueAtTime(1200, t);
+        lp.frequency.exponentialRampToValueAtTime(300, t + 0.08);
+
+        g.gain.setValueAtTime(0.35 * this.volume, t);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+
+        o.connect(lp);
+        lp.connect(g);
+        g.connect(this.ctx.destination);
+
+        o.start(t);
+        o.stop(t + 0.1);
+      }
+
+      // Arpegio cálido de éxito (E5 -> G#5 -> B5 -> E6)
+      successChord() {
+        if (!this.enabled) return;
+        const notes = [659.25, 830.61, 987.77, 1318.51];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => this.chime(freq), idx * 75);
+        });
+      }
+
+      // Sonido hueco de eliminación
+      delPop() {
+        if (!this.enabled) return;
+        this.woodStrike(140);
+      }
+    }
+
+    const audio = new AcousticSoundEngine();
+
+    /* ==========================================================
+       2. EFECTOS VISUALES: Cursor Halo y Partículas Cálidas
+       ========================================================== */
+    const cursorGlow = document.getElementById('cursor-glow');
+    window.addEventListener('pointermove', (e) => {
+      cursorGlow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    });
+
+    const bgCanvas = document.getElementById('bg-canvas');
+    const ctx = bgCanvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+      initParticles();
+    }
+    function initParticles() {
+      particles = [];
+      const count = Math.floor(window.innerWidth / 20);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * bgCanvas.width,
+          y: Math.random() * bgCanvas.height,
+          radius: Math.random() * 1.8 + 0.6,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          alpha: Math.random() * 0.25 + 0.05
+        });
+      }
+    }
+    function animateParticles() {
+      ctx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      ctx.fillStyle = 'rgba(255, 110, 30, ';
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = bgCanvas.width;
+        if (p.x > bgCanvas.width) p.x = 0;
+        if (p.y < 0) p.y = bgCanvas.height;
+        if (p.y > bgCanvas.height) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 98, 0, ${p.alpha})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animateParticles();
+
+    /* ==========================================================
+       3. GESTIÓN DE NOTIFICACIONES TOAST & TEXTOS LEGALES
+       ========================================================== */
+    const toast = document.getElementById('toast-msg');
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
+    const LEGAL_CONTENT = {
+      terms: {
+        title: "Términos de Servicio — Alvryx Co.",
+        body: `1. Operación: Alvryx Works es una plataforma de productividad, monitoreo y telemetría de Alvryx Co.\n2. Uso Autorizado: El usuario es responsable del contenido registrado en notas y tareas.\n3. Disponibilidad: La infraestructura opera en Render Cloud y PostgreSQL con respaldo diario.\n4. Propiedad Intelectual: Todo el software y arquitectura pertenecen a Alvryx Co.`
+      },
+      privacy: {
+        title: "Política de Privacidad — Alvryx Co.",
+        body: `1. Datos Almacenados: Identificador OAuth (Google/GitHub), correo, tareas y notas creadas por el usuario.\n2. Telemetría Anónima: El contador de visitas registra únicamente la ruta o título y el conteo por día. No se recopilan direcciones IP ni rastreo invasivo.\n3. Cifrado y Control: Todos los tokens se verifican server-side con JWKS y firmas criptográficas.\n4. Derechos: Puedes exportar tus datos completos o eliminarlos en cualquier momento desde Config.`
+      },
+      rules: {
+        title: "Reglas de Operación — Alvryx Co.",
+        body: `1. No abusar de los límites de peticiones (140 req/min).\n2. El acceso al panel de Status está restringido a administradores verificados de Alvryx Co.\n3. Las notas y tareas tienen un límite seguro de 280 caracteres por entrada.`
+      }
+    };
+
+    document.querySelectorAll('[data-legal]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const type = btn.getAttribute('data-legal');
+        const doc = LEGAL_CONTENT[type];
+        if (doc) {
+          document.getElementById('legal-modal-title').textContent = doc.title;
+          document.getElementById('legal-modal-body').textContent = doc.body;
+          document.getElementById('legal-modal').showModal();
+          audio.click();
+        }
+      });
+    });
+
+    /* ==========================================================
+       4. CLIENTE API & AUTENTICACIÓN FIREBASE
+       ========================================================== */
+    let authUser = null;
+    let idToken = null;
+
+    async function api(path, options = {}) {
+      const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+      if (idToken) headers['Authorization'] = `Bearer ${idToken}`;
+      const res = await fetch('/api' + path, { ...options, headers });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Error ${res.status}`);
+      }
+      return res.status === 204 ? null : res.json();
+    }
+
+    // Inicializar Firebase desde el endpoint público
+    async function initAuth() {
+      try {
+        const cfg = await fetch('/api/config').then(r => r.json());
+        if (cfg.apiKey && window.firebase) {
+          firebase.initializeApp({
+            apiKey: cfg.apiKey,
+            authDomain: cfg.authDomain,
+            projectId: cfg.projectId,
+            appId: cfg.appId
+          });
+          firebase.auth().onAuthStateChanged(async (user) => {
+            if (user) {
+              authUser = user;
+              idToken = await user.getIdToken();
+              onAuthenticated(user);
+            } else {
+              document.getElementById('auth-overlay').classList.remove('hidden');
+            }
+          });
+        }
+      } catch (err) {
+        console.error("Fallo al inicializar Firebase Auth:", err);
+      }
+    }
+
+    // Login con Google
+    document.getElementById('btn-login-google').addEventListener('click', () => {
+      audio.click();
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).catch(err => {
+        showToast("Error al iniciar con Google: " + err.message);
+      });
+    });
+
+    // Login con GitHub
+    document.getElementById('btn-login-github').addEventListener('click', () => {
+      audio.click();
+      const provider = new firebase.auth.GithubAuthProvider();
+      firebase.auth().signInWithPopup(provider).catch(err => {
+        showToast("Error al iniciar con GitHub: " + err.message);
+      });
+    });
+
+    // Cierre de Sesión
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      audio.click();
+      if (firebase.auth()) firebase.auth().signOut().then(() => location.reload());
+    });
+
+    function onAuthenticated(user) {
+      document.getElementById('auth-overlay').classList.add('hidden');
+      const name = user.displayName || user.email.split('@')[0];
+      document.getElementById('nav-user-name').textContent = name;
+      document.getElementById('nav-user-email').textContent = user.email;
+      document.getElementById('home-greeting').textContent = `Bienvenido, ${name.split(' ')[0]}`;
+      if (user.photoURL) {
+        document.getElementById('nav-user-img').src = user.photoURL;
+      } else {
+        document.getElementById('nav-user-img').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ff6200&color=fff`;
+      }
+
+      document.getElementById('cfg-user-email').textContent = user.email;
+      document.getElementById('cfg-user-uid').textContent = user.uid;
+
+      audio.chime(659.25);
+      showToast(`Sesión activa: ${user.email}`);
+
+      // Registrar visita inicial
+      fetch('/api/visit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: 'Panel Principal' })
+      }).catch(() => {});
+
+      // Sincronizar datos de la app
+      refreshDashboard();
+    }
+
+    /* ==========================================================
+       5. NAVEGACIÓN ENTRE PESTAÑAS (Home, Status, Config)
+       ========================================================== */
+    const tabButtons = document.querySelectorAll('.nav-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    function switchTab(tabKey) {
+      tabButtons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-tab') === tabKey));
+      tabPanels.forEach(panel => panel.classList.toggle('active', panel.id === `tab-` + tabKey));
+
+      const tabFrequencies = { home: 523.25, status: 659.25, config: 783.99 };
+      audio.chime(tabFrequencies[tabKey] || 523.25);
+
+      if (tabKey === 'status') loadStatusCockpit();
+      if (tabKey === 'home') refreshDashboard();
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
+    });
+
+    // Atajos de teclado 1, 2, 3
+    window.addEventListener('keydown', (e) => {
+      if (e.target.matches('input, select, textarea') || e.ctrlKey || e.metaKey) return;
+      if (e.key === '1') switchTab('home');
+      if (e.key === '2') switchTab('status');
+      if (e.key === '3') switchTab('config');
+    });
+
+    /* ==========================================================
+       6. GESTIÓN DE TAREAS Y NOTAS (CRUD + Audio Feedback)
+       ========================================================== */
+    async function loadItems(kind) {
+      try {
+        const items = await api(`/items/${kind}`);
+        const listEl = document.getElementById(`list-${kind}s`);
+        listEl.innerHTML = '';
+
+        if (!items || items.length === 0) {
+          listEl.innerHTML = `<li style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;">No hay registros activos.</li>`;
+          return;
+        }
+
+        items.forEach(it => {
+          const li = document.createElement('li');
+          li.className = `item-card ${it.done ? 'done' : ''}`;
+          li.dataset.id = it.id;
+
+          if (kind === 'task') {
+            const prioClass = `prio-${it.priority || 'normal'}`;
+            li.innerHTML = `
+              <button class="item-check" aria-label="Completar"></button>
+              <span class="item-text">${escapeHtml(it.title)}</span>
+              <span class="item-tag ${prioClass}">${it.priority || 'normal'}</span>
+              <button class="item-del" aria-label="Eliminar">✕</button>
+            `;
+          } else {
+            li.innerHTML = `
+              <span class="item-text">${escapeHtml(it.title)}</span>
+              <button class="item-del" aria-label="Eliminar">✕</button>
+            `;
+          }
+          listEl.appendChild(li);
+        });
+
+        // Actualizar contadores
+        if (kind === 'task') {
+          const pending = items.filter(x => !x.done).length;
+          document.getElementById('task-count-badge').textContent = `${pending} pendientes`;
+          document.getElementById('val-pending').textContent = pending;
+          document.getElementById('val-done').textContent = items.filter(x => x.done).length;
+        } else {
+          document.getElementById('note-count-badge').textContent = `${items.length} notas`;
+          document.getElementById('val-notes').textContent = items.length;
+        }
+      } catch (err) {
+        console.error("Error al cargar items:", err);
+      }
+    }
+
+    // Crear Tarea
+    document.getElementById('form-task').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('input-task');
+      const prio = document.getElementById('select-task-prio').value;
+      const title = input.value.trim();
+      if (!title) return;
+      input.value = '';
+
+      audio.woodStrike(420);
+      try {
+        await api('/items/task', { method: 'POST', body: JSON.stringify({ title, priority: prio }) });
+        loadItems('task');
+      } catch (err) {
+        showToast(err.message);
+      }
+    });
+
+    // Crear Nota
+    document.getElementById('form-note').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('input-note');
+      const title = input.value.trim();
+      if (!title) return;
+      input.value = '';
+
+      audio.woodStrike(360);
+      try {
+        await api('/items/note', { method: 'POST', body: JSON.stringify({ title }) });
+        loadItems('note');
+      } catch (err) {
+        showToast(err.message);
+      }
+    });
+
+    // Event Delegation para Marcar o Borrar Items
+    document.addEventListener('click', async (e) => {
+      const itemCard = e.target.closest('.item-card');
+      if (!itemCard) return;
+      const id = itemCard.dataset.id;
+
+      // Checkbox Completar
+      if (e.target.closest('.item-check')) {
+        const isDone = !itemCard.classList.contains('done');
+        itemCard.classList.toggle('done', isDone);
+        if (isDone) {
+          audio.successChord();
+        } else {
+          audio.click();
+        }
+        await api(`/items/${id}`, { method: 'PATCH', body: JSON.stringify({ done: isDone }) });
+        loadItems('task');
+      }
+
+      // Botón Eliminar
+      if (e.target.closest('.item-del')) {
+        audio.delPop();
+        itemCard.remove();
+        await api(`/items/${id}`, { method: 'DELETE' });
+        loadItems('task');
+        loadItems('note');
+      }
+    });
+
+    async function refreshDashboard() {
+      await Promise.all([loadItems('task'), loadItems('note'), loadGlobalStats()]);
+    }
+
+    async function loadGlobalStats() {
+      try {
+        const g = await api('/global');
+        if (g && g.total_visits !== undefined) {
+          document.getElementById('val-visits').textContent = g.total_visits;
+        }
+      } catch (_) {}
+    }
+
+    document.getElementById('btn-sync-all').addEventListener('click', () => {
+      audio.click();
+      refreshDashboard();
+      showToast("Datos sincronizados");
+    });
+
+    /* ==========================================================
+       7. COCKPIT DE INFRAESTRUCTURA (Status en Vivo)
+       ========================================================== */
+    async function loadStatusCockpit() {
+      const rnTable = document.getElementById('render-services-table');
+      const pgTable = document.getElementById('render-postgres-table');
+      const ghTable = document.getElementById('github-repos-table');
+      const vtTable = document.getElementById('visits-table');
+
+      rnTable.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;">Sondeando servicios en vivo...</td></tr>`;
+
+      try {
+        const [statusData, visitsData] = await Promise.all([
+          api('/status').catch(e => ({ error: e.message })),
+          api('/visits').catch(() => [])
+        ]);
+
+        if (statusData.error) {
+          rnTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--red);padding:16px;">${statusData.error}</td></tr>`;
+          return;
+        }
+
+        // Render Services
+        if (statusData.render && statusData.render.length > 0) {
+          rnTable.innerHTML = statusData.render.map(s => `
+            <tr>
+              <td><b>${escapeHtml(s.name)}</b></td>
+              <td><code>${escapeHtml(s.type)}</code></td>
+              <td>${escapeHtml(s.region)} / <code>${escapeHtml(s.branch)}</code></td>
+              <td><span class="status-badge ${s.status === 'activo' ? 'status-active' : 'status-suspended'}">${s.status}</span></td>
+              <td>${new Date(s.updatedAt).toLocaleString('es-MX', { dateStyle:'short', timeStyle:'short' })}</td>
+              <td>
+                <button class="btn btn-secondary btn-sm" onclick="triggerDeploy('${s.id}')">⚡ Desplegar</button>
+              </td>
+            </tr>
+          `).join('');
+        } else {
+          rnTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);">No se hallaron servicios en Render.</td></tr>`;
+        }
+
+        // PostgreSQL
+        if (statusData.postgres && statusData.postgres.length > 0) {
+          pgTable.innerHTML = statusData.postgres.map(p => `
+            <tr>
+              <td><b>${escapeHtml(p.name)}</b></td>
+              <td><code>${escapeHtml(p.databaseName)}</code></td>
+              <td>PostgreSQL ${escapeHtml(p.version)}</td>
+              <td><span class="status-badge status-ready">${escapeHtml(p.plan)}</span></td>
+              <td><span class="status-badge status-active">${escapeHtml(p.status)}</span></td>
+              <td>${p.expiresAt ? new Date(p.expiresAt).toLocaleDateString('es-MX') : 'Permanente'}</td>
+            </tr>
+          `).join('');
+        } else {
+          pgTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);">Sin bases de datos registradas.</td></tr>`;
+        }
+
+        // GitHub Repos
+        if (statusData.github && statusData.github.repos) {
+          document.getElementById('gh-owner-title').textContent = statusData.github.user?.login || 'GitHub';
+          ghTable.innerHTML = statusData.github.repos.map(r => `
+            <tr>
+              <td><b>${escapeHtml(r.name)}</b></td>
+              <td><code>${escapeHtml(r.language)}</code></td>
+              <td>⭐ ${r.stars}</td>
+              <td>🍴 ${r.forks}</td>
+              <td>${new Date(r.updatedAt).toLocaleDateString('es-MX')}</td>
+              <td><a href="${r.url}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Ver Código</a></td>
+            </tr>
+          `).join('');
+        }
+
+        // Visitas
+        if (visitsData && visitsData.length > 0) {
+          vtTable.innerHTML = visitsData.map(v => `
+            <tr>
+              <td><b>${escapeHtml(v.page)}</b></td>
+              <td><span style="font-weight:700;color:var(--orange-deep);">${v.n} visitas</span></td>
+              <td>${new Date(v.last_day).toLocaleDateString('es-MX')}</td>
+            </tr>
+          `).join('');
+        } else {
+          vtTable.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--ink-muted);">Aún no hay visitas registradas.</td></tr>`;
+        }
+
+      } catch (err) {
+        showToast("Error al obtener estado: " + err.message);
+      }
+    }
+
+    document.getElementById('btn-refresh-status').addEventListener('click', () => {
+      audio.click();
+      loadStatusCockpit();
+      showToast("Actualizando cockpit de infraestructura...");
+    });
+
+    // Acción para disparar deploy manual
+    window.triggerDeploy = async function(serviceId) {
+      audio.woodStrike(500);
+      showToast("Disparando despliegue en Render...");
+      try {
+        await api('/render/deploy', { method: 'POST', body: JSON.stringify({ serviceId }) });
+        audio.successChord();
+        showToast("¡Despliegue iniciado con éxito en Render!");
+        setTimeout(loadStatusCockpit, 3000);
+      } catch (err) {
+        showToast("Fallo al desplegar: " + err.message);
+      }
+    };
+
+    // Copiar snippet del tracker
+    document.getElementById('btn-copy-snippet').addEventListener('click', () => {
+      const code = document.getElementById('snippet-code').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        audio.click();
+        showToast("¡Snippet copiado al portapapeles!");
+      });
+    });
+
+    /* ==========================================================
+       8. PREFERENCIAS DE SONIDO & GESTIÓN DE DATOS (Config)
+       ========================================================== */
+    const soundToggle = document.getElementById('cfg-sound-toggle');
+    const volumeSlider = document.getElementById('cfg-volume-slider');
+
+    soundToggle.addEventListener('change', (e) => {
+      audio.enabled = e.target.checked;
+      audio.click();
+    });
+
+    volumeSlider.addEventListener('input', (e) => {
+      audio.volume = e.target.value / 100;
+    });
+    volumeSlider.addEventListener('change', () => audio.woodStrike(400));
+
+    document.getElementById('btn-test-chime').addEventListener('click', () => audio.chime(659.25));
+    document.getElementById('btn-test-wood').addEventListener('click', () => audio.woodStrike(380));
+    document.getElementById('btn-test-chord').addEventListener('click', () => audio.successChord());
+
+    // Exportar Datos
+    document.getElementById('btn-export-data').addEventListener('click', async () => {
+      audio.click();
+      try {
+        const res = await fetch('/api/me/export', { headers: { 'Authorization': `Bearer ${idToken}` } });
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `alvryx-export-${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        audio.successChord();
+        showToast("Datos exportados exitosamente");
+      } catch (err) {
+        showToast("Fallo al exportar: " + err.message);
+      }
+    });
+
+    // Eliminar Cuenta
+    document.getElementById('btn-delete-account').addEventListener('click', async () => {
+      if (!confirm("ADVERTENCIA: Se eliminarán todas tus tareas, notas y cuenta permanentemente. ¿Deseas proceder?")) return;
+      audio.delPop();
+      try {
+        await api('/me', { method: 'DELETE' });
+        if (firebase.auth()) await firebase.auth().currentUser.delete().catch(() => firebase.auth().signOut());
+        location.reload();
+      } catch (err) {
+        showToast("Error al eliminar cuenta: " + err.message);
+      }
+    });
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      })[m]);
+    }
+
+    // Arranque
+    initAuth();
+  </script>
+</body>
+</html>
