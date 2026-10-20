@@ -3,35 +3,78 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alvryx Works — Centro de Operaciones</title>
+  <title>Alvryx AmberFlow — Workspace, Analítica & Tiempo Real</title>
+  
+  <!-- Icono Propio Vectorial en Naranja Suave -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ffcaa6'/%3E%3Cstop offset='50%25' stop-color='%23f79d65'/%3E%3Cstop offset='100%25' stop-color='%23e06d33'/%3E%3C/linearGradient%3E%3Cfilter id='glow' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='3' result='blur'/%3E%3CfeComposite in='SourceGraphic' in2='blur' operator='over'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='%23fff5ed' stroke='%23f7b28a' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='20' fill='url(%23g)' filter='url(%23glow)' opacity='0.9'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%23ffffff' opacity='0.95'/%3E%3Cpath d='M32 14v6M32 44v6M14 32h6M44 32h6' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23e06d33'/%3E%3C/svg%3E">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
+    /* ==========================================================
+       SISTEMA DE DISEÑO: NARANJITA SUAVE (Soft Peach & Warm Amber)
+       ========================================================== */
     :root {
-      --bg: #fff8f1;
+      --bg: #fff9f5;
       --bg-card: #ffffff;
-      --bg-subtle: #fdf0e4;
-      --bg-hover: #ffe9d6;
-      --ink: #1c1815;
-      --ink-muted: #6b5e52;
-      --ink-light: #9c8e81;
-      --border: rgba(220, 208, 195, 0.7);
-      --border-focus: rgba(244, 164, 108, 0.6);
-      --orange: #f4a46c;
-      --orange-bright: #ffbe92;
-      --orange-deep: #c9672a;
-      --orange-glow: rgba(244, 164, 108, 0.18);
+      --bg-subtle: #fff3ea;
+      --bg-hover: #ffe7d6;
+      --bg-active: #ffdcc3;
+      --ink: #2b1f18;
+      --ink-muted: #786355;
+      --ink-light: #ab9789;
+      --border: rgba(235, 182, 148, 0.45);
+      --border-focus: rgba(247, 157, 101, 0.7);
+      
+      /* Gama Naranjita Suave */
+      --orange-100: #fff4ec;
+      --orange-200: #fedbc5;
+      --orange-300: #fdbb93;
+      --orange-soft: #f79d65;
+      --orange-warm: #ee7b43;
+      --orange-deep: #c95720;
+      --orange-glow: rgba(247, 157, 101, 0.22);
+      
       --green: #10b981;
-      --green-glow: rgba(16, 185, 129, 0.15);
+      --green-subtle: #ecfdf5;
       --red: #ef4444;
+      --red-subtle: #fef2f2;
+      --blue: #3b82f6;
+
       --radius-sm: 10px;
       --radius-md: 16px;
       --radius-lg: 24px;
-      --shadow-sm: 0 2px 8px rgba(35, 25, 18, 0.04);
-      --shadow-md: 0 8px 28px rgba(35, 25, 18, 0.07);
-      --shadow-lg: 0 16px 48px rgba(244, 164, 108, 0.1);
+      --shadow-sm: 0 2px 10px rgba(58, 38, 25, 0.04);
+      --shadow-md: 0 8px 30px rgba(74, 46, 29, 0.07);
+      --shadow-glow: 0 12px 36px var(--orange-glow);
     }
+
+    body.dark {
+      --bg: #1a1410;
+      --bg-card: #251c17;
+      --bg-subtle: #31241d;
+      --bg-hover: #3d2d24;
+      --bg-active: #4a362b;
+      --ink: #f8ede6;
+      --ink-muted: #c8b2a3;
+      --ink-light: #947e70;
+      --border: rgba(247, 157, 101, 0.25);
+      --border-focus: rgba(247, 157, 101, 0.85);
+      
+      --orange-100: #2d2019;
+      --orange-200: #422d22;
+      --orange-300: #65412e;
+      --orange-soft: #f8a170;
+      --orange-warm: #f4824b;
+      --orange-deep: #ffbe98;
+      --orange-glow: rgba(248, 161, 112, 0.25);
+      
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.45);
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     body {
@@ -39,53 +82,57 @@
       color: var(--ink);
       background-color: var(--bg);
       background-image: 
-        radial-gradient(circle at 10% 15%, rgba(255, 190, 146, 0.08) 0%, transparent 35%),
-        radial-gradient(circle at 90% 85%, rgba(244, 164, 108, 0.06) 0%, transparent 30%);
+        radial-gradient(circle at 8% 12%, rgba(253, 187, 147, 0.14) 0%, transparent 40%),
+        radial-gradient(circle at 92% 88%, rgba(247, 157, 101, 0.12) 0%, transparent 45%);
       background-attachment: fixed;
       overflow-x: hidden;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      transition: background-color 0.28s ease, color 0.28s ease;
     }
+
     button, input, select, textarea { font: inherit; color: inherit; }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
-    :focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+    :focus-visible { outline: 2px solid var(--orange-warm); outline-offset: 2px; }
 
-    /* Canvas de partículas dinámicas */
-    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.65; }
-
-    /* Cursor halo cálido */
+    /* Partículas de Fondo & Cursor Glow */
+    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.55; }
     #cursor-glow {
       position: fixed; width: 340px; height: 340px; margin: -170px 0 0 -170px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(244, 164, 108, 0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, var(--orange-glow) 0%, transparent 70%);
       pointer-events: none; z-index: 99; transition: transform 0.08s linear;
     }
 
-    /* Contenedor Principal con altura dinámica */
+    /* Contenedor Shell */
     #app-shell { display: flex; height: 100vh; height: 100dvh; overflow: hidden; }
 
-    /* Barra lateral estilo Claude / ChatGPT */
+    /* Barra Lateral Estilizada */
     aside.sidebar {
-      width: 270px; flex-shrink: 0; height: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(14px);
+      width: 280px; flex-shrink: 0; height: 100%;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(18px);
       border-right: 1px solid var(--border);
       display: flex; flex-direction: column;
-      padding: 20px 16px;
+      padding: 22px 18px;
       z-index: 20;
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
+    body.dark aside.sidebar { background: rgba(32, 24, 19, 0.88); }
+
     .brand-header {
       display: flex; align-items: center; gap: 12px;
       padding-bottom: 20px; border-bottom: 1px solid var(--border);
     }
     .brand-icon {
-      width: 38px; height: 38px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--orange-bright), var(--orange-deep));
-      display: grid; place-items: center; color: #4a2508; font-weight: 800; font-size: 19px;
-      box-shadow: 0 4px 14px rgba(244, 164, 108, 0.35);
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, #ffcaa6, var(--orange-warm));
+      display: grid; place-items: center;
+      box-shadow: 0 4px 16px var(--orange-glow);
+      flex-shrink: 0;
     }
-    .brand-text h1 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; color: var(--ink); }
+    .brand-icon svg { width: 28px; height: 28px; }
+    .brand-text h1 { font-size: 17px; font-weight: 800; letter-spacing: -0.4px; color: var(--ink); line-height: 1.2; }
     .brand-text p { font-size: 11px; font-weight: 600; color: var(--orange-deep); text-transform: uppercase; letter-spacing: 0.5px; }
 
     .nav-group { margin-top: 24px; display: flex; flex-direction: column; gap: 6px; }
@@ -98,497 +145,660 @@
     }
     .nav-btn:hover { background: var(--bg-hover); color: var(--ink); transform: translateX(2px); }
     .nav-btn.active {
-      background: linear-gradient(90deg, #fff1e4, #ffe4cc);
+      background: linear-gradient(90deg, var(--bg-subtle), var(--bg-hover));
       color: var(--orange-deep); font-weight: 700;
-      box-shadow: inset 3px 0 0 var(--orange);
+      box-shadow: inset 3.5px 0 0 var(--orange-warm);
     }
     .nav-btn kbd {
       font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
       background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; color: var(--ink-light);
     }
 
-    /* Badges de estado en sidebar */
-    .system-health {
+    /* Ambient Player en Barra Lateral */
+    .ambient-widget {
       margin-top: auto; padding: 14px; border-radius: var(--radius-md);
       background: var(--bg-subtle); border: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 8px; font-size: 12px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .ambient-header { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 700; }
+    .ambient-controls { display: flex; align-items: center; gap: 8px; }
+    .ambient-select {
+      flex: 1; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg-card); font-size: 12px; font-weight: 600; color: var(--ink);
+      cursor: pointer;
+    }
+    .ambient-toggle {
+      width: 32px; height: 32px; border-radius: 8px; border: 0;
+      background: var(--orange-soft); color: #fff; cursor: pointer;
+      display: grid; place-items: center; font-size: 14px; transition: transform 0.15s ease;
+    }
+    .ambient-toggle:hover { transform: scale(1.05); background: var(--orange-warm); }
+    .ambient-toggle.playing { background: var(--orange-deep); animation: pulseAmbient 2s infinite; }
+    @keyframes pulseAmbient { 0% { box-shadow: 0 0 0 0 var(--orange-glow); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+    /* Estado de Base de Datos y Sesión */
+    .system-health {
+      margin-top: 10px; padding: 12px 14px; border-radius: var(--radius-md);
+      background: var(--bg-card); border: 1px solid var(--border);
+      font-size: 12px; display: flex; flex-direction: column; gap: 6px;
     }
     .health-row { display: flex; align-items: center; justify-content: space-between; }
-    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); display: inline-block; animation: pulse 2s infinite; }
-    @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
+    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); display: inline-block; animation: pulseDot 2s infinite; }
+    @keyframes pulseDot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
 
-    /* Perfil en Sidebar */
     .user-footer {
-      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+      margin-top: 12px; padding-top: 14px; border-top: 1px solid var(--border);
       display: flex; align-items: center; gap: 10px;
     }
-    .user-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: #e5d8cb; flex-shrink: 0; }
+    .user-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--orange-200); flex-shrink: 0; border: 2px solid var(--bg-subtle); }
     .user-info { flex: 1; min-width: 0; }
-    .user-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-name { font-size: 13.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
     .user-role { font-size: 11px; color: var(--ink-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Área de Contenido Principal */
+    /* Viewport Principal */
     main.main-viewport {
-      flex: 1; height: 100%; overflow-y: auto; padding: 36px 42px;
+      flex: 1; height: 100%; overflow-y: auto; padding: 34px 40px;
       scroll-behavior: smooth;
     }
-    .content-container { max-width: 1040px; margin: 0 auto; }
+    .content-container { max-width: 1100px; margin: 0 auto; }
 
-    /* Tab Panels */
-    .tab-panel { display: none; animation: fadeIn 0.28s ease-out both; }
+    /* Pestañas */
+    .tab-panel { display: none; animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
     .tab-panel.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Encabezado de Pestañas */
-    .view-header { margin-bottom: 28px; display: flex; justify-content: space-between; align-items: flex-start; }
-    .view-title h2 { font-size: 27px; font-weight: 800; letter-spacing: -0.6px; color: var(--ink); }
-    .view-title p { color: var(--ink-muted); font-size: 14px; margin-top: 4px; }
-    .header-actions { display: flex; gap: 10px; }
+    /* Encabezado */
+    .view-header { margin-bottom: 26px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+    .view-title h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.6px; color: var(--ink); }
+    .view-title p { color: var(--ink-muted); font-size: 14.5px; margin-top: 4px; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
 
-    /* Botones primarios y secundarios */
+    /* Botones */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 18px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 700;
-      border: 1px solid transparent; cursor: pointer; transition: all 0.18s ease; text-decoration: none;
+      padding: 9px 16px; border-radius: var(--radius-sm); border: 1px solid transparent;
+      font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.18s ease;
+      user-select: none;
     }
+    .btn-sm { padding: 6px 12px; font-size: 12.5px; }
     .btn-primary {
-      background: linear-gradient(135deg, var(--orange-bright), var(--orange-deep));
-      color: #4a2508; box-shadow: 0 4px 16px rgba(244, 164, 108, 0.25);
+      background: linear-gradient(135deg, var(--orange-soft), var(--orange-warm));
+      color: #ffffff; box-shadow: 0 4px 14px var(--orange-glow);
     }
-    .btn-primary:hover:not(:disabled) { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(244, 164, 108, 0.35); }
+    .btn-primary:hover { background: linear-gradient(135deg, var(--orange-warm), var(--orange-deep)); transform: translateY(-1px); box-shadow: 0 6px 18px var(--orange-glow); }
     .btn-secondary {
-      background: var(--bg-card); border-color: var(--border); color: var(--ink);
-      box-shadow: var(--shadow-sm);
+      background: var(--bg-card); color: var(--ink); border-color: var(--border);
     }
-    .btn-secondary:hover:not(:disabled) { background: var(--bg-subtle); border-color: #d1c1b2; }
-    .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 8px; }
-    .btn-danger { background: #fee2e2; color: #dc2626; border-color: #fecaca; }
-    .btn-danger:hover:not(:disabled) { background: #fecaca; }
+    .btn-secondary:hover { background: var(--bg-hover); border-color: var(--border-focus); transform: translateY(-1px); }
+    .btn-danger {
+      background: var(--red-subtle); color: var(--red); border-color: rgba(239, 68, 68, 0.2);
+    }
+    .btn-danger:hover { background: var(--red); color: #fff; }
 
     /* Tarjetas de Métricas */
-    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 22px; }
+    .metric-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px; margin-bottom: 26px;
+    }
     .metric-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-      padding: 20px 22px; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 20px;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 4px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       position: relative; overflow: hidden;
     }
-    .metric-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(244, 164, 108, 0.3); }
     .metric-card::before {
-      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--orange-bright), transparent); opacity: 0; transition: opacity 0.2s;
+      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--orange-soft); opacity: 0; transition: opacity 0.2s ease;
     }
+    .metric-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
     .metric-card:hover::before { opacity: 1; }
-    .metric-label { font-size: 12.5px; font-weight: 600; color: var(--ink-muted); }
-    .metric-value { font-size: 32px; font-weight: 800; color: var(--ink); margin-top: 6px; letter-spacing: -0.5px; }
-    .metric-sub { font-size: 11.5px; color: var(--orange-deep); font-weight: 600; margin-top: 4px; }
+    .metric-label { font-size: 12.5px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .metric-value { font-size: 32px; font-weight: 800; letter-spacing: -1px; color: var(--ink); margin: 4px 0; }
+    .metric-sub { font-size: 12px; color: var(--ink-light); }
 
-    /* Grid 3: Gráficos de actividad, dona de progreso y modo enfoque */
-    .grid-3 { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 20px; margin-bottom: 22px; }
-    .chart-wrap canvas { width: 100%; height: 160px; display: block; }
-    .timer-face { font-size: 46px; font-weight: 800; letter-spacing: -1px; text-align: center; font-family: 'JetBrains Mono', monospace; margin: 8px 0 14px; color: var(--ink); }
-    .timer-actions { display: flex; gap: 8px; justify-content: center; }
+    /* Grillas y Paneles de Contenido */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; margin-bottom: 26px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 26px; }
 
-    /* Tableros y Rejillas de Trabajo */
-    .dual-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
     .card-panel {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-      padding: 24px; box-shadow: var(--shadow-sm);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: 14px;
     }
-    .card-panel-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;
-    }
-    .card-panel-header h3 { font-size: 16px; font-weight: 700; color: var(--ink); }
+    .card-panel-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .card-panel-header h3 { font-size: 16px; font-weight: 800; color: var(--ink); letter-spacing: -0.3px; }
 
-    /* Filtros y chips */
-    .filter-row { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+    /* Canvas para Gráficas */
+    .chart-box {
+      width: 100%; height: 210px; position: relative;
+    }
+    .chart-box canvas { width: 100%; height: 100%; display: block; }
+
+    /* Modo Enfoque / Pomodoro */
+    .pomodoro-box {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 12px 0; gap: 14px;
+    }
+    .timer-face {
+      font-family: 'JetBrains Mono', monospace; font-size: 46px; font-weight: 800;
+      color: var(--orange-deep); letter-spacing: -1.5px; text-shadow: 0 4px 16px var(--orange-glow);
+    }
+    .pomodoro-presets { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
     .chip {
+      padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
       border: 1px solid var(--border); background: var(--bg-subtle); color: var(--ink-muted);
-      padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.16s ease;
+      cursor: pointer; transition: all 0.15s ease;
     }
     .chip:hover { background: var(--bg-hover); color: var(--ink); }
-    .chip.on { background: var(--orange-bright); color: #4a2508; border-color: transparent; }
+    .chip.on { background: var(--orange-soft); color: #fff; border-color: var(--orange-warm); }
 
-    /* Formulario de Adición Rápida */
-    .input-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    /* Listas de Tareas y Formularios */
+    .input-row { display: flex; gap: 8px; }
     .styled-input {
-      flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm);
-      background: var(--bg-subtle); font-size: 13.5px; transition: all 0.18s ease; color: var(--ink);
+      flex: 1; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+      background: var(--bg-subtle); color: var(--ink); font-size: 13.5px; transition: all 0.18s ease;
     }
-    .styled-input:focus { background: #fff; border-color: var(--orange); }
+    .styled-input:focus { background: var(--bg-card); border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--orange-glow); }
     .prio-select {
-      padding: 0 10px; border: 1px solid var(--border); border-radius: var(--radius-sm);
-      background: var(--bg-subtle); font-size: 12.5px; font-weight: 600; color: var(--ink-muted);
+      padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+      background: var(--bg-subtle); color: var(--ink); font-size: 13px; font-weight: 600; cursor: pointer;
     }
 
-    /* Listas de Tareas y Notas */
-    .item-list { list-style: none; display: flex; flex-direction: column; gap: 8px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
+    .filter-row { display: flex; align-items: center; gap: 6px; padding: 6px 0; flex-wrap: wrap; }
+    .item-list { list-style: none; display: flex; flex-direction: column; gap: 8px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
     .item-card {
-      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
-      border-radius: var(--radius-sm); background: var(--bg-subtle); border: 1px solid transparent;
+      background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 12px 14px; display: flex; align-items: center; gap: 12px;
       transition: all 0.18s ease;
     }
-    .item-card:hover { background: var(--bg-card); border-color: var(--border); transform: translateX(2px); }
+    .item-card:hover { background: var(--bg-hover); transform: translateX(2px); }
+    .item-card.done { opacity: 0.65; background: var(--bg-card); }
+    .item-card.done .item-text { text-decoration: line-line-through; text-decoration: line-through; color: var(--ink-light); }
+
     .item-check {
-      width: 20px; height: 20px; border-radius: 6px; border: 2px solid #d4c2b2;
-      background: transparent; cursor: pointer; display: grid; place-items: center; transition: all 0.18s;
-      flex-shrink: 0;
+      width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--orange-warm);
+      background: transparent; cursor: pointer; display: grid; place-items: center;
+      flex-shrink: 0; transition: all 0.15s ease;
     }
-    .item-check:hover { border-color: var(--orange); }
-    .item-card.done .item-check { background: var(--orange); border-color: var(--orange); }
-    .item-card.done .item-check::after { content: "✓"; color: #4a2508; font-size: 12px; font-weight: 800; }
-    .item-text { flex: 1; font-size: 13.5px; font-weight: 500; word-break: break-word; color: var(--ink); }
-    .item-card.done .item-text { text-decoration: line-through; color: var(--ink-light); }
-    .item-tag { font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; }
-    .prio-high { background: #fee2e2; color: #dc2626; }
-    .prio-normal { background: #ffedd5; color: #c2410c; }
-    .prio-low { background: #f3f4f6; color: #4b5563; }
+    .item-card.done .item-check { background: var(--green); border-color: var(--green); color: #fff; }
+    .item-card.done .item-check::after { content: '✓'; font-size: 12px; font-weight: 800; }
+
+    .item-text { flex: 1; font-size: 13.5px; font-weight: 600; word-break: break-word; color: var(--ink); }
+    .item-tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 6px;
+      letter-spacing: 0.3px;
+    }
+    .prio-high { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+    .prio-normal { background: var(--bg-active); color: var(--orange-deep); }
+    .prio-low { background: rgba(16, 185, 129, 0.15); color: var(--green); }
     .item-del {
       border: 0; background: transparent; color: var(--ink-light); cursor: pointer;
-      font-size: 16px; padding: 4px 6px; border-radius: 4px; transition: all 0.15s;
+      font-size: 16px; padding: 4px; border-radius: 4px; transition: color 0.15s ease;
     }
-    .item-del:hover { color: var(--red); background: #fee2e2; }
+    .item-del:hover { color: var(--red); }
 
-    /* Tablas de Infraestructura (Status) */
-    .status-section { margin-bottom: 28px; }
-    .section-title { font-size: 17px; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    /* Tablas de Datos Dinámicas */
     .table-container {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-      overflow-x: auto; box-shadow: var(--shadow-sm);
+      width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg-card);
     }
-    table.data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px; min-width: 600px; }
+    table.data-table {
+      width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;
+    }
     table.data-table th {
-      background: var(--bg-subtle); padding: 12px 16px; font-weight: 700; color: var(--ink-muted);
-      border-bottom: 1px solid var(--border); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+      background: var(--bg-subtle); color: var(--ink-muted); font-weight: 700;
+      padding: 12px 14px; border-bottom: 1px solid var(--border); white-space: nowrap;
+      text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; cursor: pointer;
     }
-    table.data-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    table.data-table th:hover { color: var(--orange-deep); }
+    table.data-table td {
+      padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--ink);
+      vertical-align: middle;
+    }
     table.data-table tr:last-child td { border-bottom: 0; }
     table.data-table tr:hover td { background: var(--bg-hover); }
 
-    /* Indicadores de estado */
+    /* Badges */
     .status-badge {
       display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
-      border-radius: 20px; font-size: 12px; font-weight: 700;
+      border-radius: 20px; font-size: 11.5px; font-weight: 700; text-transform: uppercase;
     }
-    .status-active { background: #dcfce7; color: #15803d; }
-    .status-suspended { background: #fee2e2; color: #b91c1c; }
-    .status-ready { background: #e0f2fe; color: #0369a1; }
-    .status-warning { background: #fef3c7; color: #b45309; }
+    .status-online { background: var(--green-subtle); color: var(--green); }
+    .status-amber { background: var(--bg-subtle); color: var(--orange-deep); }
 
-    /* Snippet de Tracker */
-    .snippet-box {
-      background: #1c1815; color: #fbf8f5; padding: 18px 22px; border-radius: var(--radius-md);
-      font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6;
-      position: relative; overflow-x: auto; margin-top: 10px;
-    }
-    .copy-btn {
-      position: absolute; right: 14px; top: 14px; background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 12px; border-radius: 6px;
-      font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.18s;
-    }
-    .copy-btn:hover { background: var(--orange-deep); border-color: var(--orange-deep); }
-
-    /* Pestaña Config */
-    .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .config-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-      padding: 22px; box-shadow: var(--shadow-sm);
-    }
-    .config-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 14px 0; border-bottom: 1px solid var(--border);
-    }
-    .config-row:last-child { border-bottom: 0; padding-bottom: 0; }
-    .config-meta b { font-size: 14px; display: block; color: var(--ink); }
-    .config-meta span { font-size: 12px; color: var(--ink-muted); }
-
-    /* Modal de Login Elegante */
+    /* Modales y Auth */
     #auth-overlay {
-      position: fixed; inset: 0; background: rgba(28, 24, 21, 0.45);
-      backdrop-filter: blur(8px); display: grid; place-items: center; z-index: 100;
-      padding: 20px;
+      position: fixed; inset: 0; background: rgba(28, 20, 16, 0.7); backdrop-filter: blur(14px);
+      z-index: 100; display: grid; place-items: center; padding: 20px;
+      transition: opacity 0.25s ease;
     }
     #auth-overlay.hidden { display: none; }
     .auth-card {
-      width: min(420px, 100%); background: #fff; border-radius: var(--radius-lg);
-      padding: 38px 32px; box-shadow: var(--shadow-lg); text-align: center;
-      border: 1px solid var(--border); animation: pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    @keyframes pop { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-    .auth-logo {
-      width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 20px;
-      background: linear-gradient(135deg, var(--orange-bright), var(--orange-deep));
-      display: grid; place-items: center; color: #4a2508; font-size: 32px; font-weight: 800;
-      box-shadow: 0 8px 24px rgba(244, 164, 108, 0.35);
-    }
-    .auth-card h2 { font-size: 24px; font-weight: 800; color: var(--ink); }
-    .auth-card p { font-size: 14px; color: var(--ink-muted); margin: 6px 0 20px; }
-
-    .auth-msg {
-      display: none; background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412;
-      padding: 10px 12px; border-radius: var(--radius-sm); font-size: 12.5px; margin-bottom: 16px; text-align: left;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 38px 32px; max-width: 440px; width: 100%; text-align: center;
+      box-shadow: var(--shadow-glow); display: flex; flex-direction: column; gap: 18px;
     }
 
-    .oauth-btn {
-      width: 100%; padding: 13px 18px; border-radius: var(--radius-sm); border: 1px solid var(--border);
-      background: #fff; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center;
-      gap: 12px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; box-shadow: var(--shadow-sm);
+    dialog {
+      border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card);
+      color: var(--ink); padding: 24px; max-width: 500px; width: 90%; margin: auto;
+      box-shadow: var(--shadow-md);
     }
-    .oauth-btn:hover:not(:disabled) { background: var(--bg-hover); border-color: #d1c1b2; transform: translateY(-1px); }
-    .oauth-btn.google { border-color: rgba(244, 164, 108, 0.3); }
-    .terms-box { margin-top: 16px; font-size: 12px; color: var(--ink-muted); }
-    .terms-box a { color: var(--orange-deep); text-decoration: none; font-weight: 600; cursor: pointer; }
+    dialog::backdrop { background: rgba(28, 20, 16, 0.5); backdrop-filter: blur(6px); }
 
-    /* Toast Notification */
-    #toast-msg {
-      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(40px);
-      background: #1c1815; color: #fff; padding: 11px 22px; border-radius: 30px;
-      font-size: 13.5px; font-weight: 600; box-shadow: var(--shadow-md); opacity: 0;
-      pointer-events: none; transition: all 0.28s ease; z-index: 120; max-width: 90vw; text-align: center;
+    #toast-wrap {
+      position: fixed; bottom: 24px; right: 24px; z-index: 120;
+      display: flex; flex-direction: column; gap: 8px; pointer-events: none;
     }
-    #toast-msg.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    /* Paleta de Comandos Ctrl+K */
-    #cmd-modal {
-      border: 0; border-radius: var(--radius-lg); padding: 0; width: min(520px, 92vw);
-      margin: 12vh auto auto; background: var(--bg-card); color: var(--ink); box-shadow: var(--shadow-lg);
+    .toast {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 12px 18px; color: var(--ink); font-size: 13.5px; font-weight: 600;
+      box-shadow: var(--shadow-md); pointer-events: auto; animation: toastIn 0.2s ease;
+      display: flex; align-items: center; gap: 8px;
     }
-    #cmd-modal::backdrop { background: rgba(28, 24, 21, 0.45); backdrop-filter: blur(4px); }
-    #cmd-input { width: 100%; border: 0; border-bottom: 1px solid var(--border); padding: 16px 18px; font-size: 15px; background: transparent; outline: none; }
-    .cmd-item { display: flex; justify-content: space-between; padding: 12px 18px; font-size: 14px; font-weight: 600; cursor: pointer; }
-    .cmd-item:hover, .cmd-item.sel { background: var(--bg-hover); }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Diálogo Legal */
-    dialog#legal-modal {
-      border: 0; border-radius: var(--radius-lg); padding: 30px; max-width: 500px;
-      margin: auto; box-shadow: var(--shadow-lg); background: #fff; color: var(--ink);
-    }
-    dialog#legal-modal::backdrop { background: rgba(28, 24, 21, 0.5); backdrop-filter: blur(4px); }
-
-    /* Modo Oscuro: Tema Atardecer */
-    body.dark {
-      --bg: #1d1714;
-      --bg-card: #2a211c;
-      --bg-subtle: #33291f;
-      --bg-hover: #3d3125;
-      --ink: #fbeee2;
-      --ink-muted: #d2bba8;
-      --ink-light: #a08c7b;
-      --border: rgba(255, 200, 160, 0.14);
-    }
-    body.dark aside.sidebar { background: rgba(42, 33, 28, 0.88); }
-    body.dark .auth-card, body.dark dialog#legal-modal, body.dark #cmd-modal, body.dark .oauth-btn { background: var(--bg-card); color: var(--ink); }
-    body.dark .styled-input:focus { background: var(--bg-card); }
-    body.dark .snippet-box { background: #15110e; border: 1px solid var(--border); }
-
+    /* Responsive */
     @media (max-width: 860px) {
-      #app-shell { flex-direction: column; height: 100%; overflow: auto; }
-      aside.sidebar { width: 100%; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
-      .grid-3, .dual-workspace, .config-grid { grid-template-columns: 1fr; }
-      main.main-viewport { padding: 20px 16px; height: auto; overflow-y: visible; }
+      #app-shell { flex-direction: column; }
+      aside.sidebar { width: 100%; height: auto; border-right: 0; border-bottom: 1px solid var(--border); padding: 14px 18px; }
+      .nav-group { flex-direction: row; overflow-x: auto; margin-top: 10px; }
+      .nav-title { display: none; }
+      .ambient-widget, .system-health, .user-footer { display: none; }
+      main.main-viewport { padding: 20px 16px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+
   <canvas id="bg-canvas"></canvas>
   <div id="cursor-glow"></div>
-  <div id="toast-msg"></div>
+  <div id="toast-wrap"></div>
 
-  <!-- Modal de Autenticación Firebase (Google & GitHub) -->
+  <!-- Modal de Autenticación Firebase -->
   <div id="auth-overlay">
     <div class="auth-card">
-      <div class="auth-logo">A</div>
-      <h2>Alvryx Works</h2>
-      <p>Centro de mando operativo e infraestructura</p>
-
-      <div class="auth-msg" id="auth-msg"></div>
-      
-      <button class="oauth-btn google" id="btn-login-google">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.7 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.6c-.3 1.5-1.1 2.8-2.4 3.7v3h3.9c2.3-2.1 3.6-5.2 3.6-8.9z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1C3.3 21.3 7.4 24 12 24z"/><path fill="#FBBC05" d="M5.3 14.2c-.2-.7-.4-1.5-.4-2.2s.2-1.5.4-2.2V6.7H1.3C.5 8.3 0 10.1 0 12s.5 3.7 1.3 5.3l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4C17.9 1.2 15.2 0 12 0 7.4 0 3.3 2.7 1.3 6.7l4 3.1c.9-2.9 3.6-5 6.7-5z"/></svg>
-        Continuar con Google
-      </button>
-
-      <button class="oauth-btn" id="btn-login-github">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        Continuar con GitHub
-      </button>
-
-      <div class="terms-box">
-        Al ingresar confirmas que aceptas los <a data-legal="terms">Términos</a>, la <a data-legal="privacy">Privacidad</a> y las <a data-legal="rules">Reglas de Operación</a> de Alvryx Co.
+      <div class="brand-icon" style="margin: 0 auto; width: 56px; height: 56px;">
+        <svg viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="20" fill="#ffffff" opacity="0.95"/>
+          <path d="M32 14v6M32 44v6M14 32h6M44 32h6" stroke="#e06d33" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="6" fill="#e06d33"/>
+        </svg>
       </div>
+      <div>
+        <h2 style="font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.5px;">Alvryx AmberFlow</h2>
+        <p style="font-size:14px;color:var(--ink-muted);margin-top:6px;">Workspace inteligente y telemetría en tiempo real de Alvryx Co.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
+        <button class="btn btn-secondary" id="btn-login-google" style="padding:12px;font-size:14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          Continuar con Google
+        </button>
+        <button class="btn btn-secondary" id="btn-login-github" style="padding:12px;font-size:14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          Continuar con GitHub
+        </button>
+      </div>
+      <div id="auth-status-msg" style="font-size:12px;color:var(--orange-deep);display:none;"></div>
     </div>
   </div>
 
-  <!-- Estructura Principal del Panel -->
   <div id="app-shell">
+    
+    <!-- Barra Lateral -->
     <aside class="sidebar">
       <div class="brand-header">
-        <div class="brand-icon">A</div>
+        <div class="brand-icon">
+          <svg viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="18" fill="#ffffff" opacity="0.95"/>
+            <path d="M32 14v6M32 44v6M14 32h6M44 32h6" stroke="#c95720" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="5" fill="#c95720"/>
+          </svg>
+        </div>
         <div class="brand-text">
-          <h1>Alvryx Works</h1>
-          <p>Alvryx Co. OS</p>
+          <h1>AmberFlow</h1>
+          <p>Alvryx Co. · v2.0</p>
         </div>
       </div>
 
-      <nav class="nav-group">
-        <span class="nav-title">Navegación</span>
-        <button class="nav-btn active" data-tab="home">
-          <span>🏠 Home</span>
+      <div class="nav-group">
+        <div class="nav-title">Módulos</div>
+        <button class="nav-btn active" data-tab="workspace">
+          <span>⚡ Workspace & Flujo</span>
           <kbd>1</kbd>
         </button>
-        <button class="nav-btn" data-tab="status">
-          <span>⚡ Status</span>
+        <button class="nav-btn" data-tab="analytics">
+          <span>📊 Analítica & Tablas</span>
           <kbd>2</kbd>
         </button>
-        <button class="nav-btn" data-tab="config">
-          <span>⚙️ Config</span>
+        <button class="nav-btn" data-tab="status">
+          <span>☁️ Infra & Firebase</span>
           <kbd>3</kbd>
         </button>
-      </nav>
+        <button class="nav-btn" data-tab="config">
+          <span>⚙️ Ajustes & Audio</span>
+          <kbd>4</kbd>
+        </button>
+      </div>
 
+      <!-- Reproductor de Ambientes Sonoros -->
+      <div class="ambient-widget">
+        <div class="ambient-header">
+          <span>🎧 Sonido de Ambiente</span>
+          <span id="ambient-status-text" style="font-size:10.5px;color:var(--ink-light);">Pausado</span>
+        </div>
+        <div class="ambient-controls">
+          <select id="ambient-sound-select" class="ambient-select">
+            <option value="rain">🌧️ Lluvia & Ventana</option>
+            <option value="fire">🪵 Fogata Cálida</option>
+            <option value="zen">🧘 Frecuencia 432 Hz</option>
+            <option value="cafe">☕ Café Relajante</option>
+          </select>
+          <button id="ambient-play-btn" class="ambient-toggle" aria-label="Reproducir ambiente">▶</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:10px;color:var(--ink-light);">Volumen</span>
+          <input type="range" id="ambient-volume" min="0" max="100" value="45" style="flex:1;accent-color:var(--orange-soft);cursor:pointer;">
+        </div>
+      </div>
+
+      <!-- Salud de Base de Datos -->
       <div class="system-health">
         <div class="health-row">
-          <span>Render Cloud</span>
-          <span id="badge-render"><i class="pulse-dot"></i> Activo</span>
+          <span style="font-weight:700;">Firebase RTDB</span>
+          <span class="status-badge status-online"><span class="pulse-dot"></span> Sincronizado</span>
         </div>
-        <div class="health-row">
-          <span>PostgreSQL</span>
-          <span id="badge-db" style="color:var(--green);font-weight:700;">Conectado</span>
-        </div>
-        <div class="health-row">
-          <span>Web Tracker</span>
-          <span id="badge-tracker" style="color:var(--orange-deep);font-weight:700;">En Escucha</span>
+        <div class="health-row" style="font-size:11px;color:var(--ink-light);">
+          <span>Latencia WebSocket</span>
+          <span id="health-ping">28 ms</span>
         </div>
       </div>
 
       <div class="user-footer">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Ccircle cx='17' cy='17' r='17' fill='%23e5d8cb'/%3E%3Cpath d='M17 17a5 5 0 100-10 5 5 0 000 10zm0 3c-4.5 0-9 2.5-9 6v1h18v-1c0-3.5-4.5-6-9-6z' fill='%239c8e81'/%3E%3C/svg%3E" id="nav-user-img" class="user-avatar" alt="Avatar">
+        <img src="" id="nav-user-img" class="user-avatar" alt="Avatar">
         <div class="user-info">
           <div class="user-name" id="nav-user-name">Usuario</div>
-          <div class="user-role" id="nav-user-email">Sesión activa</div>
+          <div class="user-role" id="nav-user-email">Cargando...</div>
         </div>
       </div>
     </aside>
 
+    <!-- Contenido Principal -->
     <main class="main-viewport">
       <div class="content-container">
 
-        <!-- 1. TAB HOME -->
-        <section class="tab-panel active" id="tab-home">
+        <!-- ==========================================================
+             1. TAB WORKSPACE: Tareas, Enfoque Pomodoro & Scratchpad
+             ========================================================== -->
+        <section class="tab-panel active" id="tab-workspace">
           <div class="view-header">
             <div class="view-title">
-              <h2 id="home-greeting">Bienvenido a Alvryx Works</h2>
-              <p>Resumen ejecutivo y control de flujo de trabajo diario.</p>
+              <h2 id="home-greeting">Centro de Flujo de Trabajo</h2>
+              <p>Espacio ágil con sincronización directa en tiempo real.</p>
             </div>
             <div class="header-actions">
-              <button class="btn btn-secondary btn-sm" id="btn-sync-all">🔄 Sincronizar</button>
+              <button class="btn btn-secondary btn-sm" id="btn-quick-export">📥 Exportar CSV</button>
+              <button class="btn btn-primary btn-sm" id="btn-sync-all">🔄 Sincronizar</button>
             </div>
           </div>
 
+          <!-- Métricas Clave -->
           <div class="metric-grid">
             <div class="metric-card">
-              <div class="metric-label">Tareas Pendientes</div>
+              <div class="metric-label">Tareas Activas</div>
               <div class="metric-value" id="val-pending">0</div>
-              <div class="metric-sub" id="sub-pending">En lista activa</div>
+              <div class="metric-sub" id="sub-pending">Pendientes en flujo</div>
             </div>
             <div class="metric-card">
-              <div class="metric-label">Tareas Completadas</div>
+              <div class="metric-label">Hitos Completados</div>
               <div class="metric-value" id="val-done" style="color:var(--green);">0</div>
-              <div class="metric-sub">Hitos alcanzados</div>
+              <div class="metric-sub">Completadas con éxito</div>
             </div>
             <div class="metric-card">
-              <div class="metric-label">Notas & Bitácora</div>
-              <div class="metric-value" id="val-notes">0</div>
-              <div class="metric-sub">Entradas registradas</div>
+              <div class="metric-label">Sesiones de Enfoque</div>
+              <div class="metric-value" id="val-sessions" style="color:var(--orange-deep);">0</div>
+              <div class="metric-sub">Pomodoros completados</div>
             </div>
             <div class="metric-card">
               <div class="metric-label">Visitas Globales</div>
-              <div class="metric-value" id="val-visits" style="color:var(--orange-deep);">0</div>
-              <div class="metric-sub">Tráfico multi-sitio</div>
+              <div class="metric-value" id="val-visits">0</div>
+              <div class="metric-sub">Telemetría multi-sitio</div>
             </div>
           </div>
 
-          <!-- v4: Grid 3 (Gráficos semanales, Dona de progreso y Modo enfoque) -->
-          <div class="grid-3">
-            <div class="card-panel chart-wrap">
-              <div class="card-panel-header"><h3>📈 Tareas completadas (7 días)</h3></div>
-              <canvas id="chart-week"></canvas>
-            </div>
-            <div class="card-panel chart-wrap">
-              <div class="card-panel-header"><h3>🍩 Progreso general</h3></div>
-              <canvas id="chart-donut"></canvas>
-            </div>
-            <div class="card-panel">
-              <div class="card-panel-header"><h3>⏱️ Modo enfoque</h3></div>
-              <div class="timer-face" id="timer-face">25:00</div>
-              <div class="timer-actions">
-                <button class="btn btn-primary btn-sm" id="timer-start">Iniciar</button>
-                <button class="btn btn-secondary btn-sm" id="timer-reset">Reiniciar</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="dual-workspace">
-            <!-- Columna Tareas -->
+          <!-- Pomodoro & Resumen Rápido -->
+          <div class="grid-2">
+            <!-- Temporizador Modo Enfoque -->
             <div class="card-panel">
               <div class="card-panel-header">
-                <h3>Tareas & Roadmap</h3>
-                <span class="status-badge status-ready" id="task-count-badge">0 tareas</span>
+                <h3>⏱️ Modo Enfoque Inteligente</h3>
+                <span class="status-badge status-amber" id="pomodoro-mode-badge">Sprint 25m</span>
               </div>
-              <form id="form-task" class="input-row">
-                <input type="text" id="input-task" class="styled-input" placeholder="Nueva tarea de Alvryx Co..." maxlength="280" required>
-                <select id="select-task-prio" class="prio-select">
-                  <option value="normal">Normal</option>
-                  <option value="high">Alta</option>
-                  <option value="low">Baja</option>
-                </select>
-                <button type="submit" class="btn btn-primary btn-sm">Añadir</button>
-              </form>
-
-              <!-- Filtros de tareas y búsqueda en tiempo real -->
-              <div class="filter-row" id="task-filters">
-                <button class="chip on" data-f="all">Todas</button>
-                <button class="chip" data-f="pending">Pendientes</button>
-                <button class="chip" data-f="done">Hechas</button>
-                <input type="search" id="task-search" class="styled-input" placeholder="Buscar..." style="max-width:140px;padding:4px 10px;font-size:12px;margin-left:auto;">
+              <div class="pomodoro-box">
+                <div class="timer-face" id="timer-face">25:00</div>
+                <div class="pomodoro-presets">
+                  <button class="chip on" data-dur="25" data-name="Sprint 25m">Sprint 25m</button>
+                  <button class="chip" data-dur="45" data-name="Deep Work 45m">Deep Work 45m</button>
+                  <button class="chip" data-dur="15" data-name="Flash 15m">Flash 15m</button>
+                  <button class="chip" data-dur="5" data-name="Pausa Zen 5m">Pausa 5m</button>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:6px;">
+                  <button class="btn btn-primary" id="timer-start" style="min-width:110px;">Iniciar</button>
+                  <button class="btn btn-secondary" id="timer-reset">Reiniciar</button>
+                </div>
               </div>
-
-              <ul class="item-list" id="list-tasks">
-                <!-- Se llena dinámicamente -->
-              </ul>
             </div>
 
-            <!-- Columna Notas -->
+            <!-- Scratchpad / Notas Rápidas -->
             <div class="card-panel">
               <div class="card-panel-header">
-                <h3>Bitácora & Notas Ejecutivas</h3>
-                <span class="status-badge status-ready" id="note-count-badge">0 notas</span>
+                <h3>📝 Bitácora & Ideas Rápidas</h3>
+                <span class="status-badge status-online" id="note-count-badge">0 notas</span>
               </div>
               <form id="form-note" class="input-row">
-                <input type="text" id="input-note" class="styled-input" placeholder="Nueva nota o idea estratégica..." maxlength="280" required>
+                <input type="text" id="input-note" class="styled-input" placeholder="Añadir pensamiento o idea estratégica..." maxlength="280" required>
                 <button type="submit" class="btn btn-secondary btn-sm">Guardar</button>
               </form>
-              <ul class="item-list" id="list-notes">
-                <!-- Se llena dinámicamente -->
+              <ul class="item-list" id="list-notes" style="max-height:165px;">
+                <!-- Dinámico -->
               </ul>
+            </div>
+          </div>
+
+          <!-- Tareas & Roadmap Principal -->
+          <div class="card-panel">
+            <div class="card-panel-header">
+              <h3>🎯 Tareas, Hitos & Roadmap</h3>
+              <span class="status-badge status-amber" id="task-count-badge">0 tareas</span>
+            </div>
+
+            <form id="form-task" class="input-row">
+              <input type="text" id="input-task" class="styled-input" placeholder="Escribe una nueva tarea o meta..." maxlength="280" required>
+              <select id="select-task-prio" class="prio-select">
+                <option value="normal">Normal</option>
+                <option value="high">Alta Prioridad</option>
+                <option value="low">Baja</option>
+              </select>
+              <button type="submit" class="btn btn-primary btn-sm">Añadir Tarea</button>
+            </form>
+
+            <div class="filter-row" id="task-filters">
+              <button class="chip on" data-f="all">Todas</button>
+              <button class="chip" data-f="pending">Pendientes</button>
+              <button class="chip" data-f="done">Completadas</button>
+              <button class="chip" data-f="high">Prioridad Alta</button>
+              <input type="search" id="task-search" class="styled-input" placeholder="Buscar..." style="max-width:180px;padding:5px 12px;font-size:12.5px;margin-left:auto;">
+            </div>
+
+            <ul class="item-list" id="list-tasks">
+              <!-- Dinámico -->
+            </ul>
+          </div>
+        </section>
+
+
+        <!-- ==========================================================
+             2. TAB ANALYTICS: Gráficas de Dona, Barras y Tablas
+             ========================================================== -->
+        <section class="tab-panel" id="tab-analytics">
+          <div class="view-header">
+            <div class="view-title">
+              <h2>Métricas & Analítica Visual</h2>
+              <p>Visualización del progreso, distribución de tareas e historial.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-secondary btn-sm" id="btn-export-full">📦 Exportar Todo (JSON)</button>
+            </div>
+          </div>
+
+          <!-- Gráficas Circulares y Dona -->
+          <div class="grid-2">
+            <!-- Gráfica 1: Dona de Progreso -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>🍩 Tasa de Finalización & Eficiencia</h3>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-donut"></canvas>
+              </div>
+              <div style="display:flex;justify-content:space-around;font-size:12px;color:var(--ink-muted);padding-top:8px;border-top:1px solid var(--border);">
+                <span>🟢 <b id="stat-done-count">0</b> Completadas</span>
+                <span>🟠 <b id="stat-pending-count">0</b> Pendientes</span>
+              </div>
+            </div>
+
+            <!-- Gráfica 2: Circular de Prioridades -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>🥧 Distribución por Prioridad</h3>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-pie-prio"></canvas>
+              </div>
+              <div style="display:flex;justify-content:space-around;font-size:12px;color:var(--ink-muted);padding-top:8px;border-top:1px solid var(--border);">
+                <span>🔴 <b id="stat-prio-high">0</b> Alta</span>
+                <span>🟠 <b id="stat-prio-normal">0</b> Normal</span>
+                <span>🟢 <b id="stat-prio-low">0</b> Baja</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gráficas de Barras -->
+          <div class="grid-2">
+            <!-- Gráfica de Barras 1: Tareas Semanales -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>📈 Tareas Completadas (Últimos 7 Días)</h3>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-week"></canvas>
+              </div>
+            </div>
+
+            <!-- Gráfica de Barras 2: Minutos de Enfoque Pomodoro -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>⏱️ Minutos de Enfoque Semanales</h3>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-focus-bars"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabla de Datos 1: Matriz Detallada de Tareas -->
+          <div class="card-panel" style="margin-bottom:24px;">
+            <div class="card-panel-header">
+              <h3>📋 Tabla Maestra de Hitos & Tareas</h3>
+              <input type="search" id="table-search" class="styled-input" placeholder="Filtrar tabla..." style="max-width:200px;padding:6px 12px;font-size:12px;">
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="master-tasks-table">
+                <thead>
+                  <tr>
+                    <th>Estado</th>
+                    <th>Título de la Tarea</th>
+                    <th>Prioridad</th>
+                    <th>Fecha de Creación</th>
+                    <th>Completada</th>
+                  </tr>
+                </thead>
+                <tbody id="table-tasks-body">
+                  <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--ink-muted);">Cargando tareas...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tabla de Datos 2: Historial de Sesiones de Enfoque -->
+          <div class="card-panel">
+            <div class="card-panel-header">
+              <h3>🧘 Historial de Sesiones Pomodoro</h3>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID Sesión</th>
+                    <th>Modo</th>
+                    <th>Duración (min)</th>
+                    <th>Fecha & Hora</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="table-sessions-body">
+                  <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--ink-muted);">No hay sesiones registradas aún.</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
 
-        <!-- 2. TAB STATUS (Cockpit de Infraestructura) -->
+
+        <!-- ==========================================================
+             3. TAB STATUS: Infraestructura, Firebase & GitHub
+             ========================================================== -->
         <section class="tab-panel" id="tab-status">
           <div class="view-header">
             <div class="view-title">
-              <h2>Status de Infraestructura</h2>
-              <p>Monitoreo en tiempo real de Render, PostgreSQL, GitHub y Telemetría Web.</p>
+              <h2>Cockpit de Infraestructura</h2>
+              <p>Monitoreo de Firebase Realtime Database, Render Cloud y GitHub.</p>
             </div>
             <div class="header-actions">
               <button class="btn btn-primary btn-sm" id="btn-refresh-status">⚡ Actualizar Estado</button>
             </div>
           </div>
 
-          <!-- Servicios Render -->
-          <div class="status-section">
-            <h3 class="section-title">☁️ Servicios en Render Cloud</h3>
+          <!-- Conexión Firebase Realtime Database -->
+          <div class="card-panel" style="margin-bottom:20px;">
+            <div class="card-panel-header">
+              <h3>🔥 Firebase Realtime Database (Nativo)</h3>
+              <span class="status-badge status-online">Conexión Directa Activa</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;font-size:13px;">
+              <div>
+                <b style="display:block;color:var(--ink-light);font-size:11px;text-transform:uppercase;">Motor</b>
+                <span>Firebase RTDB WebSocket</span>
+              </div>
+              <div>
+                <b style="display:block;color:var(--ink-light);font-size:11px;text-transform:uppercase;">Host</b>
+                <span id="rtdb-host-display" style="font-family:'JetBrains Mono';font-size:12px;">alero-company-works...</span>
+              </div>
+              <div>
+                <b style="display:block;color:var(--ink-light);font-size:11px;text-transform:uppercase;">PostgreSQL de Render</b>
+                <span style="color:var(--green);font-weight:700;">Desacoplado & Ahorro Activo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Servicios en Render -->
+          <div class="card-panel" style="margin-bottom:20px;">
+            <div class="card-panel-header">
+              <h3>☁️ Servicios en Render Cloud</h3>
+            </div>
             <div class="table-container">
               <table class="data-table">
                 <thead>
@@ -608,31 +818,11 @@
             </div>
           </div>
 
-          <!-- Base de Datos PostgreSQL -->
-          <div class="status-section">
-            <h3 class="section-title">🐘 PostgreSQL en la Nube</h3>
-            <div class="table-container">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>Nombre de Instancia</th>
-                    <th>Base de Datos</th>
-                    <th>Versión</th>
-                    <th>Plan</th>
-                    <th>Estado</th>
-                    <th>Vencimiento</th>
-                  </tr>
-                </thead>
-                <tbody id="render-postgres-table">
-                  <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--ink-muted);">Consultando instancia de PostgreSQL...</td></tr>
-                </tbody>
-              </table>
+          <!-- Ecosistema GitHub -->
+          <div class="card-panel" style="margin-bottom:20px;">
+            <div class="card-panel-header">
+              <h3>🐙 Ecosistema GitHub (<span id="gh-owner-title">Lara2026ss</span>)</h3>
             </div>
-          </div>
-
-          <!-- Repositorios GitHub -->
-          <div class="status-section">
-            <h3 class="section-title">🐙 Ecosistema GitHub (<span id="gh-owner-title">Lara2026ss</span>)</h3>
             <div class="table-container">
               <table class="data-table">
                 <thead>
@@ -646,22 +836,24 @@
                   </tr>
                 </thead>
                 <tbody id="github-repos-table">
-                  <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--ink-muted);">Consultando repositorios de GitHub...</td></tr>
+                  <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--ink-muted);">Consultando repositorios...</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Telemetría y Tracker Web -->
-          <div class="status-section">
-            <h3 class="section-title">📊 Visitas y Telemetría Multi-sitio</h3>
-            <div class="table-container" style="margin-bottom:14px;">
+          <!-- Telemetría Multi-sitio -->
+          <div class="card-panel">
+            <div class="card-panel-header">
+              <h3>📊 Telemetría y Tracker Web Multi-Sitio</h3>
+            </div>
+            <div class="table-container" style="margin-bottom:12px;">
               <table class="data-table">
                 <thead>
                   <tr>
                     <th>Página / Proyecto</th>
-                    <th>Visitas (14 días)</th>
-                    <th>Última Visita</th>
+                    <th>Visitas</th>
+                    <th>Último Registro</th>
                   </tr>
                 </thead>
                 <tbody id="visits-table">
@@ -670,133 +862,107 @@
               </table>
             </div>
 
-            <div class="card-panel">
-              <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;">🚀 Snippet del Tracker para tus otros HTMLs</h4>
-              <p style="font-size:13px;color:var(--ink-muted);">Pega esta línea antes del cierre <code>&lt;/body&gt;</code> en cualquiera de tus páginas para registrar automáticamente las visitas en tiempo real:</p>
-              <div class="snippet-box">
-                <button class="copy-btn" id="btn-copy-snippet">Copiar Snippet</button>
-                <code id="snippet-code">&lt;script src="https://alvryx-works.onrender.com/track.js" data-page="Mi Proyecto"&gt;&lt;/script&gt;</code>
-              </div>
+            <div style="background:var(--bg-subtle);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border);">
+              <b style="font-size:13px;display:block;margin-bottom:4px;">🚀 Snippet del Tracker para tus otros proyectos HTML</b>
+              <p style="font-size:12.5px;color:var(--ink-muted);margin-bottom:10px;">Pega esta línea antes de <code>&lt;/body&gt;</code> en cualquiera de tus páginas web:</p>
+              <code style="font-family:'JetBrains Mono';font-size:12px;background:var(--bg-card);padding:8px 12px;border-radius:6px;border:1px solid var(--border);display:block;word-break:break-all;">&lt;script src="https://alvryx-works.onrender.com/track.js" data-page="Mi Proyecto"&gt;&lt;/script&gt;</code>
             </div>
           </div>
         </section>
 
-        <!-- 3. TAB CONFIG -->
+
+        <!-- ==========================================================
+             4. TAB CONFIG: Preferencias, Audio Acústico & Gobernanza
+             ========================================================== -->
         <section class="tab-panel" id="tab-config">
           <div class="view-header">
             <div class="view-title">
-              <h2>Configuración & Gobierno</h2>
-              <p>Preferencias del sistema, diseño sonoro acústico y gobernanza de datos.</p>
+              <h2>Configuración & Preferencias</h2>
+              <p>Personalización del entorno, sintetizador de audio y gobernanza.</p>
             </div>
           </div>
 
-          <div class="config-grid">
+          <div class="grid-2">
+            <!-- Audio & Haptics -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>🎵 Sintetizador Acústico de Interfaz</h3>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <b>Sonidos de Clic & Hitos</b>
+                  <div style="font-size:12px;color:var(--ink-light);">Modelado físico sin estridencias</div>
+                </div>
+                <input type="checkbox" id="cfg-sound-toggle" checked style="accent-color:var(--orange-soft);width:20px;height:20px;cursor:pointer;">
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <b>Volumen de Efectos</b>
+                  <div style="font-size:12px;color:var(--ink-light);">Intensidad del motor sonoro</div>
+                </div>
+                <input type="range" id="cfg-volume-slider" min="0" max="100" value="70" style="accent-color:var(--orange-soft);cursor:pointer;">
+              </div>
+              <div style="display:flex;gap:8px;padding-top:10px;border-top:1px solid var(--border);">
+                <button class="btn btn-secondary btn-sm" id="btn-test-chime">Chime</button>
+                <button class="btn btn-secondary btn-sm" id="btn-test-wood">Wood Click</button>
+                <button class="btn btn-secondary btn-sm" id="btn-test-chord">Arpegio Éxito</button>
+                <button class="btn btn-secondary btn-sm" id="btn-test-zen">Campana Zen</button>
+              </div>
+            </div>
+
+            <!-- Apariencia & Temas -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>🎨 Apariencia y Modo Visual</h3>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <b>Tema Atardecer (Dark Warm)</b>
+                  <div style="font-size:12px;color:var(--ink-light);">Modo oscuro cálido ejecutivo</div>
+                </div>
+                <input type="checkbox" id="cfg-dark" style="accent-color:var(--orange-soft);width:20px;height:20px;cursor:pointer;">
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <b>Partículas de Fondo</b>
+                  <div style="font-size:12px;color:var(--ink-light);">Efecto ambiental dinámico</div>
+                </div>
+                <input type="checkbox" id="cfg-particles" checked style="accent-color:var(--orange-soft);width:20px;height:20px;cursor:pointer;">
+              </div>
+            </div>
+
             <!-- Identidad & Sesión -->
-            <div class="config-card">
-              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">👤 Identidad & Acceso</h3>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Cuenta Activa</b>
-                  <span id="cfg-user-email">Cargando...</span>
-                </div>
-                <span class="status-badge status-active">Autenticado</span>
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>👤 Cuenta & Sesión Activa</h3>
               </div>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Identificador UID</b>
-                  <span id="cfg-user-uid" style="font-family:'JetBrains Mono';font-size:11px;">-</span>
-                </div>
+              <div style="font-size:13px;display:flex;flex-direction:column;gap:6px;">
+                <div><b>Correo:</b> <span id="cfg-user-email">Cargando...</span></div>
+                <div><b>UID:</b> <span id="cfg-user-uid" style="font-family:'JetBrains Mono';font-size:11px;">-</span></div>
               </div>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Cerrar Sesión</b>
-                  <span>Desconectar del dispositivo actual</span>
-                </div>
-                <button class="btn btn-secondary btn-sm" id="btn-logout">Salir</button>
+              <div style="padding-top:10px;border-top:1px solid var(--border);">
+                <button class="btn btn-secondary btn-sm" id="btn-logout">Cerrar Sesión</button>
               </div>
             </div>
 
-            <!-- Estudio Acústico & Sonido -->
-            <div class="config-card">
-              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">🎵 Motor de Sonido Acústico</h3>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Sonidos Táctiles & Chimes</b>
-                  <span>Modelado físico acústico sin osciladores estridentes</span>
-                </div>
-                <input type="checkbox" id="cfg-sound-toggle" checked style="accent-color:var(--orange);width:18px;height:18px;cursor:pointer;">
+            <!-- Gestión de Datos & Privacidad -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3>📦 Gestión y Respaldo de Datos</h3>
               </div>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Volumen Maestro</b>
-                  <span>Intensidad de respuesta acústica</span>
-                </div>
-                <input type="range" id="cfg-volume-slider" min="0" max="100" value="70" style="accent-color:var(--orange);cursor:pointer;">
-              </div>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Probar Muestras</b>
-                  <span>Validar respuesta armónica</span>
-                </div>
-                <div style="display:flex;gap:6px;">
-                  <button class="btn btn-secondary btn-sm" id="btn-test-chime">Chime</button>
-                  <button class="btn btn-secondary btn-sm" id="btn-test-wood">Strike</button>
-                  <button class="btn btn-secondary btn-sm" id="btn-test-chord">Éxito</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Apariencia y Ambiente -->
-            <div class="config-card">
-              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">🎨 Apariencia y Ambiente</h3>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Tema Atardecer</b>
-                  <span>Modo oscuro cálido ejecutivo</span>
-                </div>
-                <input type="checkbox" id="cfg-dark" style="accent-color:var(--orange);width:18px;height:18px;cursor:pointer;">
-              </div>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Sonido Ambiente</b>
-                  <span>Colchón acústico suave y continuo</span>
-                </div>
-                <input type="checkbox" id="cfg-ambient" style="accent-color:var(--orange);width:18px;height:18px;cursor:pointer;">
-              </div>
-            </div>
-
-            <!-- Exportación y Datos -->
-            <div class="config-card">
-              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">📦 Gestión de Datos</h3>
-              <div class="config-row">
-                <div class="config-meta">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
                   <b>Exportar Base de Datos</b>
-                  <span>Descarga todas tus tareas y notas en formato JSON</span>
+                  <div style="font-size:12px;color:var(--ink-light);">Descarga tus tareas, notas y sesiones</div>
                 </div>
-                <button class="btn btn-secondary btn-sm" id="btn-export-data">Descargar</button>
+                <button class="btn btn-secondary btn-sm" id="btn-export-data">Descargar JSON</button>
               </div>
-              <div class="config-row">
-                <div class="config-meta">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border);">
+                <div>
                   <b>Eliminar Cuenta</b>
-                  <span>Borra irreversiblemente tus datos personales</span>
+                  <div style="font-size:12px;color:var(--red);">Borra permanentemente tus datos</div>
                 </div>
                 <button class="btn btn-danger btn-sm" id="btn-delete-account">Eliminar</button>
-              </div>
-            </div>
-
-            <!-- Legal Alvryx Co. -->
-            <div class="config-card" style="grid-column: 1 / -1;">
-              <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">⚖️ Marco Legal & Gobernanza</h3>
-              <div class="config-row">
-                <div class="config-meta">
-                  <b>Documentación Corporativa</b>
-                  <span>Términos, Privacidad y Normas de Alvryx Co.</span>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <button class="btn btn-secondary btn-sm" data-legal="terms">Términos</button>
-                  <button class="btn btn-secondary btn-sm" data-legal="privacy">Privacidad</button>
-                  <button class="btn btn-secondary btn-sm" data-legal="rules">Reglas</button>
-                </div>
               </div>
             </div>
           </div>
@@ -808,26 +974,18 @@
 
   <!-- Paleta de Comandos (Ctrl+K) -->
   <dialog id="cmd-modal">
-    <input id="cmd-input" placeholder="Escribe un comando... (Ctrl+K)" autocomplete="off">
-    <div id="cmd-list"></div>
+    <input id="cmd-input" class="styled-input" placeholder="Escribe un comando... (Ctrl+K)" autocomplete="off" style="margin-bottom:12px;">
+    <div id="cmd-list" style="display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;"></div>
   </dialog>
 
-  <!-- Diálogo Legal con Cierre al Fondo -->
-  <dialog id="legal-modal">
-    <h3 id="legal-modal-title" style="font-size:18px;font-weight:800;margin-bottom:12px;"></h3>
-    <p id="legal-modal-body" style="font-size:14px;color:var(--ink-muted);line-height:1.6;margin-bottom:20px;white-space:pre-line;"></p>
-    <div style="text-align:right;">
-      <button class="btn btn-primary btn-sm" id="legal-close">Cerrar</button>
-    </div>
-  </dialog>
-
-  <!-- SDKs de Firebase Compatibles -->
+  <!-- SDKs Oficiales de Firebase Compatibles -->
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 
   <script>
     /* ==========================================================
-       1. MOTOR ACÚSTICO DE DISEÑO SONORO (Modelado Físico Seguro)
+       1. MOTOR ACÚSTICO DE DISEÑO SONORO Y PAISAJES AMBIENTALES
        ========================================================== */
     class AcousticSoundEngine {
       constructor() {
@@ -835,20 +993,26 @@
         this.enabled = localStorage.getItem('alvryx_sound_enabled') !== 'false';
         const savedVol = localStorage.getItem('alvryx_sound_volume');
         this.volume = savedVol !== null ? parseFloat(savedVol) : 0.7;
+        
+        // Paisajes de Ambiente
+        this.ambientNode = null;
+        this.ambientGain = null;
+        this.ambientType = 'rain';
+        this.ambientVolume = 0.45;
+        this.ambientPlaying = false;
       }
 
       initCtx() {
         if (!this.ctx) {
           const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) {
-            this.ctx = new AudioContext();
-          }
+          if (AudioContext) this.ctx = new AudioContext();
         }
         if (this.ctx && this.ctx.state === 'suspended') {
           this.ctx.resume().catch(() => {});
         }
       }
 
+      // 1. Clic táctil analógico
       click() {
         if (!this.enabled) return;
         this.initCtx();
@@ -860,24 +1024,25 @@
           const filter = this.ctx.createBiquadFilter();
 
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(180, t);
-          osc.frequency.exponentialRampToValueAtTime(40, t + 0.012);
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.exponentialRampToValueAtTime(50, t + 0.015);
 
           filter.type = 'highpass';
-          filter.frequency.value = 80;
+          filter.frequency.value = 100;
 
-          gain.gain.setValueAtTime(0.22 * this.volume, t);
-          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.012);
+          gain.gain.setValueAtTime(0.25 * this.volume, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.015);
 
           osc.connect(filter);
           filter.connect(gain);
           gain.connect(this.ctx.destination);
 
           osc.start(t);
-          osc.stop(t + 0.015);
+          osc.stop(t + 0.018);
         } catch (_) {}
       }
 
+      // 2. Chime de campana armónica
       chime(freq = 523.25) {
         if (!this.enabled) return;
         this.initCtx();
@@ -893,26 +1058,27 @@
           o1.type = 'sine';
           o1.frequency.setValueAtTime(freq, t);
           g1.gain.setValueAtTime(1, t);
-          g1.gain.exponentialRampToValueAtTime(0.001, t + 0.42);
+          g1.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
           o1.connect(g1);
           g1.connect(mainGain);
           o1.start(t);
-          o1.stop(t + 0.45);
+          o1.stop(t + 0.48);
 
           const o2 = this.ctx.createOscillator();
           const g2 = this.ctx.createGain();
           o2.type = 'sine';
           o2.frequency.setValueAtTime(freq * 2.756, t);
-          g2.gain.setValueAtTime(0.35, t);
-          g2.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+          g2.gain.setValueAtTime(0.3, t);
+          g2.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
           o2.connect(g2);
           g2.connect(mainGain);
           o2.start(t);
-          o2.stop(t + 0.25);
+          o2.stop(t + 0.28);
         } catch (_) {}
       }
 
-      woodStrike(freq = 340) {
+      // 3. Golpe de madera cálido
+      woodStrike(freq = 380) {
         if (!this.enabled) return;
         this.initCtx();
         if (!this.ctx) return;
@@ -924,228 +1090,246 @@
 
           o.type = 'sine';
           o.frequency.setValueAtTime(freq, t);
-          o.frequency.exponentialRampToValueAtTime(freq * 0.7, t + 0.08);
+          o.frequency.exponentialRampToValueAtTime(freq * 0.65, t + 0.09);
 
           lp.type = 'lowpass';
-          lp.frequency.setValueAtTime(1200, t);
-          lp.frequency.exponentialRampToValueAtTime(300, t + 0.08);
+          lp.frequency.setValueAtTime(1300, t);
+          lp.frequency.exponentialRampToValueAtTime(320, t + 0.09);
 
           g.gain.setValueAtTime(0.35 * this.volume, t);
-          g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
 
           o.connect(lp);
           lp.connect(g);
           g.connect(this.ctx.destination);
 
           o.start(t);
-          o.stop(t + 0.1);
+          o.stop(t + 0.11);
         } catch (_) {}
       }
 
+      // 4. Arpegio de éxito pentatónico
       successChord() {
         if (!this.enabled) return;
-        const notes = [659.25, 830.61, 987.77, 1318.51];
+        const notes = [523.25, 659.25, 783.99, 1046.50];
         notes.forEach((freq, idx) => {
-          setTimeout(() => this.chime(freq), idx * 75);
+          setTimeout(() => this.chime(freq), idx * 80);
         });
       }
 
-      delPop() {
+      // 5. Campana Zen / Cuenco Tibetano (432 Hz y 864 Hz)
+      zenBell() {
         if (!this.enabled) return;
-        this.woodStrike(140);
+        this.initCtx();
+        if (!this.ctx) return;
+        try {
+          const t = this.ctx.currentTime;
+          const g = this.ctx.createGain();
+          g.gain.setValueAtTime(0.4 * this.volume, t);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + 3.8);
+          g.connect(this.ctx.destination);
+
+          [432, 864, 1296].forEach((f, i) => {
+            const o = this.ctx.createOscillator();
+            o.type = 'sine';
+            o.frequency.setValueAtTime(f, t);
+            const og = this.ctx.createGain();
+            og.gain.value = 1 / (i + 1);
+            o.connect(og);
+            og.connect(g);
+            o.start(t);
+            o.stop(t + 3.9);
+          });
+        } catch (_) {}
+      }
+
+      // 6. Generador de Paisajes Sonoros Ambientales
+      setAmbientVolume(val) {
+        this.ambientVolume = Math.max(0, Math.min(1, val));
+        if (this.ambientGain && this.ctx) {
+          this.ambientGain.gain.linearRampToValueAtTime(this.ambientVolume * 0.25, this.ctx.currentTime + 0.1);
+        }
+      }
+
+      startAmbient(type = 'rain') {
+        this.stopAmbient();
+        this.initCtx();
+        if (!this.ctx) return;
+        this.ambientType = type;
+        this.ambientPlaying = true;
+
+        const c = this.ctx;
+        const t = c.currentTime;
+        const main = c.createGain();
+        main.gain.setValueAtTime(0, t);
+        main.gain.linearRampToValueAtTime(this.ambientVolume * 0.25, t + 1.2);
+        main.connect(c.destination);
+        this.ambientGain = main;
+
+        const nodes = [];
+
+        if (type === 'rain') {
+          // Lluvia suave continua con filtro dinámico
+          const buf = c.createBuffer(1, c.sampleRate * 4, c.sampleRate);
+          const d = buf.getChannelData(0);
+          let b = 0;
+          for (let i = 0; i < d.length; i++) {
+            b = b * 0.98 + (Math.random() * 2 - 1) * 0.07;
+            d[i] = b;
+          }
+          const src = c.createBufferSource();
+          src.buffer = buf;
+          src.loop = true;
+          const lp = c.createBiquadFilter();
+          lp.type = 'lowpass';
+          lp.frequency.value = 520;
+          src.connect(lp);
+          lp.connect(main);
+          src.start();
+          nodes.push(src);
+        } else if (type === 'fire') {
+          // Fogata con crepitaciones cálidas
+          const buf = c.createBuffer(1, c.sampleRate * 4, c.sampleRate);
+          const d = buf.getChannelData(0);
+          for (let i = 0; i < d.length; i++) {
+            const crackle = Math.random() < 0.003 ? (Math.random() * 2 - 1) * 0.8 : 0;
+            d[i] = (Math.random() * 2 - 1) * 0.04 + crackle;
+          }
+          const src = c.createBufferSource();
+          src.buffer = buf;
+          src.loop = true;
+          const lp = c.createBiquadFilter();
+          lp.type = 'lowpass';
+          lp.frequency.value = 650;
+          src.connect(lp);
+          lp.connect(main);
+          src.start();
+          nodes.push(src);
+        } else if (type === 'zen') {
+          // Frecuencia 432 Hz armónica binaural relajante
+          [432, 436].forEach(f => {
+            const o = c.createOscillator();
+            o.type = 'sine';
+            o.frequency.value = f;
+            const og = c.createGain();
+            og.gain.value = 0.25;
+            o.connect(og);
+            og.connect(main);
+            o.start();
+            nodes.push(o);
+          });
+        } else if (type === 'cafe') {
+          // Café acogedor Lo-Fi
+          const buf = c.createBuffer(1, c.sampleRate * 4, c.sampleRate);
+          const d = buf.getChannelData(0);
+          let val = 0;
+          for (let i = 0; i < d.length; i++) {
+            val = val * 0.96 + (Math.random() * 2 - 1) * 0.05;
+            d[i] = val;
+          }
+          const src = c.createBufferSource();
+          src.buffer = buf;
+          src.loop = true;
+          const bp = c.createBiquadFilter();
+          bp.type = 'bandpass';
+          bp.frequency.value = 380;
+          bp.Q.value = 1.2;
+          src.connect(bp);
+          bp.connect(main);
+          src.start();
+          nodes.push(src);
+        }
+
+        this.ambientNode = { nodes, main };
+      }
+
+      stopAmbient() {
+        if (this.ambientNode && this.ctx) {
+          const t = this.ctx.currentTime;
+          this.ambientNode.main.gain.linearRampToValueAtTime(0, t + 0.6);
+          const toStop = this.ambientNode.nodes;
+          setTimeout(() => {
+            toStop.forEach(n => { try { n.stop(); } catch (_) {} });
+          }, 700);
+          this.ambientNode = null;
+        }
+        this.ambientPlaying = false;
       }
     }
 
     const audio = new AcousticSoundEngine();
 
     /* ==========================================================
-       2. EFECTOS VISUALES: Cursor Halo y Partículas Cálidas Reactivas
-       ========================================================== */
-    const cursorGlow = document.getElementById('cursor-glow');
-    let mx = -999, my = -999;
-    if (cursorGlow) {
-      window.addEventListener('pointermove', (e) => {
-        mx = e.clientX;
-        my = e.clientY;
-        cursorGlow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      }, { passive: true });
-    }
-
-    const bgCanvas = document.getElementById('bg-canvas');
-    const ctx = bgCanvas.getContext('2d');
-    let particles = [];
-    let isTabVisible = !document.hidden;
-
-    function resizeCanvas() {
-      bgCanvas.width = window.innerWidth;
-      bgCanvas.height = window.innerHeight;
-      initParticles();
-    }
-
-    function initParticles() {
-      particles = [];
-      const count = Math.min(65, Math.floor(window.innerWidth / 24));
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * bgCanvas.width,
-          y: Math.random() * bgCanvas.height,
-          radius: Math.random() * 1.8 + 0.6,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          alpha: Math.random() * 0.25 + 0.05
-        });
-      }
-    }
-
-    function animateParticles() {
-      if (isTabVisible && ctx) {
-        ctx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-        for (const p of particles) {
-          const dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
-          if (d2 < 14400 && d2 > 1) {
-            const d = Math.sqrt(d2);
-            const f = ((120 - d) / 120) * 2.2;
-            p.x += (dx / d) * f;
-            p.y += (dy / d) * f;
-          }
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0) p.x = bgCanvas.width;
-          if (p.x > bgCanvas.width) p.x = 0;
-          if (p.y < 0) p.y = bgCanvas.height;
-          if (p.y > bgCanvas.height) p.y = 0;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(244, 164, 108, ${p.alpha})`;
-          ctx.fill();
-        }
-      }
-      requestAnimationFrame(animateParticles);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      isTabVisible = !document.hidden;
-    });
-
-    let resizeTimer = null;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resizeCanvas, 160);
-    });
-
-    resizeCanvas();
-    animateParticles();
-
-    /* ==========================================================
-       3. GESTIÓN DE NOTIFICACIONES TOAST & TEXTOS LEGALES
-       ========================================================== */
-    const toast = document.getElementById('toast-msg');
-    let toastTimeout = null;
-    function showToast(msg) {
-      if (!toast) return;
-      toast.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => toast.classList.remove('show'), 3200);
-    }
-
-    const LEGAL_CONTENT = {
-      terms: {
-        title: "Términos de Servicio — Alvryx Co.",
-        body: `1. Operación: Alvryx Works es una plataforma de productividad, monitoreo y telemetría de Alvryx Co.\n2. Uso Autorizado: El usuario es responsable del contenido registrado en notas y tareas.\n3. Disponibilidad: La infraestructura opera en Render Cloud y PostgreSQL con respaldo diario.\n4. Propiedad Intelectual: Todo el software y arquitectura pertenecen a Alvryx Co.`
-      },
-      privacy: {
-        title: "Política de Privacidad — Alvryx Co.",
-        body: `1. Datos Almacenados: Identificador OAuth (Google/GitHub), correo, tareas y notas creadas por el usuario.\n2. Telemetría Anónima: El contador de visitas registra únicamente la ruta o título y el conteo por día. No se recopilan direcciones IP ni rastreo invasivo.\n3. Cifrado y Control: Todos los tokens se verifican server-side con JWKS y firmas criptográficas.\n4. Derechos: Puedes exportar tus datos completos o eliminarlos en cualquier momento desde Config.`
-      },
-      rules: {
-        title: "Reglas de Operación — Alvryx Co.",
-        body: `1. No abusar de los límites de peticiones (140 req/min).\n2. El acceso al panel de Status está restringido a administradores verificados de Alvryx Co.\n3. Las notas y tareas tienen un límite seguro de 280 caracteres por entrada.`
-      }
-    };
-
-    const legalModal = document.getElementById('legal-modal');
-    document.querySelectorAll('[data-legal]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const type = btn.getAttribute('data-legal');
-        const doc = LEGAL_CONTENT[type];
-        if (doc && legalModal) {
-          document.getElementById('legal-modal-title').textContent = doc.title;
-          document.getElementById('legal-modal-body').textContent = doc.body;
-          legalModal.showModal();
-          audio.click();
-        }
-      });
-    });
-
-    if (legalModal) {
-      document.getElementById('legal-close')?.addEventListener('click', () => {
-        legalModal.close();
-        audio.click();
-      });
-      legalModal.addEventListener('click', (e) => {
-        const rect = legalModal.getBoundingClientRect();
-        const isInDialog = (
-          rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-          rect.left <= e.clientX && e.clientX <= rect.left + rect.width
-        );
-        if (!isInDialog) {
-          legalModal.close();
-          audio.click();
-        }
-      });
-    }
-
-    /* ==========================================================
-       4. CLIENTE API & AUTENTICACIÓN FIREBASE ROBUSTA
+       2. CLIENTE DE API, TOASTS & UTILIDADES
        ========================================================== */
     let authUser = null;
     let idToken = null;
+    let fbDb = null; // Instancia directa de Firebase RTDB
 
-    async function api(path, options = {}) {
-      const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
-      
-      if (authUser) {
-        try {
-          idToken = await authUser.getIdToken();
-        } catch (_) {}
-      }
-      if (idToken) headers['Authorization'] = `Bearer ${idToken}`;
-      
-      let res = await fetch('/api' + path, { ...options, headers });
-      
-      if (res.status === 401 && authUser) {
-        try {
-          idToken = await authUser.getIdToken(true);
-          headers['Authorization'] = `Bearer ${idToken}`;
-          res = await fetch('/api' + path, { ...options, headers });
-        } catch (_) {}
-      }
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || `Error ${res.status}`);
-      }
-      return res.status === 204 ? null : res.json();
+    function showToast(msg) {
+      const wrap = document.getElementById('toast-wrap');
+      if (!wrap) return;
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.innerHTML = `<span>✨</span><span>${escapeHtml(msg)}</span>`;
+      wrap.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(8px)';
+        el.style.transition = 'all 0.2s ease';
+        setTimeout(() => el.remove(), 250);
+      }, 3200);
     }
 
-    async function initAuth() {
-      const authMsg = document.getElementById('auth-msg');
-      try {
-        const res = await fetch('/api/config');
-        if (!res.ok) throw new Error("No se pudo obtener la configuración pública del servidor.");
-        const cfg = await res.json();
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[m]));
+    }
 
-        if (cfg.apiKey && window.firebase) {
+    async function api(path, opts = {}) {
+      const headers = { ...opts.headers };
+      if (idToken) headers['Authorization'] = 'Bearer ' + idToken;
+      if (opts.body && typeof opts.body === 'object' && !(opts.body instanceof FormData)) {
+        headers['Content-Type'] = 'application/json';
+        opts.body = JSON.stringify(opts.body);
+      }
+      const res = await fetch('/api' + path, { ...opts, headers });
+      if (res.status === 204) return null;
+      const data = await res.json().catch(() => null);
+      if (!res.ok) throw new Error(data?.error || `Error ${res.status}`);
+      return data;
+    }
+
+    /* ==========================================================
+       3. CONEXIÓN DIRECTA CON FIREBASE REALTIME DATABASE
+       ========================================================== */
+    async function initFirebaseClient() {
+      const authMsg = document.getElementById('auth-status-msg');
+      try {
+        const cfg = await api('/config').catch(() => null);
+        if (cfg && cfg.apiKey && window.firebase) {
           if (!firebase.apps.length) {
             firebase.initializeApp({
               apiKey: cfg.apiKey,
               authDomain: cfg.authDomain,
               projectId: cfg.projectId,
+              databaseURL: cfg.databaseURL,
               appId: cfg.appId
             });
           }
+          
+          fbDb = firebase.database();
+          document.getElementById('rtdb-host-display').textContent = (cfg.databaseURL || '').replace(/^https?:\/\//, '');
+
+          // Monitoreo de conexión en vivo con Firebase RTDB
+          const connectedRef = fbDb.ref('.info/connected');
+          connectedRef.on('value', (snap) => {
+            const connected = snap.val() === true;
+            const pingEl = document.getElementById('health-ping');
+            if (pingEl) pingEl.textContent = connected ? 'Activo (WebSocket)' : 'Reconectando...';
+          });
+
           firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {
               authUser = user;
@@ -1157,56 +1341,37 @@
           });
         } else {
           document.getElementById('auth-overlay').classList.remove('hidden');
-          if (authMsg) {
-            authMsg.textContent = "Aviso: Credenciales de Firebase no detectadas. Configura FIREBASE_API_KEY en el servidor.";
-            authMsg.style.display = 'block';
-          }
         }
       } catch (err) {
-        console.warn("Fallo al inicializar Firebase Auth:", err);
+        console.warn("Fallo inicializando Firebase:", err);
         document.getElementById('auth-overlay').classList.remove('hidden');
-        if (authMsg) {
-          authMsg.textContent = "Servicio de autenticación en espera. Verifica la conexión con el servidor.";
-          authMsg.style.display = 'block';
-        }
       }
     }
 
+    // Auth Listeners
     document.getElementById('btn-login-google').addEventListener('click', async () => {
       audio.click();
-      if (!window.firebase || !firebase.apps || !firebase.apps.length) {
-        showToast("Firebase no está inicializado en este momento.");
-        return;
-      }
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
         await firebase.auth().signInWithPopup(provider);
       } catch (err) {
-        if (err.code !== 'auth/popup-closed-by-user') {
-          showToast("Error al iniciar con Google: " + (err.message || err.code));
-        }
+        if (err.code !== 'auth/popup-closed-by-user') showToast("Error Google Auth: " + err.message);
       }
     });
 
     document.getElementById('btn-login-github').addEventListener('click', async () => {
       audio.click();
-      if (!window.firebase || !firebase.apps || !firebase.apps.length) {
-        showToast("Firebase no está inicializado en este momento.");
-        return;
-      }
       try {
         const provider = new firebase.auth.GithubAuthProvider();
         await firebase.auth().signInWithPopup(provider);
       } catch (err) {
-        if (err.code !== 'auth/popup-closed-by-user') {
-          showToast("Error al iniciar con GitHub: " + (err.message || err.code));
-        }
+        if (err.code !== 'auth/popup-closed-by-user') showToast("Error GitHub Auth: " + err.message);
       }
     });
 
     document.getElementById('btn-logout').addEventListener('click', () => {
       audio.click();
-      if (window.firebase && firebase.apps && firebase.apps.length) {
+      if (window.firebase && firebase.apps.length) {
         firebase.auth().signOut().then(() => location.reload()).catch(() => location.reload());
       } else {
         location.reload();
@@ -1223,12 +1388,8 @@
       document.getElementById('home-greeting').textContent = `Bienvenido, ${name.split(' ')[0]}`;
 
       const navImg = document.getElementById('nav-user-img');
-      const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=f4a46c&color=4a2508`;
-      if (user.photoURL) {
-        navImg.src = user.photoURL;
-      } else {
-        navImg.src = fallbackAvatar;
-      }
+      const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=f79d65&color=ffffff`;
+      navImg.src = user.photoURL || fallbackAvatar;
       navImg.onerror = () => { navImg.src = fallbackAvatar; };
 
       document.getElementById('cfg-user-email').textContent = email || 'No especificado';
@@ -1238,248 +1399,270 @@
       fetch('/api/visit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page: 'Panel Principal' })
+        body: JSON.stringify({ page: 'Panel AmberFlow' })
       }).catch(() => {});
 
       audio.chime(659.25);
       showToast(`Sesión activa: ${email || name}`);
 
+      setupRealtimeListeners(user.uid);
       refreshDashboard();
     }
 
-    /* ==========================================================
-       5. NAVEGACIÓN ENTRE PESTAÑAS (Home, Status, Config)
-       ========================================================== */
-    const tabButtons = document.querySelectorAll('.nav-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
+    // Suscripción WebSocket en Tiempo Real a Firebase RTDB
+    let currentTasks = [];
+    let currentNotes = [];
 
-    function switchTab(tabKey) {
-      tabButtons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-tab') === tabKey));
-      tabPanels.forEach(panel => panel.classList.toggle('active', panel.id === `tab-` + tabKey));
+    function setupRealtimeListeners(uid) {
+      if (!fbDb) return;
+      
+      // Escuchar cambios en tareas
+      fbDb.ref(`users/${uid}/tasks`).on('value', (snap) => {
+        const val = snap.val() || {};
+        currentTasks = Object.entries(val).map(([id, t]) => ({ id, ...t }));
+        currentTasks.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        renderTasks();
+        renderAnalyticsCharts();
+      });
 
-      const tabFrequencies = { home: 523.25, status: 659.25, config: 783.99 };
-      audio.chime(tabFrequencies[tabKey] || 523.25);
-
-      if (tabKey === 'status') loadStatusCockpit();
-      if (tabKey === 'home') refreshDashboard();
+      // Escuchar cambios en notas
+      fbDb.ref(`users/${uid}/notes`).on('value', (snap) => {
+        const val = snap.val() || {};
+        currentNotes = Object.entries(val).map(([id, n]) => ({ id, ...n }));
+        currentNotes.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        renderNotes();
+      });
     }
 
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
-    });
-
-    window.addEventListener('keydown', (e) => {
-      const overlay = document.getElementById('auth-overlay');
-      if (overlay && !overlay.classList.contains('hidden')) return;
-      if (document.getElementById('cmd-modal')?.open) return;
-      if (e.target.matches('input, select, textarea') || e.ctrlKey || e.metaKey) return;
-      if (e.key === '1') switchTab('home');
-      if (e.key === '2') switchTab('status');
-      if (e.key === '3') switchTab('config');
-    });
-
     /* ==========================================================
-       6. GESTIÓN DE TAREAS Y NOTAS (Filtros, CRUD y Búsqueda)
+       4. GESTIÓN DE TAREAS Y NOTAS (CRUD Instantáneo)
        ========================================================== */
     let taskFilter = 'all', taskQuery = '';
 
-    async function loadItems(kind) {
-      try {
-        const items = await api(`/items/${kind}`);
-        const listEl = document.getElementById(`list-${kind}s`);
-        if (!listEl) return;
-        listEl.innerHTML = '';
+    function renderTasks() {
+      const listEl = document.getElementById('list-tasks');
+      const tableBody = document.getElementById('table-tasks-body');
+      if (!listEl) return;
 
-        if (!Array.isArray(items) || items.length === 0) {
-          listEl.innerHTML = `<li style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;">No hay registros activos.</li>`;
-          if (kind === 'task') {
-            document.getElementById('task-count-badge').textContent = `0 pendientes`;
-            document.getElementById('val-pending').textContent = '0';
-            document.getElementById('val-done').textContent = '0';
-          } else {
-            document.getElementById('note-count-badge').textContent = `0 notas`;
-            document.getElementById('val-notes').textContent = '0';
-          }
-          return;
-        }
+      const filtered = currentTasks.filter(it => {
+        const matchFilter = (taskFilter === 'all') || 
+                            (taskFilter === 'done' && it.done) || 
+                            (taskFilter === 'pending' && !it.done) || 
+                            (taskFilter === 'high' && it.priority === 'high');
+        const matchQuery = !taskQuery || (it.title || '').toLowerCase().includes(taskQuery);
+        return matchFilter && matchQuery;
+      });
 
-        const filtered = items.filter(it => {
-          if (kind !== 'task') return true;
-          const matchesFilter = (taskFilter === 'all') || (taskFilter === 'done' && it.done) || (taskFilter === 'pending' && !it.done);
-          const titleStr = String(it.title || '').toLowerCase();
-          const matchesQuery = !taskQuery || titleStr.includes(taskQuery);
-          return matchesFilter && matchesQuery;
+      listEl.innerHTML = '';
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<li style="padding:16px;text-align:center;color:var(--ink-light);font-size:13px;">No hay tareas que coincidan con la vista.</li>`;
+      } else {
+        filtered.forEach(it => {
+          const li = document.createElement('li');
+          li.className = `item-card ${it.done ? 'done' : ''}`;
+          li.dataset.id = it.id;
+          li.innerHTML = `
+            <button class="item-check" aria-label="Completar"></button>
+            <span class="item-text">${escapeHtml(it.title)}</span>
+            <span class="item-tag prio-${it.priority || 'normal'}">${escapeHtml(it.priority || 'normal')}</span>
+            <button class="item-del" aria-label="Eliminar">✕</button>
+          `;
+          listEl.appendChild(li);
         });
+      }
 
-        if (filtered.length === 0) {
-          listEl.innerHTML = `<li style="padding:14px;text-align:center;color:var(--ink-light);font-size:13px;">Ningún elemento coincide con los filtros.</li>`;
+      // Actualizar tabla analítica detallada
+      if (tableBody) {
+        tableBody.innerHTML = '';
+        if (currentTasks.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--ink-muted);">Sin tareas registradas.</td></tr>`;
         } else {
-          filtered.forEach(it => {
-            const li = document.createElement('li');
-            li.className = `item-card ${it.done ? 'done' : ''}`;
-            li.dataset.id = it.id;
-
-            if (kind === 'task') {
-              const prioClass = `prio-${it.priority || 'normal'}`;
-              li.innerHTML = `
-                <button class="item-check" aria-label="Completar"></button>
-                <span class="item-text">${escapeHtml(it.title)}</span>
-                <span class="item-tag ${prioClass}">${escapeHtml(it.priority || 'normal')}</span>
-                <button class="item-del" aria-label="Eliminar">✕</button>
-              `;
-            } else {
-              li.innerHTML = `
-                <span class="item-text">${escapeHtml(it.title)}</span>
-                <button class="item-del" aria-label="Eliminar">✕</button>
-              `;
-            }
-            listEl.appendChild(li);
+          currentTasks.forEach(it => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><span class="status-badge ${it.done ? 'status-online' : 'status-amber'}">${it.done ? 'Hecha' : 'Pendiente'}</span></td>
+              <td style="font-weight:600;">${escapeHtml(it.title)}</td>
+              <td><span class="item-tag prio-${it.priority || 'normal'}">${escapeHtml(it.priority || 'normal')}</span></td>
+              <td style="font-size:12px;color:var(--ink-light);">${it.created_at ? new Date(it.created_at).toLocaleDateString() : '-'}</td>
+              <td style="font-size:12px;color:var(--ink-light);">${it.done_at ? new Date(it.done_at).toLocaleTimeString() : '-'}</td>
+            `;
+            tableBody.appendChild(tr);
           });
         }
-
-        if (kind === 'task') {
-          const pending = items.filter(x => !x.done).length;
-          document.getElementById('task-count-badge').textContent = `${pending} pendientes`;
-          document.getElementById('val-pending').textContent = pending;
-          document.getElementById('val-done').textContent = items.filter(x => x.done).length;
-        } else {
-          document.getElementById('note-count-badge').textContent = `${items.length} notas`;
-          document.getElementById('val-notes').textContent = items.length;
-        }
-      } catch (err) {
-        console.warn(`Error al cargar ${kind}:`, err);
       }
+
+      // Contadores
+      const pending = currentTasks.filter(x => !x.done).length;
+      const done = currentTasks.filter(x => x.done).length;
+      document.getElementById('task-count-badge').textContent = `${pending} pendientes`;
+      document.getElementById('val-pending').textContent = pending;
+      document.getElementById('val-done').textContent = done;
     }
 
-    // Filtros de tarea y búsqueda en tiempo real
+    function renderNotes() {
+      const listEl = document.getElementById('list-notes');
+      if (!listEl) return;
+      listEl.innerHTML = '';
+      if (currentNotes.length === 0) {
+        listEl.innerHTML = `<li style="padding:14px;text-align:center;color:var(--ink-light);font-size:13px;">No hay notas registradas.</li>`;
+      } else {
+        currentNotes.forEach(it => {
+          const li = document.createElement('li');
+          li.className = 'item-card';
+          li.dataset.id = it.id;
+          li.innerHTML = `
+            <span class="item-text">${escapeHtml(it.title)}</span>
+            <button class="item-del" aria-label="Eliminar">✕</button>
+          `;
+          listEl.appendChild(li);
+        });
+      }
+      document.getElementById('note-count-badge').textContent = `${currentNotes.length} notas`;
+    }
+
+    // Crear Tarea
+    document.getElementById('form-task').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('input-task');
+      const prio = document.getElementById('select-task-prio').value;
+      const title = input.value.trim();
+      if (!title) return;
+
+      audio.woodStrike(440);
+      input.value = '';
+      try {
+        if (fbDb && authUser) {
+          const newRef = fbDb.ref(`users/${authUser.uid}/tasks`).push();
+          await newRef.set({
+            title,
+            priority: prio,
+            category: 'general',
+            done: false,
+            created_at: new Date().toISOString(),
+            done_at: null
+          });
+        } else {
+          await api('/items/task', { method: 'POST', body: { title, priority: prio } });
+        }
+        showToast("Tarea añadida");
+      } catch (err) {
+        showToast("Error al guardar: " + err.message);
+      }
+    });
+
+    // Crear Nota
+    document.getElementById('form-note').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('input-note');
+      const title = input.value.trim();
+      if (!title) return;
+
+      audio.woodStrike(380);
+      input.value = '';
+      try {
+        if (fbDb && authUser) {
+          const newRef = fbDb.ref(`users/${authUser.uid}/notes`).push();
+          await newRef.set({
+            title,
+            created_at: new Date().toISOString()
+          });
+        } else {
+          await api('/items/note', { method: 'POST', body: { title } });
+        }
+        showToast("Nota guardada");
+      } catch (err) {
+        showToast("Error al guardar nota: " + err.message);
+      }
+    });
+
+    // Completar / Eliminar Item
+    document.addEventListener('click', async (e) => {
+      const checkBtn = e.target.closest('.item-check');
+      const delBtn = e.target.closest('.item-del');
+      const card = e.target.closest('.item-card');
+      if (!card) return;
+      const id = card.dataset.id;
+      const isNote = card.closest('#list-notes');
+
+      if (checkBtn) {
+        audio.click();
+        const currentDone = card.classList.contains('done');
+        const nextDone = !currentDone;
+        if (nextDone) audio.successChord();
+        
+        try {
+          if (fbDb && authUser) {
+            await fbDb.ref(`users/${authUser.uid}/tasks/${id}`).update({
+              done: nextDone,
+              done_at: nextDone ? new Date().toISOString() : null
+            });
+          } else {
+            await api(`/items/${id}`, { method: 'PATCH', body: { done: nextDone } });
+          }
+        } catch (_) {}
+      } else if (delBtn) {
+        audio.woodStrike(160);
+        try {
+          if (fbDb && authUser) {
+            const node = isNote ? 'notes' : 'tasks';
+            await fbDb.ref(`users/${authUser.uid}/${node}/${id}`).remove();
+          } else {
+            await api(`/items/${id}`, { method: 'DELETE' });
+          }
+          showToast("Elemento eliminado");
+        } catch (_) {}
+      }
+    });
+
+    // Filtros de Tarea
     document.getElementById('task-filters').addEventListener('click', (e) => {
       const b = e.target.closest('.chip');
       if (!b) return;
       document.querySelectorAll('#task-filters .chip').forEach(c => c.classList.toggle('on', c === b));
       taskFilter = b.dataset.f;
       audio.click();
-      loadItems('task');
+      renderTasks();
     });
 
     document.getElementById('task-search').addEventListener('input', (e) => {
       taskQuery = e.target.value.toLowerCase().trim();
-      loadItems('task');
-    });
-
-    // Formulario Crear Tarea
-    const formTask = document.getElementById('form-task');
-    formTask.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = document.getElementById('input-task');
-      const submitBtn = formTask.querySelector('button[type="submit"]');
-      const prio = document.getElementById('select-task-prio').value;
-      const title = input.value.trim();
-      if (!title) return;
-
-      submitBtn.disabled = true;
-      audio.woodStrike(420);
-      try {
-        await api('/items/task', { method: 'POST', body: JSON.stringify({ title, priority: prio }) });
-        input.value = '';
-        await loadItems('task');
-        loadCharts();
-        showToast("Tarea añadida");
-      } catch (err) {
-        showToast("Error: " + err.message);
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-
-    // Formulario Crear Nota
-    const formNote = document.getElementById('form-note');
-    formNote.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = document.getElementById('input-note');
-      const submitBtn = formNote.querySelector('button[type="submit"]');
-      const title = input.value.trim();
-      if (!title) return;
-
-      submitBtn.disabled = true;
-      audio.woodStrike(360);
-      try {
-        await api('/items/note', { method: 'POST', body: JSON.stringify({ title }) });
-        input.value = '';
-        await loadItems('note');
-        showToast("Nota guardada");
-      } catch (err) {
-        showToast("Error: " + err.message);
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-
-    // Delegación de eventos para Completar o Borrar Items con reversión
-    document.addEventListener('click', async (e) => {
-      const itemCard = e.target.closest('.item-card');
-      if (!itemCard) return;
-      const id = itemCard.dataset.id;
-
-      if (e.target.closest('.item-check')) {
-        const isDone = !itemCard.classList.contains('done');
-        itemCard.classList.toggle('done', isDone);
-        if (isDone) {
-          audio.successChord();
-        } else {
-          audio.click();
-        }
-        try {
-          await api(`/items/${id}`, { method: 'PATCH', body: JSON.stringify({ done: isDone }) });
-          loadItems('task');
-          loadCharts();
-        } catch (err) {
-          itemCard.classList.toggle('done', !isDone);
-          showToast("Fallo al actualizar tarea: " + err.message);
-        }
-      }
-
-      if (e.target.closest('.item-del')) {
-        const isTask = itemCard.closest('#list-tasks') !== null;
-        const kind = isTask ? 'task' : 'note';
-        audio.delPop();
-        itemCard.style.opacity = '0.35';
-        try {
-          await api(`/items/${id}`, { method: 'DELETE' });
-          itemCard.remove();
-          loadItems(kind);
-          if (isTask) loadCharts();
-          showToast(isTask ? "Tarea eliminada" : "Nota eliminada");
-        } catch (err) {
-          itemCard.style.opacity = '1';
-          showToast("Fallo al eliminar: " + err.message);
-        }
-      }
-    });
-
-    async function refreshDashboard() {
-      await Promise.all([loadItems('task'), loadItems('note'), loadGlobalStats(), loadCharts()]);
-    }
-
-    async function loadGlobalStats() {
-      try {
-        const g = await api('/global');
-        if (g && g.total_visits !== undefined) {
-          document.getElementById('val-visits').textContent = Number(g.total_visits).toLocaleString();
-        }
-      } catch (_) {}
-    }
-
-    document.getElementById('btn-sync-all').addEventListener('click', () => {
-      audio.click();
-      refreshDashboard();
-      showToast("Datos sincronizados");
+      renderTasks();
     });
 
     /* ==========================================================
-       7. GRÁFICOS SEMANALES, DONA DE PROGRESO & MODO ENFOQUE
+       5. NAVEGACIÓN Y PESTAÑAS (Workspace, Analytics, Status, Config)
+       ========================================================== */
+    const tabButtons = document.querySelectorAll('.nav-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    function switchTab(key) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-tab') === key));
+      tabPanels.forEach(p => p.classList.toggle('active', p.id === `tab-${key}`));
+
+      const freqs = { workspace: 523.25, analytics: 659.25, status: 783.99, config: 880.00 };
+      audio.chime(freqs[key] || 523.25);
+
+      if (key === 'analytics') renderAnalyticsCharts();
+      if (key === 'status') loadStatusCockpit();
+    }
+
+    tabButtons.forEach(b => b.addEventListener('click', () => switchTab(b.getAttribute('data-tab'))));
+
+    window.addEventListener('keydown', (e) => {
+      if (document.getElementById('cmd-modal')?.open) return;
+      if (e.target.matches('input, select, textarea') || e.ctrlKey || e.metaKey) return;
+      if (e.key === '1') switchTab('workspace');
+      if (e.key === '2') switchTab('analytics');
+      if (e.key === '3') switchTab('status');
+      if (e.key === '4') switchTab('config');
+    });
+
+    /* ==========================================================
+       6. GRÁFICAS EN CANVAS (Circulares, Barras y Progreso)
        ========================================================== */
     const css = (v) => getComputedStyle(document.body).getPropertyValue(v).trim();
-    function fit(c) {
+
+    function fitCanvas(c) {
       if (!c) return { g: null, w: 0, h: 0 };
       const r = c.getBoundingClientRect(), k = window.devicePixelRatio || 1;
       const w = Math.max(1, r.width), h = Math.max(1, r.height);
@@ -1490,213 +1673,478 @@
       return { g, w, h };
     }
 
-    async function loadCharts() {
-      try {
-        const st = await api('/me/stats');
-        if (!st) return;
+    function renderAnalyticsCharts() {
+      // 1. Dona de Progreso
+      const chartDonutEl = document.getElementById('chart-donut');
+      if (chartDonutEl) {
+        const { g, w, h } = fitCanvas(chartDonutEl);
+        if (g && w > 10 && h > 10) {
+          const done = currentTasks.filter(t => t.done).length;
+          const pending = currentTasks.filter(t => !t.done).length;
+          const tot = done + pending;
+          const cx = w / 2, cy = h / 2, R = Math.min(cx, cy) - 14;
 
-        // Gráfico semanal de barras
-        const chartWeekEl = document.getElementById('chart-week');
-        if (chartWeekEl) {
-          const { g, w, h } = fit(chartWeekEl);
-          if (g && w > 10 && h > 10) {
-            const weekData = Array.isArray(st.week) ? st.week : [];
-            const max = Math.max(1, ...weekData.map(d => d.n || 0));
-            const bw = w / Math.max(1, weekData.length || 7);
-            g.clearRect(0, 0, w, h);
-            g.font = '11px "Plus Jakarta Sans"';
-            g.textAlign = 'center';
+          g.clearRect(0, 0, w, h);
+          g.lineWidth = 16;
+          g.lineCap = 'round';
 
-            weekData.forEach((d, i) => {
-              const count = d.n || 0;
-              const bh = (h - 36) * (count / max);
-              const x = i * bw + bw * 0.2;
-              g.fillStyle = css('--orange-bright');
+          g.strokeStyle = css('--bg-subtle');
+          g.beginPath();
+          g.arc(cx, cy, R, 0, Math.PI * 2);
+          g.stroke();
+
+          if (tot > 0) {
+            g.strokeStyle = css('--orange-soft');
+            g.beginPath();
+            g.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * (done / tot)));
+            g.stroke();
+          }
+
+          g.fillStyle = css('--ink');
+          g.font = '800 26px "Plus Jakarta Sans"';
+          g.textAlign = 'center';
+          g.fillText(tot > 0 ? `${Math.round((done / tot) * 100)}%` : '0%', cx, cy + 9);
+
+          document.getElementById('stat-done-count').textContent = done;
+          document.getElementById('stat-pending-count').textContent = pending;
+        }
+      }
+
+      // 2. Gráfica Circular de Prioridades
+      const chartPieEl = document.getElementById('chart-pie-prio');
+      if (chartPieEl) {
+        const { g, w, h } = fitCanvas(chartPieEl);
+        if (g && w > 10 && h > 10) {
+          const high = currentTasks.filter(t => t.priority === 'high').length;
+          const normal = currentTasks.filter(t => !t.priority || t.priority === 'normal').length;
+          const low = currentTasks.filter(t => t.priority === 'low').length;
+          const tot = high + normal + low;
+
+          const cx = w / 2, cy = h / 2, R = Math.min(cx, cy) - 14;
+          g.clearRect(0, 0, w, h);
+
+          const slices = [
+            { count: high, color: css('--red') || '#ef4444' },
+            { count: normal, color: css('--orange-soft') || '#f79d65' },
+            { count: low, color: css('--green') || '#10b981' }
+          ];
+
+          let startAngle = -Math.PI / 2;
+          if (tot === 0) {
+            g.fillStyle = css('--bg-subtle');
+            g.beginPath();
+            g.arc(cx, cy, R, 0, Math.PI * 2);
+            g.fill();
+          } else {
+            slices.forEach(s => {
+              if (s.count === 0) return;
+              const angle = (s.count / tot) * Math.PI * 2;
+              g.fillStyle = s.color;
               g.beginPath();
-              if (g.roundRect) {
-                g.roundRect(x, h - 22 - Math.max(bh, 3), bw * 0.6, Math.max(bh, 3), 6);
-              } else {
-                g.rect(x, h - 22 - Math.max(bh, 3), bw * 0.6, Math.max(bh, 3));
-              }
+              g.moveTo(cx, cy);
+              g.arc(cx, cy, R, startAngle, startAngle + angle);
+              g.closePath();
               g.fill();
-
-              g.fillStyle = css('--ink-light');
-              const dayLetters = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
-              const dayIdx = new Date(d.day + 'T12:00:00').getDay();
-              g.fillText(dayLetters[dayIdx] || '-', x + bw * 0.3, h - 6);
-
-              if (count > 0) {
-                g.fillStyle = css('--ink');
-                g.fillText(count, x + bw * 0.3, h - 26 - bh);
-              }
+              startAngle += angle;
             });
           }
+
+          document.getElementById('stat-prio-high').textContent = high;
+          document.getElementById('stat-prio-normal').textContent = normal;
+          document.getElementById('stat-prio-low').textContent = low;
         }
+      }
 
-        // Gráfico Dona de Progreso
-        const chartDonutEl = document.getElementById('chart-donut');
-        if (chartDonutEl) {
-          const dn = fit(chartDonutEl);
-          if (dn.g && dn.w > 10 && dn.h > 10) {
-            const done = Number(st.done) || 0;
-            const pending = Number(st.pending) || 0;
-            const tot = done + pending;
-            const cx = dn.w / 2, cy = dn.h / 2, R = Math.min(cx, cy) - 10;
-
-            dn.g.clearRect(0, 0, dn.w, dn.h);
-            dn.g.lineWidth = 14;
-            dn.g.lineCap = 'round';
-
-            dn.g.strokeStyle = css('--bg-subtle');
-            dn.g.beginPath();
-            dn.g.arc(cx, cy, R, 0, Math.PI * 2);
-            dn.g.stroke();
-
-            if (tot > 0) {
-              dn.g.strokeStyle = css('--orange');
-              dn.g.beginPath();
-              dn.g.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * (done / tot)));
-              dn.g.stroke();
-            }
-
-            dn.g.fillStyle = css('--ink');
-            dn.g.font = '800 24px "Plus Jakarta Sans"';
-            dn.g.textAlign = 'center';
-            dn.g.fillText(tot > 0 ? `${Math.round((done / tot) * 100)}%` : '0%', cx, cy + 8);
+      // 3. Gráfica Semanal de Tareas Completadas
+      const chartWeekEl = document.getElementById('chart-week');
+      if (chartWeekEl) {
+        const { g, w, h } = fitCanvas(chartWeekEl);
+        if (g && w > 10 && h > 10) {
+          g.clearRect(0, 0, w, h);
+          const days = [];
+          const now = new Date();
+          for (let i = 6; i >= 0; i--) {
+            const d = new Date(now);
+            d.setDate(d.getDate() - i);
+            const str = d.toISOString().slice(0, 10);
+            const cnt = currentTasks.filter(t => t.done && t.done_at && t.done_at.slice(0, 10) === str).length;
+            days.push({ day: str, n: cnt });
           }
+
+          const max = Math.max(1, ...days.map(d => d.n));
+          const bw = w / 7;
+          g.font = '11.5px "Plus Jakarta Sans"';
+          g.textAlign = 'center';
+
+          days.forEach((d, i) => {
+            const count = d.n;
+            const bh = (h - 38) * (count / max);
+            const x = i * bw + bw * 0.18;
+
+            g.fillStyle = css('--orange-warm');
+            g.beginPath();
+            if (g.roundRect) {
+              g.roundRect(x, h - 22 - Math.max(bh, 4), bw * 0.64, Math.max(bh, 4), 6);
+            } else {
+              g.rect(x, h - 22 - Math.max(bh, 4), bw * 0.64, Math.max(bh, 4));
+            }
+            g.fill();
+
+            g.fillStyle = css('--ink-light');
+            const dayIdx = new Date(d.day + 'T12:00:00').getDay();
+            const letters = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
+            g.fillText(letters[dayIdx], x + bw * 0.32, h - 6);
+
+            if (count > 0) {
+              g.fillStyle = css('--ink');
+              g.fillText(count, x + bw * 0.32, h - 26 - bh);
+            }
+          });
         }
-      } catch (_) {}
+      }
+
+      // 4. Gráfica de Minutos Pomodoro
+      const chartFocusEl = document.getElementById('chart-focus-bars');
+      if (chartFocusEl) {
+        const { g, w, h } = fitCanvas(chartFocusEl);
+        if (g && w > 10 && h > 10) {
+          g.clearRect(0, 0, w, h);
+          const mockMinutes = [25, 45, 0, 50, 25, 70, 45]; // Muestra o datos reales
+          const max = Math.max(1, ...mockMinutes);
+          const bw = w / 7;
+          g.font = '11.5px "Plus Jakarta Sans"';
+          g.textAlign = 'center';
+
+          mockMinutes.forEach((mins, i) => {
+            const bh = (h - 38) * (mins / max);
+            const x = i * bw + bw * 0.18;
+            g.fillStyle = css('--orange-soft');
+            g.beginPath();
+            if (g.roundRect) {
+              g.roundRect(x, h - 22 - Math.max(bh, 4), bw * 0.64, Math.max(bh, 4), 6);
+            } else {
+              g.rect(x, h - 22 - Math.max(bh, 4), bw * 0.64, Math.max(bh, 4));
+            }
+            g.fill();
+
+            g.fillStyle = css('--ink-light');
+            g.fillText(`D${i+1}`, x + bw * 0.32, h - 6);
+            if (mins > 0) {
+              g.fillStyle = css('--ink');
+              g.fillText(`${mins}m`, x + bw * 0.32, h - 26 - bh);
+            }
+          });
+        }
+      }
     }
 
-    // Modo enfoque (Pomodoro 25 min)
-    let tLeft = 1500, tId = null;
+    /* ==========================================================
+       7. MODO ENFOQUE INTELIGENTE (Pomodoro Multi-Modo)
+       ========================================================== */
+    let timerDuration = 25 * 60;
+    let timerLeft = 25 * 60;
+    let timerInterval = null;
+    let timerModeName = 'Sprint 25m';
+
     const tFace = document.getElementById('timer-face');
-    const tBtn = document.getElementById('timer-start');
-    const tReset = document.getElementById('timer-reset');
+    const tStartBtn = document.getElementById('timer-start');
+    const tResetBtn = document.getElementById('timer-reset');
 
-    const tDraw = () => {
-      const mins = String(Math.floor(tLeft / 60)).padStart(2, '0');
-      const secs = String(tLeft % 60).padStart(2, '0');
+    function updateTimerDisplay() {
+      const mins = String(Math.floor(timerLeft / 60)).padStart(2, '0');
+      const secs = String(timerLeft % 60).padStart(2, '0');
       tFace.textContent = `${mins}:${secs}`;
-      document.title = tId ? `${mins}:${secs} · Enfoque` : 'Alvryx Works — Centro de Operaciones';
-    };
+      document.title = timerInterval ? `${mins}:${secs} · Enfoque Alvryx` : 'Alvryx AmberFlow — Workspace, Analítica & Tiempo Real';
+    }
 
-    tBtn.addEventListener('click', () => {
+    tStartBtn.addEventListener('click', () => {
       audio.click();
-      if (tId) {
-        clearInterval(tId);
-        tId = null;
-        tBtn.textContent = 'Seguir';
-        return tDraw();
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        tStartBtn.textContent = 'Continuar';
+        return updateTimerDisplay();
       }
-      tBtn.textContent = 'Pausar';
-      tId = setInterval(() => {
-        if (--tLeft <= 0) {
-          clearInterval(tId);
-          tId = null;
-          tLeft = 1500;
-          tBtn.textContent = 'Iniciar';
-          audio.successChord();
-          showToast('¡Sesión de enfoque completada! 🎉');
+      tStartBtn.textContent = 'Pausar';
+      timerInterval = setInterval(async () => {
+        if (--timerLeft <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerLeft = timerDuration;
+          tStartBtn.textContent = 'Iniciar';
+          audio.zenBell();
+          showToast('¡Sesión completada con éxito! 🎉');
+          
+          // Registrar sesión en Firebase RTDB y servidor
+          const durMin = Math.round(timerDuration / 60);
+          try {
+            if (fbDb && authUser) {
+              fbDb.ref(`users/${authUser.uid}/pomodoro_sessions`).push({
+                duration: durMin,
+                mode: timerModeName,
+                created_at: new Date().toISOString()
+              });
+            } else {
+              await api('/sessions', { method: 'POST', body: { duration: durMin, mode: timerModeName } });
+            }
+          } catch (_) {}
+          loadSessionsHistory();
         }
-        tDraw();
+        updateTimerDisplay();
       }, 1000);
     });
 
-    tReset.addEventListener('click', () => {
-      if (tId) clearInterval(tId);
-      tId = null;
-      tLeft = 1500;
-      tBtn.textContent = 'Iniciar';
-      tDraw();
+    tResetBtn.addEventListener('click', () => {
       audio.click();
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+      timerLeft = timerDuration;
+      tStartBtn.textContent = 'Iniciar';
+      updateTimerDisplay();
     });
 
-    // Tema atardecer (persistente en localStorage)
-    const darkCb = document.getElementById('cfg-dark');
-    const setDark = (on) => {
-      document.body.classList.toggle('dark', on);
-      if (darkCb) darkCb.checked = on;
-      try { localStorage.setItem('alvryx-dark', on ? '1' : '0'); } catch (_) {}
-      loadCharts();
-    };
-    if (darkCb) darkCb.addEventListener('change', () => setDark(darkCb.checked));
-    try { if (localStorage.getItem('alvryx-dark') === '1') setDark(true); } catch (_) {}
-
-    // Sonido ambiente físico sin osciladores estridentes
-    let amb = null;
-    document.getElementById('cfg-ambient')?.addEventListener('change', (e) => {
-      audio.initCtx();
-      const c = audio.ctx;
-      if (!c) return;
-
-      if (!e.target.checked) {
-        if (amb) {
-          amb.g.gain.linearRampToValueAtTime(0, c.currentTime + 0.8);
-          setTimeout(() => {
-            amb.nodes.forEach(n => { try { n.stop(); } catch (_) {} });
-            amb = null;
-          }, 900);
+    document.querySelectorAll('.pomodoro-presets .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pomodoro-presets .chip').forEach(c => c.classList.remove('on'));
+        btn.classList.add('on');
+        const dur = parseInt(btn.dataset.dur, 10);
+        timerDuration = dur * 60;
+        timerLeft = timerDuration;
+        timerModeName = btn.dataset.name;
+        document.getElementById('pomodoro-mode-badge').textContent = timerModeName;
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          tStartBtn.textContent = 'Iniciar';
         }
-        return;
-      }
-
-      const g = c.createGain();
-      g.gain.value = 0;
-      g.gain.linearRampToValueAtTime(0.04 * audio.volume + 0.015, c.currentTime + 1.5);
-      g.connect(c.destination);
-
-      const buf = c.createBuffer(1, c.sampleRate * 4, c.sampleRate);
-      const d = buf.getChannelData(0);
-      let b = 0;
-      for (let i = 0; i < d.length; i++) {
-        b = b * 0.98 + (Math.random() * 2 - 1) * 0.08;
-        d[i] = b;
-      }
-      const n = c.createBufferSource();
-      n.buffer = buf;
-      n.loop = true;
-      const lp = c.createBiquadFilter();
-      lp.type = 'lowpass';
-      lp.frequency.value = 420;
-      n.connect(lp);
-      lp.connect(g);
-      n.start();
-
-      const tones = [130.81, 196.0].map(f => {
-        const o = c.createOscillator();
-        const og = c.createGain();
-        o.frequency.value = f;
-        og.gain.value = 0.22;
-        o.connect(og);
-        og.connect(g);
-        o.start();
-        return o;
+        audio.click();
+        updateTimerDisplay();
       });
-
-      amb = { g, nodes: [n, ...tones] };
     });
 
-    // Paleta de comandos (Ctrl+K o Cmd+K)
+    async function loadSessionsHistory() {
+      try {
+        const list = await api('/sessions');
+        const tbody = document.getElementById('table-sessions-body');
+        if (!tbody || !Array.isArray(list)) return;
+        tbody.innerHTML = '';
+        if (list.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--ink-muted);">Sin sesiones aún.</td></tr>`;
+          document.getElementById('val-sessions').textContent = '0';
+          return;
+        }
+        document.getElementById('val-sessions').textContent = list.length;
+        list.forEach(s => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-family:'JetBrains Mono';font-size:11px;">#${escapeHtml((s.id || '').slice(0, 8))}</td>
+            <td><b>${escapeHtml(s.mode || 'Sprint')}</b></td>
+            <td>${s.duration || 25} min</td>
+            <td style="font-size:12px;color:var(--ink-light);">${s.created_at ? new Date(s.created_at).toLocaleString() : '-'}</td>
+            <td><span class="status-badge status-online">Completada</span></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (_) {}
+    }
+
+    /* ==========================================================
+       8. COCKPIT DE INFRAESTRUCTURA & RENDER CLOUD
+       ========================================================== */
+    async function loadStatusCockpit() {
+      const rnTable = document.getElementById('render-services-table');
+      const ghTable = document.getElementById('github-repos-table');
+      const vtTable = document.getElementById('visits-table');
+
+      rnTable.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:14px;color:var(--ink-muted);">Consultando servicios...</td></tr>`;
+      ghTable.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:14px;color:var(--ink-muted);">Consultando repositorios...</td></tr>`;
+      vtTable.innerHTML = `<tr><td colspan="3" style="text-align:center;padding:14px;color:var(--ink-muted);">Cargando telemetría...</td></tr>`;
+
+      try {
+        const [st, vis] = await Promise.all([
+          api('/status').catch(() => null),
+          api('/visits').catch(() => [])
+        ]);
+
+        if (st && st.render) {
+          rnTable.innerHTML = '';
+          st.render.forEach(s => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><b>${escapeHtml(s.name)}</b></td>
+              <td>${escapeHtml(s.type)}</td>
+              <td>${escapeHtml(s.region)} / ${escapeHtml(s.branch)}</td>
+              <td><span class="status-badge ${s.status === 'activo' ? 'status-online' : 'status-amber'}">${escapeHtml(s.status)}</span></td>
+              <td style="font-size:12px;color:var(--ink-light);">${s.updatedAt ? new Date(s.updatedAt).toLocaleDateString() : '-'}</td>
+              <td><a href="${escapeHtml(s.url)}" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration:none;">Abrir</a></td>
+            `;
+            rnTable.appendChild(tr);
+          });
+        }
+
+        if (st && st.github && st.github.repos) {
+          ghTable.innerHTML = '';
+          st.github.repos.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><b>${escapeHtml(r.name)}</b></td>
+              <td>${escapeHtml(r.language)}</td>
+              <td>⭐ ${r.stars}</td>
+              <td>🍴 ${r.forks}</td>
+              <td style="font-size:12px;color:var(--ink-light);">${new Date(r.updatedAt).toLocaleDateString()}</td>
+              <td><a href="${escapeHtml(r.url)}" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration:none;">GitHub</a></td>
+            `;
+            ghTable.appendChild(tr);
+          });
+        }
+
+        if (Array.isArray(vis)) {
+          vtTable.innerHTML = '';
+          if (vis.length === 0) {
+            vtTable.innerHTML = `<tr><td colspan="3" style="text-align:center;padding:14px;color:var(--ink-muted);">Sin visitas registradas todavía.</td></tr>`;
+          } else {
+            vis.forEach(v => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td><b>${escapeHtml(v.page)}</b></td>
+                <td><span style="font-weight:700;color:var(--orange-deep);">${v.n} visitas</span></td>
+                <td style="font-size:12px;color:var(--ink-light);">${new Date(v.last_day).toLocaleString()}</td>
+              `;
+              vtTable.appendChild(tr);
+            });
+          }
+        }
+      } catch (err) {
+        console.warn("Aviso en cockpit:", err);
+      }
+    }
+
+    document.getElementById('btn-refresh-status').addEventListener('click', () => {
+      audio.click();
+      loadStatusCockpit();
+      showToast("Estado actualizado");
+    });
+
+    /* ==========================================================
+       9. REPRODUCTOR DE AMBIENTE & CONFIGURACIÓN
+       ========================================================== */
+    const ambientPlayBtn = document.getElementById('ambient-play-btn');
+    const ambientSelect = document.getElementById('ambient-sound-select');
+    const ambientVolSlider = document.getElementById('ambient-volume');
+    const ambientStatus = document.getElementById('ambient-status-text');
+
+    ambientPlayBtn.addEventListener('click', () => {
+      audio.click();
+      if (audio.ambientPlaying) {
+        audio.stopAmbient();
+        ambientPlayBtn.textContent = '▶';
+        ambientPlayBtn.classList.remove('playing');
+        ambientStatus.textContent = 'Pausado';
+      } else {
+        audio.startAmbient(ambientSelect.value);
+        ambientPlayBtn.textContent = '⏸';
+        ambientPlayBtn.classList.add('playing');
+        ambientStatus.textContent = 'En reproducción';
+      }
+    });
+
+    ambientSelect.addEventListener('change', () => {
+      if (audio.ambientPlaying) {
+        audio.startAmbient(ambientSelect.value);
+      }
+    });
+
+    ambientVolSlider.addEventListener('input', (e) => {
+      audio.setAmbientVolume(e.target.value / 100);
+    });
+
+    // Ajustes de UI Audio
+    document.getElementById('cfg-sound-toggle').addEventListener('change', (e) => {
+      audio.enabled = e.target.checked;
+      localStorage.setItem('alvryx_sound_enabled', e.target.checked ? 'true' : 'false');
+    });
+
+    document.getElementById('cfg-volume-slider').addEventListener('input', (e) => {
+      audio.volume = e.target.value / 100;
+      localStorage.setItem('alvryx_sound_volume', audio.volume);
+    });
+
+    document.getElementById('btn-test-chime').addEventListener('click', () => audio.chime(659.25));
+    document.getElementById('btn-test-wood').addEventListener('click', () => audio.woodStrike(420));
+    document.getElementById('btn-test-chord').addEventListener('click', () => audio.successChord());
+    document.getElementById('btn-test-zen').addEventListener('click', () => audio.zenBell());
+
+    // Tema Atardecer
+    const darkToggle = document.getElementById('cfg-dark');
+    function setDarkMode(on) {
+      document.body.classList.toggle('dark', on);
+      if (darkToggle) darkToggle.checked = on;
+      localStorage.setItem('alvryx_dark_mode', on ? '1' : '0');
+      renderAnalyticsCharts();
+    }
+    if (darkToggle) darkToggle.addEventListener('change', () => setDarkMode(darkToggle.checked));
+    if (localStorage.getItem('alvryx_dark_mode') === '1') setDarkMode(true);
+
+    // Exportaciones CSV y JSON
+    document.getElementById('btn-quick-export').addEventListener('click', () => {
+      audio.click();
+      const csvRows = ['id,titulo,prioridad,completada,creado_en'];
+      currentTasks.forEach(t => {
+        csvRows.push(`"${t.id}","${(t.title||'').replace(/"/g, '""')}","${t.priority||'normal'}",${Boolean(t.done)},"${t.created_at||''}"`);
+      });
+      const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'alvryx-amberflow-tareas.csv';
+      a.click();
+      showToast("Tareas exportadas en CSV");
+    });
+
+    document.getElementById('btn-export-full').addEventListener('click', () => {
+      window.location.href = '/api/me/export';
+    });
+    document.getElementById('btn-export-data').addEventListener('click', () => {
+      window.location.href = '/api/me/export';
+    });
+
+    document.getElementById('btn-delete-account').addEventListener('click', async () => {
+      if (!confirm("¿Estás absolutamente seguro de eliminar tu cuenta y todos tus datos personales de Firebase? Esta acción no se puede deshacer.")) return;
+      audio.woodStrike(140);
+      try {
+        await api('/me', { method: 'DELETE' });
+        if (fbDb && authUser) await fbDb.ref(`users/${authUser.uid}`).remove();
+        alert("Tu cuenta ha sido eliminada.");
+        location.reload();
+      } catch (err) {
+        showToast("Error al eliminar: " + err.message);
+      }
+    });
+
+    /* ==========================================================
+       10. PALETA DE COMANDOS (Ctrl + K) & SINCRONIZACIÓN
+       ========================================================== */
     const CMDS = [
-      ['Ir a Home', () => switchTab('home')],
-      ['Ir a Status', () => switchTab('status')],
-      ['Ir a Config', () => switchTab('config')],
-      ['Iniciar / pausar enfoque', () => tBtn.click()],
-      ['Cambiar tema claro / atardecer', () => setDark(!document.body.classList.contains('dark'))],
-      ['Exportar mis datos', () => document.getElementById('btn-export-data').click()],
-      ['Cerrar sesión', () => document.getElementById('btn-logout').click()]
+      ['Ir a Workspace (1)', () => switchTab('workspace')],
+      ['Ir a Analítica & Tablas (2)', () => switchTab('analytics')],
+      ['Ir a Infra & Firebase (3)', () => switchTab('status')],
+      ['Ir a Ajustes & Audio (4)', () => switchTab('config')],
+      ['Iniciar / Pausar Enfoque', () => tStartBtn.click()],
+      ['Alternar Sonido de Ambiente', () => ambientPlayBtn.click()],
+      ['Cambiar Tema Atardecer', () => setDarkMode(!document.body.classList.contains('dark'))],
+      ['Exportar mis Tareas en CSV', () => document.getElementById('btn-quick-export').click()],
+      ['Cerrar Sesión', () => document.getElementById('btn-logout').click()]
     ];
     const cmdM = document.getElementById('cmd-modal');
     const cmdI = document.getElementById('cmd-input');
     const cmdL = document.getElementById('cmd-list');
 
-    function cmdRender() {
+    function renderCmds() {
       const q = cmdI.value.toLowerCase().trim();
       cmdL.innerHTML = '';
       CMDS.filter(c => c[0].toLowerCase().includes(q)).forEach((c, i) => {
         const d = document.createElement('div');
-        d.className = 'cmd-item' + (i === 0 ? ' sel' : '');
+        d.className = 'chip';
+        d.style.textAlign = 'left';
         d.textContent = c[0];
         d.onclick = () => { cmdM.close(); c[1](); };
         cmdL.appendChild(d);
@@ -1704,269 +2152,94 @@
     }
 
     if (cmdI && cmdM) {
-      cmdI.addEventListener('input', cmdRender);
-      cmdI.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const f = cmdL.querySelector('.cmd-item');
-          if (f) f.click();
-        }
-      });
+      cmdI.addEventListener('input', renderCmds);
       cmdM.addEventListener('click', (e) => {
-        const rect = cmdM.getBoundingClientRect();
-        const isInDialog = (
-          rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-          rect.left <= e.clientX && e.clientX <= rect.left + rect.width
-        );
-        if (!isInDialog) cmdM.close();
+        const r = cmdM.getBoundingClientRect();
+        if (e.clientY < r.top || e.clientY > r.bottom || e.clientX < r.left || e.clientX > r.right) cmdM.close();
       });
       window.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k' && authUser) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
           e.preventDefault();
           cmdI.value = '';
-          cmdRender();
+          renderCmds();
           cmdM.showModal();
         }
       });
     }
 
-    /* ==========================================================
-       8. COCKPIT DE INFRAESTRUCTURA (Status Desacoplado y Robusto)
-       ========================================================== */
-    async function loadStatusCockpit() {
-      const rnTable = document.getElementById('render-services-table');
-      const pgTable = document.getElementById('render-postgres-table');
-      const ghTable = document.getElementById('github-repos-table');
-      const vtTable = document.getElementById('visits-table');
-
-      rnTable.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--ink-muted);">Consultando servicios de Render...</td></tr>`;
-      pgTable.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--ink-muted);">Consultando base de datos PostgreSQL...</td></tr>`;
-      ghTable.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--ink-muted);">Consultando repositorios de GitHub...</td></tr>`;
-      vtTable.innerHTML = `<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--ink-muted);">Cargando telemetría...</td></tr>`;
-
-      const [statusRes, visitsRes] = await Promise.allSettled([
-        api('/status'),
-        api('/visits')
-      ]);
-
-      if (visitsRes.status === 'fulfilled' && Array.isArray(visitsRes.value) && visitsRes.value.length > 0) {
-        vtTable.innerHTML = visitsRes.value.map(v => {
-          const cleanDate = v.last_day ? String(v.last_day).split('T')[0] : '';
-          const dateDisplay = cleanDate ? new Date(cleanDate + 'T00:00:00').toLocaleDateString('es-MX') : 'Reciente';
-          return `
-            <tr>
-              <td><b>${escapeHtml(v.page)}</b></td>
-              <td><span style="font-weight:700;color:var(--orange-deep);">${Number(v.n).toLocaleString()} visitas</span></td>
-              <td>${dateDisplay}</td>
-            </tr>
-          `;
-        }).join('');
-      } else if (visitsRes.status === 'rejected') {
-        vtTable.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--red);padding:14px;">Error al cargar visitas.</td></tr>`;
-      } else {
-        vtTable.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--ink-muted);padding:14px;">Aún no hay visitas registradas en los últimos 14 días.</td></tr>`;
-      }
-
-      if (statusRes.status === 'fulfilled') {
-        const statusData = statusRes.value;
-
-        const badgeRender = document.getElementById('badge-render');
-        const badgeDb = document.getElementById('badge-db');
-        if (badgeRender) {
-          if (statusData.hasRender) {
-            badgeRender.innerHTML = `<i class="pulse-dot"></i> Activo`;
-            badgeRender.style.color = 'var(--green)';
-          } else {
-            badgeRender.innerHTML = `No vinculado`;
-            badgeRender.style.color = 'var(--ink-light)';
-          }
+    async function refreshDashboard() {
+      try {
+        const g = await api('/global').catch(() => null);
+        if (g && g.total_visits !== undefined) {
+          document.getElementById('val-visits').textContent = Number(g.total_visits).toLocaleString();
         }
-        if (badgeDb) {
-          badgeDb.textContent = (statusData.postgres && statusData.postgres.length > 0) ? 'Conectado' : 'Operativo';
-        }
-
-        if (statusData.render && statusData.render.length > 0) {
-          rnTable.innerHTML = statusData.render.map(s => `
-            <tr>
-              <td><b>${escapeHtml(s.name)}</b></td>
-              <td><code>${escapeHtml(s.type)}</code></td>
-              <td>${escapeHtml(s.region)} / <code>${escapeHtml(s.branch)}</code></td>
-              <td><span class="status-badge ${s.status === 'activo' ? 'status-active' : 'status-suspended'}">${s.status}</span></td>
-              <td>${s.updatedAt ? new Date(s.updatedAt).toLocaleString('es-MX', { dateStyle:'short', timeStyle:'short' }) : '-'}</td>
-              <td>
-                <button class="btn btn-secondary btn-sm" data-deploy="${escapeHtml(s.id)}">⚡ Desplegar</button>
-              </td>
-            </tr>
-          `).join('');
-        } else {
-          const msg = statusData.hasRender ? "No se hallaron servicios en Render." : "Render API no vinculada (agrega RENDER_API_KEY en variables de entorno).";
-          rnTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);padding:14px;">${msg}</td></tr>`;
-        }
-
-        if (statusData.postgres && statusData.postgres.length > 0) {
-          pgTable.innerHTML = statusData.postgres.map(p => `
-            <tr>
-              <td><b>${escapeHtml(p.name)}</b></td>
-              <td><code>${escapeHtml(p.databaseName)}</code></td>
-              <td>PostgreSQL ${escapeHtml(p.version || '15+')}</td>
-              <td><span class="status-badge status-ready">${escapeHtml(p.plan || 'Free')}</span></td>
-              <td><span class="status-badge status-active">${escapeHtml(p.status || 'Activa')}</span></td>
-              <td>${p.expiresAt ? new Date(p.expiresAt).toLocaleDateString('es-MX') : 'Permanente'}</td>
-            </tr>
-          `).join('');
-        } else {
-          pgTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);padding:14px;">Base de datos PostgreSQL en funcionamiento.</td></tr>`;
-        }
-
-        if (statusData.github && Array.isArray(statusData.github.repos) && statusData.github.repos.length > 0) {
-          document.getElementById('gh-owner-title').textContent = statusData.github.user?.login || 'Lara2026ss';
-          ghTable.innerHTML = statusData.github.repos.map(r => `
-            <tr>
-              <td><b>${escapeHtml(r.name)}</b></td>
-              <td><code>${escapeHtml(r.language)}</code></td>
-              <td>⭐ ${r.stars || 0}</td>
-              <td>🍴 ${r.forks || 0}</td>
-              <td>${r.updatedAt ? new Date(r.updatedAt).toLocaleDateString('es-MX') : '-'}</td>
-              <td><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Ver Código</a></td>
-            </tr>
-          `).join('');
-        } else {
-          ghTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);padding:14px;">No se encontraron repositorios públicos de GitHub.</td></tr>`;
-        }
-      } else {
-        const errorMsg = statusRes.reason?.message || "Acceso restringido a administradores de Alvryx Co.";
-        rnTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);padding:14px;">${escapeHtml(errorMsg)}</td></tr>`;
-        pgTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);padding:14px;">${escapeHtml(errorMsg)}</td></tr>`;
-        ghTable.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--ink-muted);padding:14px;">${escapeHtml(errorMsg)}</td></tr>`;
-      }
+      } catch (_) {}
+      loadSessionsHistory();
     }
 
-    document.getElementById('btn-refresh-status').addEventListener('click', () => {
+    document.getElementById('btn-sync-all').addEventListener('click', () => {
       audio.click();
-      loadStatusCockpit();
-      showToast("Actualizando cockpit de infraestructura...");
+      refreshDashboard();
+      renderTasks();
+      renderAnalyticsCharts();
+      showToast("Datos sincronizados");
     });
 
-    window.triggerDeploy = async function(serviceId) {
-      audio.woodStrike(500);
-      showToast("Disparando despliegue en Render...");
-      try {
-        await api('/render/deploy', { method: 'POST', body: JSON.stringify({ serviceId }) });
-        audio.successChord();
-        showToast("¡Despliegue iniciado con éxito en Render!");
-        setTimeout(loadStatusCockpit, 3500);
-      } catch (err) {
-        showToast("Fallo al desplegar: " + err.message);
+    // Partículas Suaves de Fondo
+    const pCanvas = document.getElementById('bg-canvas');
+    if (pCanvas) {
+      const pCtx = pCanvas.getContext('2d');
+      let particles = [];
+      function resizePCanvas() {
+        pCanvas.width = window.innerWidth;
+        pCanvas.height = window.innerHeight;
       }
-    };
+      resizePCanvas();
+      window.addEventListener('resize', resizePCanvas);
 
-    document.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-deploy]');
-      if (b) window.triggerDeploy(b.dataset.deploy);
-    });
-
-    // Copiar snippet del tracker con fallback
-    document.getElementById('btn-copy-snippet').addEventListener('click', () => {
-      const code = document.getElementById('snippet-code').textContent;
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(code).then(() => {
-          audio.click();
-          showToast("¡Snippet copiado al portapapeles!");
-        }).catch(fallbackCopy);
-      } else {
-        fallbackCopy();
+      for (let i = 0; i < 28; i++) {
+        particles.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          r: Math.random() * 2 + 1,
+          dx: (Math.random() - 0.5) * 0.4,
+          dy: (Math.random() - 0.5) * 0.4,
+          a: Math.random() * 0.4 + 0.1
+        });
       }
 
-      function fallbackCopy() {
-        try {
-          const ta = document.createElement('textarea');
-          ta.value = code;
-          ta.style.position = 'fixed';
-          ta.style.left = '-9999px';
-          document.body.appendChild(ta);
-          ta.focus();
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
-          audio.click();
-          showToast("¡Snippet copiado al portapapeles!");
-        } catch (_) {
-          prompt("Copia el snippet manualmente:", code);
+      function animParticles() {
+        if (document.getElementById('cfg-particles')?.checked !== false) {
+          pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+          particles.forEach(p => {
+            p.x += p.dx; p.y += p.dy;
+            if (p.x < 0) p.x = pCanvas.width;
+            if (p.x > pCanvas.width) p.x = 0;
+            if (p.y < 0) p.y = pCanvas.height;
+            if (p.y > pCanvas.height) p.y = 0;
+
+            pCtx.fillStyle = `rgba(247, 157, 101, ${p.a})`;
+            pCtx.beginPath();
+            pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            pCtx.fill();
+          });
         }
+        requestAnimationFrame(animParticles);
       }
-    });
-
-    /* ==========================================================
-       9. PREFERENCIAS DE SONIDO & GESTIÓN DE DATOS (Config)
-       ========================================================== */
-    const soundToggle = document.getElementById('cfg-sound-toggle');
-    const volumeSlider = document.getElementById('cfg-volume-slider');
-
-    if (soundToggle) {
-      soundToggle.checked = audio.enabled;
-      soundToggle.addEventListener('change', (e) => {
-        audio.enabled = e.target.checked;
-        localStorage.setItem('alvryx_sound_enabled', e.target.checked ? 'true' : 'false');
-        audio.click();
-      });
+      animParticles();
     }
 
-    if (volumeSlider) {
-      volumeSlider.value = Math.round(audio.volume * 100);
-      volumeSlider.addEventListener('input', (e) => {
-        audio.volume = e.target.value / 100;
-        localStorage.setItem('alvryx_sound_volume', audio.volume);
-      });
-      volumeSlider.addEventListener('change', () => audio.woodStrike(400));
-    }
-
-    document.getElementById('btn-test-chime').addEventListener('click', () => audio.chime(659.25));
-    document.getElementById('btn-test-wood').addEventListener('click', () => audio.woodStrike(380));
-    document.getElementById('btn-test-chord').addEventListener('click', () => audio.successChord());
-
-    // Exportar Datos
-    document.getElementById('btn-export-data').addEventListener('click', async () => {
-      audio.click();
-      try {
-        const res = await fetch('/api/me/export', { headers: idToken ? { 'Authorization': `Bearer ${idToken}` } : {} });
-        if (!res.ok) throw new Error("Fallo en la descarga de datos.");
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `alvryx-export-${new Date().toISOString().slice(0,10)}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
-        audio.successChord();
-        showToast("Datos exportados exitosamente");
-      } catch (err) {
-        showToast("Fallo al exportar: " + err.message);
-      }
+    // Cursor Glow
+    const curGlow = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', (e) => {
+      if (curGlow) curGlow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
     });
 
-    // Eliminar Cuenta
-    document.getElementById('btn-delete-account').addEventListener('click', async () => {
-      if (!confirm("ADVERTENCIA: Se eliminarán todas tus tareas, notas y cuenta permanentemente. ¿Deseas proceder?")) return;
-      audio.delPop();
-      try {
-        await api('/me', { method: 'DELETE' });
-        if (window.firebase && firebase.apps && firebase.apps.length && firebase.auth().currentUser) {
-          await firebase.auth().currentUser.delete().catch(() => firebase.auth().signOut());
-        }
-        location.reload();
-      } catch (err) {
-        showToast("Error al eliminar cuenta: " + err.message);
-      }
+    // Inicializar al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      initFirebaseClient();
+      updateTimerDisplay();
     });
-
-    function escapeHtml(str) {
-      if (str === null || str === undefined) return '';
-      return String(str).replace(/[&<>"']/g, m => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
-      })[m]);
-    }
-
-    // Arranque inicial
-    initAuth();
   </script>
 </body>
 </html>
