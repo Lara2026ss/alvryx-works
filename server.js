@@ -51,7 +51,7 @@ app.use(
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'", "https://www.gstatic.com", "https://apis.google.com"],
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-        fontSrc: ["https://fonts.gstatic.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
         imgSrc: ["'self'", "data:", "https:", "https://avatars.githubusercontent.com", "https://lh3.googleusercontent.com"],
         connectSrc: ["'self'", "https://*.googleapis.com", "https://api.github.com", "https://api.render.com"],
         frameSrc: ["https://*.firebaseapp.com", "https://accounts.google.com", "https://github.com"],
@@ -284,8 +284,8 @@ app.patch(
     "UPDATE items SET done=coalesce($1, done), done_at=CASE WHEN $1 THEN now() ELSE done_at END, priority=coalesce($2, priority), category=coalesce($3, category) WHERE id=$4 AND uid=$5",
     (q, id) => [
       q.body.done !== undefined ? Boolean(q.body.done) : null,
-      q.body.priority || null,
-      q.body.category || null,
+      ["low", "normal", "high"].includes(q.body.priority) ? q.body.priority : null,
+      q.body.category ? String(q.body.category).slice(0, 30) : null,
       id,
       q.user.uid,
     ]
@@ -387,7 +387,7 @@ app.post(
     if (!q.user.owner) return r.status(403).json({ error: "Acceso exclusivo para administradores" });
     if (!E.RENDER_API_KEY) return bad(r, "RENDER_API_KEY no configurada");
     const serviceId = String(q.body.serviceId || "").trim();
-    if (!serviceId) return bad(r, "serviceId requerido");
+    if (!/^(srv|crn)-[a-z0-9]{10,40}$/.test(serviceId)) return bad(r, "serviceId invalido");
 
     const res = await fetch(`https://api.render.com/v1/services/${serviceId}/deploys`, {
       method: "POST",
