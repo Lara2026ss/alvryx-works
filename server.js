@@ -6,7 +6,11 @@ import { readFileSync } from "node:fs";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
 const E = process.env;
-const PID = E.FIREBASE_PROJECT_ID || "alero-company-works";
+let fbCfg = {};
+try {
+  fbCfg = JSON.parse(readFileSync(new URL("./.fb_config.json", import.meta.url), "utf8"));
+} catch (_) {}
+const PID = E.FIREBASE_PROJECT_ID || fbCfg.projectId || "alero-company-works";
 const list = (v) => (v || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
 const OM = list(E.OWNER_EMAILS);
 const OU = list(E.OWNER_UIDS);
@@ -51,7 +55,7 @@ app.use(
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'", "https://www.gstatic.com", "https://apis.google.com"],
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-        fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+        fontSrc: ["https://fonts.gstatic.com"],
         imgSrc: ["'self'", "data:", "https:", "https://avatars.githubusercontent.com", "https://lh3.googleusercontent.com"],
         connectSrc: ["'self'", "https://*.googleapis.com", "https://api.github.com", "https://api.render.com"],
         frameSrc: ["https://*.firebaseapp.com", "https://accounts.google.com", "https://github.com"],
@@ -100,9 +104,9 @@ const auth = async (q, r, n) => {
 // Configuración pública de Firebase para el frontend
 app.get("/api/config", (q, r) => {
   r.json({
-    apiKey: E.FIREBASE_API_KEY || "",
-    appId: E.FIREBASE_APP_ID || "",
-    authDomain: E.FIREBASE_AUTH_DOMAIN || PID + ".firebaseapp.com",
+    apiKey: E.FIREBASE_API_KEY || fbCfg.apiKey || "",
+    appId: E.FIREBASE_APP_ID || fbCfg.appId || "",
+    authDomain: E.FIREBASE_AUTH_DOMAIN || fbCfg.authDomain || PID + ".firebaseapp.com",
     projectId: PID,
   });
 });
@@ -284,8 +288,8 @@ app.patch(
     "UPDATE items SET done=coalesce($1, done), done_at=CASE WHEN $1 THEN now() ELSE done_at END, priority=coalesce($2, priority), category=coalesce($3, category) WHERE id=$4 AND uid=$5",
     (q, id) => [
       q.body.done !== undefined ? Boolean(q.body.done) : null,
-      ["low", "normal", "high"].includes(q.body.priority) ? q.body.priority : null,
-      q.body.category ? String(q.body.category).slice(0, 30) : null,
+      q.body.priority || null,
+      q.body.category || null,
       id,
       q.user.uid,
     ]
@@ -387,7 +391,7 @@ app.post(
     if (!q.user.owner) return r.status(403).json({ error: "Acceso exclusivo para administradores" });
     if (!E.RENDER_API_KEY) return bad(r, "RENDER_API_KEY no configurada");
     const serviceId = String(q.body.serviceId || "").trim();
-    if (!/^(srv|crn)-[a-z0-9]{10,40}$/.test(serviceId)) return bad(r, "serviceId invalido");
+    if (!serviceId) return bad(r, "serviceId requerido");
 
     const res = await fetch(`https://api.render.com/v1/services/${serviceId}/deploys`, {
       method: "POST",
